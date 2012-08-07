@@ -1,0 +1,40 @@
+% !TEX encoding = UTF-8 Unicode
+% !TEX TS-program = pdflatex
+% !TEX root = ../Tesi.tex
+% !TEX spellcheck = it-IT
+
+%************************************************
+%\chapter{A model for distributed web-based human- and machine-driven computation}
+\chapter{The Model}
+\label{cap:model}
+%************************************************
+
+%% MODELLO
+% spiego il modello usato (cambiando i nomi magari) per far capire il tipo di bisogno che dobbiamo risolvere
+When building a siutable model for this application the key feature is pluggability.
+All the components have to implement only the default logic and an interface for interoperability, this approach guarantee
+that all the \emph{extra} needs can be accomplished through external logic.
+
+% struttura di base con funzionalità di default
+% Componenti separati, customizzabili e pluggabili
+
+% layer condiviso per l'esecuzione dei task
+
+
+
+\section{Computation model}
+\label{sec:model:computation}
+\input{Capitoli/Model/Computational}
+
+\section{Task distribution model}
+\label{sec:model:distribution}
+\input{Capitoli/Model/Distribution}
+
+\section{Task and performer model}
+\label{sec:model:performer}
+\input{Capitoli/Model/Task+Performer}
+
+
+\section{CrowdSearcher????}
+\label{sec:model:cs}
+\input{Capitoli/Model/CrowdSearcher}

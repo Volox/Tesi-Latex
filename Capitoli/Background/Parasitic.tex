@@ -1,0 +1,92 @@
+Parasitic computing\footnote{In this thesis we are not covering, neither
+we are interested, in the ethical or moral implication of using such programming model.}
+is a technique that, using some exploits and ad-hoc code,
+permits to execute computation on unaware host computer. This approach was first
+proposed by \cite{barabasi2001parasitic} to solve the NP-complete 3-SAT problem
+using the existing TCP/IP protocol and its error handling routines.\\
+
+% TODO?
+Spiego meglio come funzionava il loro metodo?\\
+
+Parassitic compiting has a strong relationship with \emph{distributed computing}, in
+fact it is like a specialization of the general class of \emph{distributed computing}
+where the user is unaware of the execution\footnote{In \emph{distributed computing}
+the user can be unaware of the purpose computation is for or what actial code they are
+executing, but they are aware of the execution.}.
+Given that we can list the main steps used to perform distributed computing:
+\begin{itemize}
+	\item Split task into atomic operations executable by any host
+	\item Send the code to all the host computers
+	\item Execute the code
+	\item Gather the results from the hosts
+	\item Join all the hosts result and compute the task output
+\end{itemize}
+
+Distributed computing leverage on the idea of \emph{divide and conquer} like the
+programming model of MapReduce\footcite{dean2008mapreduce}. Frameworks as
+\ac{BOINC} and \ac{SETI@home} implement distributed computing paradigm to perform large
+scale operations (such as signal analisys) among the volunteers that installed the
+clients. These volunteers choose the project they are interested in and give the
+idle time of their machines to perform the computation.
+
+Parasitic computing performs the same kind of task in the same \emph{distributed} fashion
+but the main difference is that the users are unaware of the computation that is being
+executed on their pc.
+
+\begin{itemize}
+	\item Differenza tra computazione parassitica e computazione distribuita (BOINC o seti@home) - FATTO?
+	
+	\item \textbf{Parlare di quante volte effettuiamo computazione parassitica senza sperlo.}\\Esempi?
+
+	\item \textbf{Parasitic computing può anche essere fatto in un modo conscio.} Notificando
+	all'utente la possibilità di eseguire del codice (senza sapere quale) in cambio di un ritorno di qualche
+	tipo (\cite{karame2011pay}).
+
+	\item Using the same model of unaware host we can perform high level computation using
+	\js{}.\citetitle{modernizr}
+\end{itemize}
+
+The main drawback of distributed computing is the portability and distribution.
+The installation of some kind of client to execute the code can be seen as a problem for some
+user, as an example some users simply cannot install software on their workstation, due to security
+restriction or missing disk space. The other problem is distribution, the main purpose of these
+frameworks is to perform massive parallel computation, but for the computation to be really 
+massive we need a lot of volunteers that installed the client on their pc and are online to execute
+the code.
+
+% TODO
+{\bf Grafico con insiemi per distributed computing and parasitic computing?}
+
+\paragraph{Parasitic \js{}} can lead to a solution of these problems using a widespread
+and standard technologies. Using the Web as the distribution platform the audiance can scale
+rapidly from to thousands to hundred thousands of users. Regarding the need of third part software
+installation and security issues, using \js{} these problems are avoided, because all the code the browsers
+runs is executed into a sandboxed execution environment so it cannot harm the users pc. The same stands
+for the portability of the code, bacause almost all bowsers\footnote{\emph{**COUGH**} IE \emph{**COUGH**}} support
+\js{} with all the HTML5 features (see~\vref{sec:bg:web:html5}), so the porting of the code
+is guaranteed on every system that can run a browser.
+
+
+% TODO
+Let make an example \textbf{CREARE ESEMPIO CON BOINC E UN SITO DA 500.000 VISITE}
+
+Using parasitc \js{} can lead to some \textbf{hybrid} solution between distibuted and
+parassitic computing. Using the browser we can ask to user if it is willing to run some code
+\footnote{\textbf{mettere una nota in cui si parla del revenue dell'utente e alla sezione in cui viene discusso
+meglio il tutto}} then we can proceed downloading all the required resource to run the code.
+This approach make possible to have a proactive approach to volunteer computing, so there is no more the
+need of waiting until the users are willing to spend some time running a task.
+
+This \textbf{hybrid} approach is proposed in \cite{karame2011pay} as long as a $\mu\textrm{Payment}$ model
+for task execution.
+
+% TODO?
+Spiego meglio il loro approccio?
+
+% TODO
+\begin{itemize}
+	\item problema del distributed computing (installazione del client|distribuzione) - FATTO
+	\item soluzione: piattaforma standard condivisa da tutti Javascript - FATTO
+	\item problema HTML4 -> HTML5 collegamento - FATTO
+	\item permette una soluzione idriba (avviso che può essere eseguita della computazione, l'utente sceglie) - FATTO
+\end{itemize}

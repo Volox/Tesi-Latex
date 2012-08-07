@@ -1,0 +1,16 @@
+% !TEX encoding = UTF-8 Unicode
+% !TEX TS-program = pdflatex
+% !TEX root = ../Tesi.tex
+% !TEX spellcheck = it-IT
+
+%*******************************************************
+% Bibliografia
+%*******************************************************
+\cleardoublepage
+\nocite{*}
+
+\defbibheading{base}{\subsection*{\bf Essential bibliography}}
+\defbibheading{online}{\subsection*{\bf Online resources}}
+
+\printbibliography[heading=base,nottype=online]
+\printbibliography[heading=online,type=online]

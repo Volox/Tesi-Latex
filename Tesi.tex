@@ -1,0 +1,184 @@
+              %******************************************%
+              %                                          %
+              % Modello di tesi di laurea o di dottorato %
+              %            di Lorenzo Pantieri ©         %
+              %                                          %
+              %        versione: 23 dicembre 2011        %
+              %                                          %
+              %******************************************%
+
+
+% I seguenti commenti speciali impostano:
+% 1. utf8 come codifica di input,
+% 2. PDFLaTeX come motore di composizione;
+% 3. Tesi.tex come documento principale;
+% 4. il controllo ortografico italiano per l'editor.
+
+% !TEX encoding = UTF-8 Unicode
+% !TEX TS-program = pdflatex
+% !TEX root = Tesi.tex
+% !TEX spellcheck = it-IT
+
+
+\documentclass[10pt,%                      % corpo del font principale
+               a4paper,%                   % carta A4
+               twoside,openright,%         % fronte-retro
+               titlepage,%                 % frontespizio
+               headinclude,,footinclude,%  % testatina e pi di pagina
+               BCOR5mm,%                   % rilegatura di 5 mm
+               cleardoublepage=empty,%     % pagine vuote senza testatina e pi di pagina
+               tablecaptionabove,%         % didascalie in cima alle tabelle
+               dottedtoc%                  % puntini nell'indice
+               ]{scrreprt}                 % classe report di KOMA-Script;
+
+%\documentclass[10pt,%                      % corpo del font principale
+%               a4paper,%                   % carta A4
+%               twoside,openright,%         % fronte-retro
+%               ]{book}
+
+\usepackage[T1]{fontenc}                   % codifica dei font
+
+\usepackage[utf8]{inputenc}                % codifica di input
+
+\usepackage{microtype}                     % microtipografia
+
+\usepackage[italian,english]{babel}        % per scrivere in italiano e in inglese;
+                                           % l'ultima lingua (l'italiano) è predefinita
+
+\usepackage[binding=5mm]{layaureo}         % margini ottimizzati per l'A4; rilegatura di 5 mm
+
+\usepackage[suftesi]{frontespizio}         % frontespizo
+
+\usepackage{emptypage}                     % pagine vuote senza testatina e piè di pagina
+
+\usepackage{indentfirst}                   % rientra il primo paragrafo di ogni sezione
+
+\usepackage{booktabs}                      % tabelle
+
+\usepackage{tabularx}                      % tabelle di larghezza prefissata
+
+\usepackage{graphicx}                      % immagini
+
+\usepackage{subfig}                        % sottofigure, sottotabelle
+
+\usepackage{caption}                       % didascalie
+
+\usepackage{listings}                      % codici
+
+\usepackage[font=itshape,font+=small]{quoting}           % citazioni
+
+\usepackage{amsmath,amssymb,amsthm}        % matematica
+
+\usepackage{varioref}             % riferimenti completi della pagina
+
+\usepackage{mparhack,fixltx2e,relsize}     % finezze tipografiche
+
+\usepackage[style=philosophy-modern,hyperref,backref,square,natbib]{biblatex}
+                                           % eccellente pacchetto per la bibliografia;
+                                           % lo stile di citazione è autore-anno;
+                                           % lo stile "numeric-comp" dà riferimenti numerici
+
+\bibliography{Bibliografia}                % database di biblatex
+
+\usepackage{chngpage,calc}                 % centra il frontespizio
+ 
+\usepackage[dvipsnames]{xcolor}            % colori
+
+\usepackage{lipsum}                        % testo fittizio
+
+\usepackage{eurosym}                       % simbolo dell'euro
+
+\usepackage[printonlyused]{acronym}        % acronimi
+
+\usepackage{hyperref}                      % collegamenti ipertestuali
+
+
+\usepackage[eulerchapternumbers,%          % numeri dei capitoli nel font Euler
+            subfig,%                       % compatibilitˆ con subfig
+            beramono,%                     % Bera Mono come font a spaziatura fissa
+            eulermath,%                    % AMS Euler come font per la matematica
+            pdfspacing,%                   % migliora il riempimento di riga
+            listings,%                     % codici
+%           parts,%                        % da decommentare se il documento  diviso in parti
+            ]{classicthesis}               % stile ClassicThesis
+
+\usepackage{arsclassica}                   % modifica alcuni aspetti di ClassicThesis
+
+
+
+
+\usepackage{bookmark}                      % segnalibri
+
+\usepackage{algorithm2e}
+\usepackage{multicol}
+
+
+\input{impostazioni-tesi}                  % file con le impostazioni personali
+
+
+
+% INTRODUZIONE
+% Spiego il problema che intendo risolvere, la distribuzione dei task attraverso una piattaforma
+% condivisa.
+% 1)
+% Problema delle generalità dei task (sia dal punto di vista della computazione che dal punto
+% di vista delle richieste all'utente)
+% Complessità  doppia (complessità come carico di lavoro sia come tipo di computazione richiesta)
+%% Human computation -> complessità algoritmiche
+%% Automatic computation -> complessità di carico
+% Spiego i tipi di task che posso incontrare, human, automatic e hybrid (in modo da definire le
+% casistiche possibili) e faccio vedere quali affronto
+% 2)
+% usiamo il web perchè permette di fare qualunque tipo di operazione su una piattaforma comune
+
+%% MODELLO
+% spiego il modello usato (cambiando i nomi magari) per far capire il tipo di bisogno che dobbiamo risolvere
+
+%% USE CASE
+% Quando parlo degli use case trovare una sorta di comparazione con gli altri modelli usati (esistenti o meno)
+% per ottenere una sorta di metrica/benchmark (reale o ipotetico [BOINC vs Web]), per esempio i calcoli usati
+% nel payPerView
+
+
+%% IMPLEMENTAZIONE
+% Parlare con luca per un meccanica di gioco inerente al Face detection
+
+% Descrivere il Crowdsearch come parte del progetto, nella parte di implementazione dico che uso
+% quel sistema per la creazione e distribuzione dei task (some un framework di terze parti)
+
+
+\begin{document}
+\pagenumbering{roman}
+\pagestyle{plain}
+%\frontmatter
+%******************************************************************
+% Materiale iniziale
+%******************************************************************
+\input{MaterialeInizialeFinale/Frontespizio}
+%\input{MaterialeInizialeFinale/Colophon}
+\input{MaterialeInizialeFinale/Dedica}
+\input{MaterialeInizialeFinale/Indici}
+\input{MaterialeInizialeFinale/Sommario+Abstract}
+\input{MaterialeInizialeFinale/Ringraziamenti}
+\input{MaterialeInizialeFinale/Introduzione}
+\pagestyle{scrheadings}
+\cleardoublepage
+%******************************************************************
+% Materiale principale
+%******************************************************************
+\pagenumbering{arabic}
+%\mainmatter
+\input{Capitoli/Background}
+\input{Capitoli/Model}
+\input{Capitoli/Use-cases}
+\input{Capitoli/Implementation}
+\appendix
+\input{Capitoli/Conclusioni}
+% *****************************************************************
+% Materiale finale
+%******************************************************************
+%\backmatter
+\input{MaterialeInizialeFinale/Acronimi}
+\input{MaterialeInizialeFinale/Bibliografia}
+%\input{MaterialeInizialeFinale/Dichiarazione}
+\end{document}

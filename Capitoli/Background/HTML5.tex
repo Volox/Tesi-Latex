@@ -1,0 +1,115 @@
+In this thesis when i refer to HTML5 i'm not speaking only about the HTML5 tag reference. I am speaking about
+a set of thechnologies and specifications related to HTML5. It includes the \ac{HTML5} specification itself,
+the \ac{CSS3} recomendations and a whole new set of \js{} APIs. So, first things first, lets make some
+clarification:
+\begin{description}
+	\item[HTML5] refers to a new set of semantic tag (like \ctag{footer}, \ctag{header}, \ctag{article}, \ldots),
+	media tags (like \ctag{video} or \ctag{audio}) and the so called Web Form 2.0.
+	\item[CSS3] refers to the presentation layer specification including image effects, 3D transformation,
+	tag selectors and form element validation.
+	\item[JS] refers to the new set of API provided, that enable interaction with all these new elements, and additional,
+	non tag-related, functionalities (like WebSockets or WebWorkers).
+\end{description}
+
+% TODO da vedere dove metterlo
+With the advent of \ac{HTML5}, like any new web-technology, many problems were resolved and many others
+have been created. The main issue with using HTML5 is the browser compatibility and browser-specific methods.
+Every borowser has its own implementation of the HTML5, this is mainly due to the early implementation
+of draft specification\footnote{In fact HTML5 (at the time of writing) is not yet standardized, is still
+a draft. See \url{http://www.w3.org/TR/html5/}}.
+
+To avoid browser inconsistency we could use \js{} frameworks. Frameworks like \citetitle{jquery} provide
+a layer of abstraction between browser-specific code and the user, giving developers \js{} fallbacks for the most
+common API and additional features not covered by the standard implementation. Other tools like \citetitle{modernizr}
+give developers the ability to test if some HTML5 features are supported or not and provide a general fallback system
+for dynamically loading polyfills\footnote{A polyfill is a \js{} library or third part plugin that emulates one or more HTML5
+features, providing websites to have the same \emph{look and feel} also on older browser.}.
+
+Now i will analyze in detail the main features of HTML5 to better understand their usefullness.
+% TODO davvero?
+
+% TODO Audio Tag???
+
+\paragraph{Canvas}
+	Let's start with the official definition\footnote{Got from the specs:
+	\url{http://www.w3.org/TR/html5/the-canvas-element.html\#the-canvas-element}}
+	\begin{quoting}\rm\tt
+		The canvas element provides scripts with a resolution-dependent bitmap canvas, which can
+		be used for rendering graphs, game graphics, or other visual images on the fly.
+	\end{quoting}
+
+	So basically is a \emph{Canvas}, like the name says, but give the developer the access to the raw pixel
+	data of the canvas contents. Also in the canvas element you can draw the image taken from an \ctag{img}
+	tag or a frame from a \ctag{video} tag. As you can se now we have the capability to manage image data
+	directly and perform client-side task like image analisys or video manipulation.
+	Obviously there are plenty of \js{} libraries that give you methods to perform image filtering or
+	generally image manipulation (like \href{http://www.pixastic.com/}{Pixastic} or \href{http://camanjs.com/}{Camanjs}),
+	other libraries give you the possibility to create images on the fly (like \href{http://raphaeljs.com/}{Raphaël}
+	or \href{http://processingjs.org/}{Processingjs}).
+
+	% TODO trovare dove metterlo e come collegarlo
+	The canvas element also provide a 3D context to draw and animate\footnote{Animation is not natively supported, you
+	must code it yourself.} high definition graphics and models using the WebGL API. This API is mantained by
+	the \href{http://www.khronos.org/}{Khronos Group} and is based on OpenGL ES 2.0 specifications. On top of these
+	API there are a lot of libraries\footnote{For a reference see \url{http://en.wikipedia.org/wiki/WebGL\#Developer_libraries}}
+	created for easy development, the most used is the \href{http://mrdoob.github.com/three.js/}{Three}
+	\js{} library, that ca be used for creating and animating 2D or 3D scenes in the canvas element.
+
+\paragraph{WebSocket}
+	% TODO Sembra buttato li da rivedere
+	The WebSocket is an API interface for enabling bi-directional full-duplex server communication on top of the \ac{TCP} protocol.
+	The WebSocket enables the clients to create a communication channel between the server and the client, allowing the server
+	to \b{push} data to the clients and obtain \emph{real} real-time content updates.
+
+	Like other HTML5 features, WebSocket has a library, build on top of the API, that provides easy access to these functionality
+	as long as a couple of fallbacks. \citetitle{socket} provide a single entry-point to create a connection to the server and
+	manage the message exchange, it also provide a few fallbacks\footnote{ WebSocket, Adobe\reg
+	Flash\reg Socket,
+	AJAX long polling, AJAX multipart streaming, Forever Iframe,JSONP Polling} to ensure cross-browser compatibility.
+
+	% Esempio di funzionamento?
+
+\paragraph{WebWorkers}
+	A problem you have to face when you are building computationally heavy \js{} code is its single thread nature.
+	Every script runs in the same thread, this can lead to some unwanted behaviour like browser freezing or the newly
+	introduced warning dialog "\emph{A script is slowing the browser}". The browser shows the dialog to prevent freezing of crashing of the
+	whole bowser application, but this dialog prevent the script to fullfill their task. So how can we execute long running
+	\js{} computation if the browser stop the code?
+
+	\cite{jenkin2008parasitic} proposed a timed-based programming structure that ensure the code to be run without any browser warning
+	and also offer the developer to tweak the performance of the script by dynamiccaly adjusting the interval between the step execution.
+	This method leaverage on the \code{setTimeout} function of javascript in order to split code into timestep-driven code chuncks to execute.
+	Here is an example of loop translated into a time-based loop:
+	\begin{multicols}{2}
+		\begin{algorithm}[H]
+			\While{condition}{
+				...do something...
+			}
+		\end{algorithm}
+
+		\vfill
+		\columnbreak
+
+		\begin{algorithm}[H]
+			\SetKwBlock{procedure}{procedure}{}
+			\SetKwFunction{setTimeout}{setTimeout}
+
+			\procedure(STEP){
+				...do something...\\
+				\If{condition}{
+					\setTimeout{STEP, delay}
+				}
+			}
+		\end{algorithm}
+	\end{multicols}
+
+	Obviously this is not a solution it is a way to hack the browser \js{} performance monitor and avoid the warning dialog.
+	WebWorkers provide a standard way to create \emph{Workers} that execute in background, also performing heavy computation without harming
+	the browser flow. Let's provide an official definition:
+	\begin{quoting}\rm\tt
+		The WebWorkers specification defines an API for running scripts in the background independently of any user interface scripts.
+		This allows for long-running scripts that are not interrupted by scripts that respond to clicks or other user interactions,
+		and allows long tasks to be executed without yielding to keep the page responsive.
+	\end{quoting}
+
+	So basically fills the gap of parallel code execution in \js{}.

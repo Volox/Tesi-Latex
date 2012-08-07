@@ -1,0 +1,135 @@
+% !TEX encoding = UTF-8 Unicode
+% !TEX TS-program = pdflatex
+% !TEX root = ../Tesi.tex
+% !TEX spellcheck = it-IT
+
+%************************************************
+\chapter{Ipsum}
+\label{cap:ipsum}
+%************************************************
+
+
+Con \LaTeX{} ci sono due modi per scrivere la matematica:
+\begin{description}
+\item[Una formula in corpo] (o ``in linea'') è un'espressione matematica composta da \LaTeX{} in linea con il corpo testo (``incorporata nel testo''), come ad esempio $\lim_{n \to \infty}\sum_{k=1}^n \frac{1}{k^2}= \frac{\pi^2}{6}$.
+\item[Una formula fuori corpo] (o ``in display'') è un'espressione composta da \LaTeX{} in linee a sé stanti, staccate dal testo precedente e seguente mediante spazi di ampiezza adeguata per ``mettere in mostra'' l'espressione; per esempio
+\[
+\lim_{n \to \infty}\sum_{k=1}^n \frac{1}{k^2}= \frac{\pi^2}{6}.
+\]
+\end{description}
+
+Quando una formula è in corpo, \LaTeX{} fa il possibile per schiacciarla e non aumentare l'interlinea. Se la stessa formula è fuori corpo c'è molta più libertà di manovra. È preferibile servirsi delle formule in corpo solo per espressioni di piccole dimensioni: le altre formule vanno messe fuori corpo.
+\begin{equation}
+\label{eq:euler}
+e^{i\pi}+1=0.
+\end{equation}
+Dalla formula~\eqref{eq:euler} 
+si deduce che\dots
+
+
+
+\section{Nozioni basilari}
+
+\subsection{Insiemi numerici}
+
+I simboli degli insiemi numerici si scrivono con il ``neretto da lavagna''):
+\begin{equation}
+x^2 \geq 0 \quad
+\forall x \in \mathbb{R}.
+\end{equation}
+
+
+\subsection{Le matrici}
+
+\lipsum[2]
+\begin{equation}
+A=
+\begin{bmatrix}
+x_{11} & x_{12} & \dots \\
+x_{21} & x_{22} & \dots \\
+\vdots & \vdots & \ddots
+\end{bmatrix}
+\end{equation}
+
+
+
+\section{Formule fuori corpo}
+
+Le formule lunghe non vengono automaticamente divise in parti da \LaTeX. Solo chi ha scritto la formula, infatti, ne conosce il ritmo di lettura e sa dove è più opportuno andare a capo e se allineare o meno le varie righe.
+
+
+\subsection{Una formula spezzata con allineamento}
+
+\lipsum[2]
+\begin{equation} 
+\begin{split} 
+a &= b+c-d \\ 
+  &= e-f \\ 
+  &= g+h \\ 
+  &= i. 
+\end{split} 
+\end{equation}
+
+ 
+\subsection{Casi}
+
+\lipsum[2]
+\begin{equation}
+f(n):=
+\begin{cases} 
+2n+1, & \text{se $n$ è dispari,} \\ 
+n/2,  & \text{se $n$ è pari.} 
+\end{cases} 
+\end{equation}
+
+
+
+\section{Enunciati e dimostrazioni}
+
+Componendo documenti matematici, è utile disporre di un metodo per introdurre e numerare definizioni, teoremi e strutture simili.
+\begin{definizione}[di Gauss] 
+Si dice \emph{matematico} colui per il quale è ovvio che 
+$\int_{-\infty}^{+\infty}
+e^{-x^2}\,dx=\sqrt{\pi}$. 
+\end{definizione} 
+\begin{teorema} 
+I matematici, se ce ne sono, sono molto rari.
+\end{teorema} 
+
+Il seguente teorema è a tutti ben noto.
+\begin{teorema}[di Pitagora]
+La somma dei quadrati costruiti sui cateti è uguale
+al quadrato costruito
+sull'ipotenusa.
+\end{teorema}
+La dimostrazione è lasciata per esercizio.
+
+Come si vede, \LaTeX{} numera automaticamente ogni enunciato e lo stacca da ciò che precede e da ciò che segue. Ogni tipo di enunciato è numerato a parte e non c'è alcun rientro prima del titolo dell'enunciato. Il titolo e il numero dell'enunciato sono in neretto (con punto finale). Il corpo dell'enunciato è in tondo per le definizioni e in corsivo per i teoremi.
+\begin{teorema}[Sorpresa]
+Si ha che $\log(-1)^2=2\log(-1)$.
+\end{teorema} 
+\begin{proof} 
+Si ha che $\log(1)^2 = 2\log(1)$.
+Ma è anche vero che  $\log(-1)^2=\log(1)=0$.
+Perciò $2\log(-1)=0$, da cui la tesi.
+\end{proof}
+Viene un quadratino a fine dimostrazione.
+\begin{legge}
+\label{lex:capo}
+Il capo ha ragione.
+\end{legge}
+\begin{decreto}[Aggiornamento alla legge~\ref{lex:capo}]
+Il capo ha \emph{sempre} ragione.
+\end{decreto}
+\begin{legge}
+Se il capo ha torto, vedere la 
+legge~\ref{lex:capo}.
+\end{legge}
+L'enunciato ``Decreto'' utilizza il medesimo contatore dell'enunciato ``Legge'', perciò ha un numero di identificazione che segue la stessa sequenza numerica utilizzata da questo. Gli enunciati possono essere identificati con un'etichetta.
+\begin{murphy}
+Se esistono due o più modi
+per fare una cosa, e se uno
+di questi modi può creare
+una catastrofe, allora
+qualcuno lo sceglierà.
+\end{murphy}

@@ -1,0 +1,128 @@
+% !TEX encoding = UTF-8 Unicode
+% !TEX TS-program = pdflatex
+% !TEX root = ../Tesi.tex
+% !TEX spellcheck = it-IT
+
+%*******************************************************
+% Introduzione
+%*******************************************************
+\cleardoublepage
+\pdfbookmark{Introduction}{Introduction}
+
+\chapter*{Introduction}
+% INTRODUZIONE
+% Spiego il problema che intendo risolvere, la distribuzione dei task attraverso una piattaforma
+% condivisa.
+% 1)
+% Problema delle generalità dei task (sia dal punto di vista della computazione che dal punto
+% di vista delle richieste all'utente)
+% Complessità  doppia (complessità come carico di lavoro sia come tipo di computazione richiesta)
+%% Human computation -> complessità algoritmiche
+%% Automatic computation -> complessità di carico
+% Spiego i tipi di task che posso incontrare, human, automatic e hybrid (in modo da definire le
+% casistiche possibili) e faccio vedere quali affronto
+% 2)
+% usiamo il web perchè permette di fare qualunque tipo di operazione su una piattaforma comune
+
+Web users are every day more interested in solutions for difficult multi-domain
+problems. Search engines are trying to satisfy this need analyzing semantic
+data from the web. Questions like "\emph{What is the best restaurant in
+Berlin?}" or "\emph{What is a cheap accommodation near the Colosseum in Rome?}" are common tasks,
+to which people all over the world daily try to find a solution.
+
+%Originally web was considered as a place to get information. Users
+%were not able to enrich web with their personal contents. The advent
+% Web 2.0 has completely changed this idea. Users have turned from
+%being just web surfers to contributing immense amounts of contents
+%to sites such as YouTube, Wikipedia, Flickr and online social networks
+%such as Facebook and Twitter.
+
+In this scenario has emerged the groundbreaking paradigm of Crowdsourcing:
+internet connects millions of people sitting at home at their computers;
+why don't combine their intelligences and coordinate them to accomplish
+specific tasks? Wikipedia is a good example of crowdsourcing: a free
+encyclopedia that anyone can edit. Research work has addressed crowdsourcing
+from different perspectives and within various communities, including
+information retrieval, databases, artificial intelligence, social
+science. Researchers have investigated several areas in which crowdsourcing
+paradigm could be applied and several methods to engage this \emph{hive}
+of interconnected intelligences to a common goal.
+
+A recent work from \citet{paperboz} proposed a characterization of crowdsourcing
+toward information retrieval tasks, i.e. activities where the goal is to find
+informations about a specific topic. The proposed approach, named "CrowdSearcher",
+bases on the following observations: during a search process people often make up
+their minds by combining results from search engines, investigations on vertical
+portals, and opinions gathered within their friends and trusted people circles.
+CrowdSearcher proposed a framework to "crowdsource" this activities to social
+networks websites, where crowdsearching processes,  are characterized by:
+
+\begin{enumerate}
+	\item the interaction with performer recruited on social networks, so to
+	assign search-oriented, human computation tasks;
+	\item the characterization of users over multiple social networks, so to
+	holistically catch their actual domains of expertise;
+	\item the need for a broad set of addressable expertise, as crowdsearch
+	queries may span over multiple domains of interest.
+\end{enumerate}
+
+The CrowdSearcher model is a simple form of data sharing between a conventional
+search engine and a social engine: the two environments communicate through
+selected search results which are produced by conventional engines and proposed
+as the input of the crowdsearching activity. 
+The results of the previously mentioned questions could be shared with CrowdSearcher
+that supports the classical social actions of liking/disliking, tagging, expressin
+preferences, ranking. These tasks are not proposed to unknown crowds, but to trusted
+social network friends.
+
+As users connections are in the order of hundreds, or even thousands on social networks,
+an accurate selection of people to whom ask is needed to improve the effectiveness of
+CrowdSearcher: if we were able to know the expertise level of each user about the
+question's topics, we could route each task to the right users. This thesis is focused
+on the \emph{expert finding} problem for crowdsearching tasks: given a natural language
+query and a set of social network users, which is the best subset of users that have
+the knowledge required to perform the CrowdSearcher's tasks?. This main task leads to
+the following research questions:
+
+\begin{itemize}
+	\item Can the analysis of social actions (e.g. posts, tweets, interaction with
+	social groups, etc.) help in providing a better characterization of users for
+	search tasks?
+	\item Among the available approaches for expert finding, which one is better
+	suited in the context of social networks?
+	\item Are social networks oriented toward specific domains of expertise? 
+	\item Is the combined use of social network information useful to better
+	characterize a user?	
+	\item Is the usage of semantic annotation techniques useful for improving
+	the performance of an expert finding system?
+\end{itemize}
+
+
+\section*{Original contribution}
+\begin{enumerate}
+	\item Piattaforma standard e condivisa per l'esecuzione dei task (Javascript)
+	\item Componenti modulari per una facilitarne la sotituzione/aggiurnamento
+	\item ???
+
+\end{enumerate}
+
+\section*{Outline}
+The thesis is organized in four main parts.
+
+\begin{description}
+\item[{\hyperref[cap:bg]{The first chapter}}]
+presents the fundamental aspects of crowd-based load distribution and the web enabling
+technologies used to implement such infrastructure and with wich benefits.
+
+\item[{\hyperref[cap:model]{Nel secondo capitolo}}]
+viene desritto nel dettaglio il modello computazionale usato per la assegnazione/distribuzione dei task
+e gli attori che ne fanno parte.
+
+\item[{\hyperref[cap:cases]{Nel terzo capitolo}}]
+vengono descritti gli use-case presi in considerazione fornendone i dettagli ed alcune di implementazioni possibili.
+
+\item[{\hyperref[cap:implementation]{Nell'ultimo capitolo}}]
+viene descritta l'implementazione del modello descritto nei capitoli precedenti, sia sotto l'aspetto architetturale
+che di performance.
+
+\end{description}

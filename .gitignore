@@ -1,0 +1,30 @@
+############
+## Windows
+############
+
+# Windows image file caches
+Thumbs.db
+
+# Folder config file
+Desktop.ini
+
+# Mac crap
+.DS_Store
+
+# temp files
+*.toc
+*.synctex.gz
+*.run.xml
+Tesi-frn.tex
+Tesi-blx.bib
+*.lot
+*.log
+*.blg
+*.lof
+*.bbl
+*.fdb_latexmk
+*.aux
+
+
+# Sublime files #
+*.sublime-workspace
