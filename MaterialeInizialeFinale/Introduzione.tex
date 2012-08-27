@@ -1,8 +1,3 @@
-% !TEX encoding = UTF-8 Unicode
-% !TEX TS-program = pdflatex
-% !TEX root = ../Tesi.tex
-% !TEX spellcheck = it-IT
-
 %*******************************************************
 % Introduzione
 %*******************************************************
@@ -27,35 +22,154 @@
 % usiamo il web perchè permette di fare qualunque tipo di operazione su una piattaforma comune
 
 
-Distribution and execution of task is a growing field 
-When dealing with the problem of task distribution and execution we came across a number of different tools
-that aim at solving a specific category of distribution or execution type. 
-% Problema della doppia complessità
+% Siamo nel contensto della computazione distribuita
+% paradigma grid computing / cluod computing si basa sul concetto di astarre le
+% risorse disponibili per renderle omegennee. Cloud intende astrarre tutto non solo porzioni
+% di hardware.
 
-Let's take some example from the current state of the art technologies and try to figure out where they
-fit in table \ref{tab:matrix}, this categorization allow to see where we are going to operate.
-Tools like \cite{turk} allow users to create \ac{HIT} that are executed by \emph{humans} in a \emph{centralized}
-way. Workers (users that recieve a reward for their work) must go to the \cite{turk} website to find and
-execute a task. This kind of interaction can be categorized as \textbf{human}-\textbf{voluntary}.
+% la distribuzione è fatta a parità di software o hardware
+%% parità di hardware
+%%% Risorse distribuite simili (oppure astraibili) distribuisco e poi raggruppo MapReduce
+%% parità di sofware
+
+% partono dal concetto di sistemi distribuiti in cui il calcolo automatico viene
+% distribuito su macchine diverse separate dalla rete ( di solito)
+% La computazione viene eseguita, il risultato processato dal server che nel caso scatena
+% altra computazione, e così via...
+
+% si è delineato un nuovo paradigma in questo ambito che è human computation, nel quale
+% ho sempre computaionze da fare, inoltre i miei nodi hanno la proprietà di poter fare computazione
+% che altri nodi standard (PC) non sanno/possono fare
+
+% si nota che l'idea di human computation somiglia al calcolo distribuito, e si appoggia su
+% tecnologie di distribuzione web-based che si appoggiano su architetture comuni.
+%% ES:
+% Gli utenti vengono ingaggiati attraverso il web, i task sono eseguiti sul web, le applicazioni
+% human computation o GWAP di solito di appoggiano su piattaforme web comuni
+% per es peekaboom (von2006peekaboom) o applicazioni standalone normalizzate come foldIt
+
+% detto ciò è evidente che siamo giunti ad una condizione in cui si ha la capacità tecnica
+% di utilizzare gli utenti del WEB come nodi di calcolo (umano o automatico) per calcoli
+% arbitrariamente complessi
+
+% Per quanto ne sappiamo non esistono dei metodi e strumenti che consentono lo sfruttamento di
+% questa opportunità, perchè sono focalizzati su Human o automatico (non web-based)
+% matrice stato attuale, io voglio fare tutto
+% se voglio usare BOINC sul WEB non posso
+% se voglio fare HC distribuita
+% il contributo originale di questa tesi: CONTRIBUTION
+
+% tassonomia di come chiamare questo tipo di oggetto da noi creato%
 
 
 
+Distribution and execution of task have is \textbf{a growing field that acctract} interest on
+big intenet companies, such as Amazon. The success of this field is due to the always growing
+need of complex computation performed by algorithms. When using the term \emph{complexity}
+we refer to two main types of computational complexity \emph{workload complexity} and
+\emph{algorithm complexity}.\\
+
+\textbf{Workload complexity} indexes all that algorithms that need to perform a huge amount
+of simple (or not so simple) computation on a lot of data. To address this problem we need
+use the \emph{Divide et impera} paradigm, implemented frameworks like
+MapReduce\footcite{dean2008mapreduce}, this paradigm allow to split algorithms that insist
+on huge amount of data into simple atomc steps that can be executed by anyone.
+As an example consider the problem of face recognition on all the images indexed in google
+images, here we have billions of data and a simple algorithm to perform.\\
+
+\textbf{Algorithm complexity} addesses the other dimension, here we consider the complexity
+as the computational feasibility of each step of the algorithm. For example consider the
+following algoritm:\\
+\begin{algorithm}[H]
+	\caption{Tweet validation}
+	\label{alg:intro_example}
+	\SetKwFunction{check}{check}
+	\SetKwFunction{setTweet}{setTweet}
+	\SetKwFunction{contactCIA}{contactCIA}
+	\SetKwInOut{Input}{input}\SetKwInOut{Output}{output}
+
+	\Input{a set of tweet about a politician}
+	\Output{each tweet marked as in favor or against the politician}
+	\BlankLine
+
+	\ForEach{tweet in tweets}{
+		opinion $\leftarrow$ \check{tweet}\;
+		\If{opinion$\ne$IN\_FAVOR}{
+			\contactCIA{}\;
+		}
+		\setTweet{tweet, opinion}\;
+	}
+\end{algorithm}
+The algorithm itself is not complex but some of the operations are not feasible by a normal pc
+in a reasonable amount of time.
+In this case we have to face the problem of algorithms that are too complex to solve by
+machines thus need a human aid to be computed, we need
+\hyperref[sec:bg:crowd:human]{human computation}.\\
+
+This categorization can be further expanded considering the user will of performing such algorithm/task.
+This additional dimension lead to the matrix in table \ref{tab:matrix}.
 \begin{table}[htb]
-	\caption{Operation categorization.}
+	\caption{Task distribution and execution matrix.}
 	\label{tab:matrix}
 	\centering
 	\begin{tabular}{r|c|c}
 		 & \textbf{Automatic} & \textbf{Human}\\
 		\hline
-		Voluntary & \acs{BOINC} & MTurk\\
+		Voluntary & \acs{BOINC} & \cite{turk}\\
 		\hline
 		Involuntary & Parasitic computing & \acs{GWAP}
 	\end{tabular}
 \end{table}
 
+The table represent the state of the art of task distribution and execution. All the tools available
+online are tailored to permorm the best in a specific portion of the matrix.\\
+
+% Custom clients
+A limitation of the available solutionframeworks is the accessibility of the tool for the end-users.
+Let's take \ac{SETI@home} as an example, this tool uses the \ac{BOINC} platform to search for
+extraterrestral activity using radio telescope and analizing narrow-bandwidth radio signal. A
+user willing to partecipate to this program must do some steps before it can actually partecipate
+to the project:
+\begin{enumerate}
+	\item The user must go to the \ac{SETI@home} website
+	\item have to download the client software \ac{BOINC}
+	\item when the user want to partecipate have to start the \ac{BOINC} client and perform computation
+\end{enumerate}
+
+The need of ad-hoc clients able to fetch and execute remote code can lead to an excessive overhead
+to a stakeholder that need quick way to perform complex computation.\\
+
+% Centralized execution vs distributed
+If we consider the availability of the task, \cite{turk} offers a centralized hub to collect, distribute
+and execute a \ac{HIT}. The centralized distribution binds the user to go to the \cite{turk} website,
+search for a suitable task and execute it on the \cite{turk} platform. On the other side the paradigm of
+distributed execution used in \ac{BOINC}, allow users to have their own access point to the execution.
+
+As you can imagine all of the previous limitation can be seen as an obstacle or at least a
+unecessary overhead to the final purpose of the user.
+
+
+
+
+
+
+
+
 
 
 \section*{Original contribution}
+% Feature requested
+The aim of this thesis is to present a model for distributing and executing task that covers all
+the matrix dimension expressed in table \ref{tab:matrix}, and on top of that provide:
+\begin{itemize}
+	\item ease of access to the tasks
+	\item usage of standardized protocols/languages
+	\item ease of implementation by the \emph{requester}
+	\item ease of execution by the users
+\end{itemize}
+
+% Original contribution
+The original contributions are:
 \begin{enumerate}
 	\item Definition of a model for automatic, human and hybrid computation
 	\item Implementation of a reference web-based architecture for human and automatic implementation
@@ -64,23 +178,21 @@ execute a task. This kind of interaction can be categorized as \textbf{human}-\t
 	\hyperref[sec:cases:human]{human}, \hyperref[sec:cases:hybrid]{hybrid})
 \end{enumerate}
 
+
+
+
+
+
+
 \section*{Outline}
 The thesis is organized in four main parts.
 
 \begin{description}
-\item[{\hyperref[cap:bg]{The first chapter}}]
-presents the fundamental aspects of crowd-based load distribution and the web enabling
-technologies used to implement such infrastructure and with wich benefits.
+	\item[{\hyperref[cap:bg]{The first chapter}}]
 
-\item[{\hyperref[cap:model]{Nel secondo capitolo}}]
-viene desritto nel dettaglio il modello computazionale usato per la assegnazione/distribuzione dei task
-e gli attori che ne fanno parte.
+	\item[{\hyperref[cap:model]{Nel secondo capitolo}}]
 
-\item[{\hyperref[cap:cases]{Nel terzo capitolo}}]
-vengono descritti gli use-case presi in considerazione fornendone i dettagli ed alcune di implementazioni possibili.
+	\item[{\hyperref[cap:cases]{Nel terzo capitolo}}]
 
-\item[{\hyperref[cap:implementation]{Nell'ultimo capitolo}}]
-viene descritta l'implementazione del modello descritto nei capitoli precedenti, sia sotto l'aspetto architetturale
-che di performance.
-
+	\item[{\hyperref[cap:implementation]{Nell'ultimo capitolo}}]
 \end{description}

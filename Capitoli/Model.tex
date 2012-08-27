@@ -1,13 +1,36 @@
-% !TEX encoding = UTF-8 Unicode
-% !TEX TS-program = pdflatex
-% !TEX root = ../Tesi.tex
-% !TEX spellcheck = it-IT
-
 %************************************************
 %\chapter{A model for distributed web-based human- and machine-driven computation}
 \chapter{The Model}
 \label{cap:model}
 %************************************************
+% io parto da questa architettura che funziona così...
+% ho un'architettura di riferimento con una macchina centralizzata che definisce e distribuisce il
+% carico di lavoro ed il calcolo; ho tanti client trasparenti/coerenti con i browser e poi gli utenti
+% Immagine di come funziona
+
+
+% Cubrick METADATA MODEL!!!!!!!!
+% definisco l'architettura, chi sono gli attori
+% definisco il modello degli attori (task, utente, uTask, client) e come sono relazionati
+% ES
+% Il task può essere svolto da codici diversi in funzione del client
+
+
+% il mio sistema ha una logica di associazione del task
+% quale task a chi e con quale codice
+
+%Architettura:
+% Modello statico->
+% DEfinizione di cos'è uno User
+% DEfinizione di cos'è un uTask
+% DEfinizione di cos'è un Task generico
+% Modello astratto->
+% TASK: dal punto di vista astratto è la definizione di un'operazione data driven
+% su un modello di dati in ingresso e un modello di uscita, in cui posso caratterizzare
+% cosa ci sta im mezzo in modo preciso con associato un codice di esecuzione.
+% Utente: è una persona con una macchina con certe caratteistiche e certe skill lui
+% uTask: istanziazione di un task con un particolare codice su una particolare macchina
+
 
 When facing the problem of creating a suitable model for a task distribution system over the web
 we first need to think about the features our system must be able to perform.

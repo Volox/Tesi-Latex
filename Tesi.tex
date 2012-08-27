@@ -14,19 +14,13 @@
 % 3. Tesi.tex come documento principale;
 % 4. il controllo ortografico italiano per l'editor.
 
-% !TEX encoding = UTF-8 Unicode
-% !TEX TS-program = pdflatex
-% !TEX root = Tesi.tex
-% !TEX spellcheck = it-IT
-
-
 \documentclass[10pt,%                      % corpo del font principale
                a4paper,%                   % carta A4
                twoside,openright,%         % fronte-retro
                titlepage,%                 % frontespizio
-               headinclude,,footinclude,%  % testatina e pi di pagina
+               headinclude,,footinclude,%  % testatina e piè di pagina
                BCOR5mm,%                   % rilegatura di 5 mm
-               cleardoublepage=empty,%     % pagine vuote senza testatina e pi di pagina
+               cleardoublepage=empty,%     % pagine vuote senza testatina e piè di pagina
                tablecaptionabove,%         % didascalie in cima alle tabelle
                dottedtoc%                  % puntini nell'indice
                ]{scrreprt}                 % classe report di KOMA-Script;
@@ -99,7 +93,7 @@
             eulermath,%                    % AMS Euler come font per la matematica
             pdfspacing,%                   % migliora il riempimento di riga
             listings,%                     % codici
-%           parts,%                        % da decommentare se il documento  diviso in parti
+%           parts,%                        % da decommentare se il documento è diviso in parti
             ]{classicthesis}               % stile ClassicThesis
 
 \usepackage{arsclassica}                   % modifica alcuni aspetti di ClassicThesis
@@ -109,7 +103,7 @@
 
 \usepackage{bookmark}                      % segnalibri
 
-\usepackage{algorithm2e}
+\usepackage[lined,boxed]{algorithm2e}
 \usepackage{multicol}
 
 
