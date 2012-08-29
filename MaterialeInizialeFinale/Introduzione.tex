@@ -26,20 +26,43 @@
 % paradigma grid computing / cluod computing si basa sul concetto di astarre le
 % risorse disponibili per renderle omegennee. Cloud intende astrarre tutto non solo porzioni
 % di hardware.
+In the field of distributed computing have been used several methods to create a
+common layer able to execute code on different systems and platforms. The paradigm
+of distributed computing is based on the paradigm of grid computing and on that of
+cloud computing. These paradigms leverage on the core concept of creating an abstraction
+layer on top of the available resource in order to make them consistent, for example
+grid computing abstract only part of the available resources, meanwhile cloud
+computing abstract the whole hardware.\\
 
 % la distribuzione è fatta a parità di software o hardware
 %% parità di hardware
 %%% Risorse distribuite simili (oppure astraibili) distribuisco e poi raggruppo MapReduce
 %% parità di sofware
+The distribution of the computation can be done at \textbf{hardware} or 
+\textbf{software} level.
+
+At \textbf{hardware} level we have similar distributed resources, or at least
+can be easily abstracted, so we can distribute and gather the results. This
+paradigm is used in frameworks like \cite{dean2008mapreduce} where the
+computation is spread on large cluster of computers.
 
 % partono dal concetto di sistemi distribuiti in cui il calcolo automatico viene
 % distribuito su macchine diverse separate dalla rete ( di solito)
 % La computazione viene eseguita, il risultato processato dal server che nel caso scatena
 % altra computazione, e così via...
+The distribution of computation at \textbf{software} level uses the concept of
+distributed systems, where the automatic computation is spread among different
+machines usually separated by a network. Once the computation is executed by a
+node, the result is processed by the server and if needed another computation is
+triggered by ther server, an so on.\\
 
 % si è delineato un nuovo paradigma in questo ambito che è human computation, nel quale
 % ho sempre computaionze da fare, inoltre i miei nodi hanno la proprietà di poter fare computazione
 % che altri nodi standard (PC) non sanno/possono fare
+Another paradigm has been outlined in this field, \textbf{human computation}.
+The paradigm is the same as above because we need to computation but here the nodes
+have the ability to perform computation that other standard nodes, like pc and
+similar, are not able to do.
 
 % si nota che l'idea di human computation somiglia al calcolo distribuito, e si appoggia su
 % tecnologie di distribuzione web-based che si appoggiano su architetture comuni.
@@ -47,10 +70,20 @@
 % Gli utenti vengono ingaggiati attraverso il web, i task sono eseguiti sul web, le applicazioni
 % human computation o GWAP di solito di appoggiano su piattaforme web comuni
 % per es peekaboom (von2006peekaboom) o applicazioni standalone normalizzate come foldIt
+As one may notice, the idea of human computation is very similar to distributed
+computation also it leverage on web-based distribution technologies. Usere get
+engaged using the web, and also the tasks are executed within a web browser.
+Human computation application or \ac{GWAP} usually relies on the web as a common
+platform like \cite{von2006peekaboom} or \citetitle{turk}. Another solution is to
+create a standalone normalized software platform like \citetitle{foldit}.\\
+
 
 % detto ciò è evidente che siamo giunti ad una condizione in cui si ha la capacità tecnica
 % di utilizzare gli utenti del WEB come nodi di calcolo (umano o automatico) per calcoli
 % arbitrariamente complessi
+Given this general overview one can spot that we reached a condition where we have
+the technical ability to use all the web-users as nodes able to perform arbitrarily
+complex computation either automatic or human.
 
 % Per quanto ne sappiamo non esistono dei metodi e strumenti che consentono lo sfruttamento di
 % questa opportunità, perchè sono focalizzati su Human o automatico (non web-based)
@@ -60,26 +93,24 @@
 % il contributo originale di questa tesi: CONTRIBUTION
 
 % tassonomia di come chiamare questo tipo di oggetto da noi creato%
+As far as we know there are no methods or tools able to stress this opportunities,
+because they focus on human or automatic computation\footnote{Not web-based, but
+using standalone clients.}. The matrix in table \ref{tab:matrix} is the representation
+of the available online tools categorized using as dimensions the will of the user
+of performing such tasks and the \emph{complexity} of the algorithm.
+When using the term \emph{complexity} we refer to two main types of computational
+complexity \emph{workload complexity} and \emph{algorithm complexity}.\\
 
+\textbf{Workload complexity} indexes all that algorithms that need to perform a
+huge amount of simple (or not so simple) computation on a lot of data. To address
+this problem we need use the \emph{Divide et impera} paradigm, like the one used
+in \cite{dean2008mapreduce}, allowing to split algorithms that operates on huge
+amount of data into atomc steps that can be executed by any node. When dealing
+with this type of complexity we need to do \textbf{automatic} computation.
 
-
-Distribution and execution of task have is \textbf{a growing field that acctract} interest on
-big intenet companies, such as Amazon. The success of this field is due to the always growing
-need of complex computation performed by algorithms. When using the term \emph{complexity}
-we refer to two main types of computational complexity \emph{workload complexity} and
-\emph{algorithm complexity}.\\
-
-\textbf{Workload complexity} indexes all that algorithms that need to perform a huge amount
-of simple (or not so simple) computation on a lot of data. To address this problem we need
-use the \emph{Divide et impera} paradigm, implemented frameworks like
-MapReduce\footcite{dean2008mapreduce}, this paradigm allow to split algorithms that insist
-on huge amount of data into simple atomc steps that can be executed by anyone.
-As an example consider the problem of face recognition on all the images indexed in google
-images, here we have billions of data and a simple algorithm to perform.\\
-
-\textbf{Algorithm complexity} addesses the other dimension, here we consider the complexity
-as the computational feasibility of each step of the algorithm. For example consider the
-following algoritm:\\
+\textbf{Algorithm complexity} addesses the other dimension, here we consider the
+complexity as the computational feasibility of each step of the algorithm.
+As an example consider the following algoritm:\\
 \begin{algorithm}[H]
 	\caption{Tweet validation}
 	\label{alg:intro_example}
@@ -100,14 +131,10 @@ following algoritm:\\
 		\setTweet{tweet, opinion}\;
 	}
 \end{algorithm}
-The algorithm itself is not complex but some of the operations are not feasible by a normal pc
-in a reasonable amount of time.
-In this case we have to face the problem of algorithms that are too complex to solve by
-machines thus need a human aid to be computed, we need
-\hyperref[sec:bg:crowd:human]{human computation}.\\
-
-This categorization can be further expanded considering the user will of performing such algorithm/task.
-This additional dimension lead to the matrix in table \ref{tab:matrix}.
+The algorithm itself is not complex but operation like \code{opinion} $\ne$
+\code{IN\_FAVOR}
+cannot be done by a normal node, like a pc, or they took too long to be computed.
+These cases belongs to the field of \textbf{human} computation.\\
 \begin{table}[htb]
 	\caption{Task distribution and execution matrix.}
 	\label{tab:matrix}
@@ -115,46 +142,26 @@ This additional dimension lead to the matrix in table \ref{tab:matrix}.
 	\begin{tabular}{r|c|c}
 		 & \textbf{Automatic} & \textbf{Human}\\
 		\hline
-		Voluntary & \acs{BOINC} & \cite{turk}\\
+		Voluntary & \acs{BOINC} & \citetitle{turk}\\
 		\hline
 		Involuntary & Parasitic computing & \acs{GWAP}
 	\end{tabular}
 \end{table}
 
-The table represent the state of the art of task distribution and execution. All the tools available
-online are tailored to permorm the best in a specific portion of the matrix.\\
+
 
 % Custom clients
-A limitation of the available solutionframeworks is the accessibility of the tool for the end-users.
-Let's take \ac{SETI@home} as an example, this tool uses the \ac{BOINC} platform to search for
-extraterrestral activity using radio telescope and analizing narrow-bandwidth radio signal. A
-user willing to partecipate to this program must do some steps before it can actually partecipate
-to the project:
-\begin{enumerate}
-	\item The user must go to the \ac{SETI@home} website
-	\item have to download the client software \ac{BOINC}
-	\item when the user want to partecipate have to start the \ac{BOINC} client and perform computation
-\end{enumerate}
-
-The need of ad-hoc clients able to fetch and execute remote code can lead to an excessive overhead
-to a stakeholder that need quick way to perform complex computation.\\
-
-% Centralized execution vs distributed
-If we consider the availability of the task, \cite{turk} offers a centralized hub to collect, distribute
-and execute a \ac{HIT}. The centralized distribution binds the user to go to the \cite{turk} website,
-search for a suitable task and execute it on the \cite{turk} platform. On the other side the paradigm of
-distributed execution used in \ac{BOINC}, allow users to have their own access point to the execution.
-
-As you can imagine all of the previous limitation can be seen as an obstacle or at least a
-unecessary overhead to the final purpose of the user.
-
-
-
-
-
-
-
-
+A limitation of the available frameworks for automatic computation is the ease
+of access of the tool for the end-users. Let's take \ac{SETI@home} as an example,
+this tool uses the \ac{BOINC} platform to search for extraterrestral activity
+using radio telescope and analizing narrow-bandwidth radio signal.
+A user who want to partecipate to this priject must install the \ac{BOINC}
+platform and then enter a specific URL to start contributing.
+This steps, despite their semplicity, have hidden overhead to the user and to
+the \ac{SETI@home} project. The installation of ad-hoc clients can be a problem
+when a user work an a machine with strong restriction, also the \ac{SETI@home}
+project must adapt their data and computation to be executed within the \ac{BOINC}
+platform.
 
 
 \section*{Original contribution}

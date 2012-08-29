@@ -3,89 +3,80 @@
 \chapter{The Model}
 \label{cap:model}
 %************************************************
-% io parto da questa architettura che funziona così...
-% ho un'architettura di riferimento con una macchina centralizzata che definisce e distribuisce il
-% carico di lavoro ed il calcolo; ho tanti client trasparenti/coerenti con i browser e poi gli utenti
-% Immagine di come funziona
+
+
+% il mio sistema ha una logica di associazione del task
+% quale task a chi e con quale codice
 
 
 % Cubrick METADATA MODEL!!!!!!!!
 % definisco l'architettura, chi sono gli attori
 % definisco il modello degli attori (task, utente, uTask, client) e come sono relazionati
 % ES
+% relazione n->n task client
 % Il task può essere svolto da codici diversi in funzione del client
 
 
-% il mio sistema ha una logica di associazione del task
-% quale task a chi e con quale codice
-
-%Architettura:
-% Modello statico->
-% DEfinizione di cos'è uno User
-% DEfinizione di cos'è un uTask
-% DEfinizione di cos'è un Task generico
-% Modello astratto->
-% TASK: dal punto di vista astratto è la definizione di un'operazione data driven
-% su un modello di dati in ingresso e un modello di uscita, in cui posso caratterizzare
-% cosa ci sta im mezzo in modo preciso con associato un codice di esecuzione.
-% Utente: è una persona con una macchina con certe caratteistiche e certe skill lui
-% uTask: istanziazione di un task con un particolare codice su una particolare macchina
+% in questo capitolo definiamo il modello del nostro sisstema diviso in
+% modello architetturale, modello dei dati e modello di esecuzione
+% infine presentiamo la logica di pluggabilità delle strategie (quelle
+% di default e quelle custom)
 
 
-When facing the problem of creating a suitable model for a task distribution system over the web
-we first need to think about the features our system must be able to perform.
-As we mentioned in the \hyperref[intro]{introduction} we want to be able to perform task that are complex both in
-algorithmc and computational way, so we need a model able to manage both automatic and
-manual task computation.
-
-In addition to this feature we want our model to be easily extendable with pluggable components
-defined during the task creation phase. The pluggability ensures that any extra computation can be 
-added or can replace to the standard behaviour of the system.\\
-% esempio di uso della pluggabilità
 
 
-The model we use can be separated in 3 cooperating submodels:
+
+
+
+
+
+
+
+% TODO: cambiare il nome: no system model!
+\newcommand{\model}{\emph{architectural model}}
+In this chapter, we define the \model for our system and the reference
+infrastructure supporting this model.
+The \model is the data model on which the single components of the system are build upon.
+It describes the components that interact each other during the task lifecycle and
+embodies also the requirements and the features of the system as expressed in
+the \hyperref[intro]{introduction}.\\
+
+
+
+Concerning the data model we have subdivided it in 3 parts, this subdivion is made to
+better distinguish each of the 3 main steps used in every distribution system in order
+to create, distribute and process the data. \autoref{fig:model} gives an overview of
+the \model that is composed by:
+% model subdivision
 \begin{description}
-	\item[{\hyperref[sec:model:computation]{The computational}}] model describes the flow of
-	the computation, from the task creation to the result gathering.
+	\item[The {\hyperref[sec:model:architecture]{architectural model}}:] describes
+	the reference architecture .
 
-	\item[{\hyperref[sec:model:distribution]{The distribution}}] model describes how a task
-	can be distributed, to whom and what kind of steps are performed to check the result.
+	\item[The {\hyperref[sec:model:data]{data model}}:] describes
+	all the actors and stakeholders present in our system.
 	
-	\item[{\hyperref[sec:model:performer]{The task and performer}}] model describes the
-	lifecyvle of a task wrt the performer.
+	\item[The {\hyperref[sec:model:execution]{execution model}}:] focuses
+	on the model of the task and the users with their characteristics and proficiencies.
+
+	\item[{\hyperref[sec:model:strategies]{Pluggable strategies}}:] here
+	we focus on the provide some example of usage.
 \end{description}
-% TODO Immagine???
-
-
-% Dobbiamo creare un modello che supporti le operazioni da noi richeste
-% like,tag, order, comment, add, modify, classify, cluster e altre dal "paperboz"
-% e sia facilmente estendibile per supportare altre operazioni non "standard"
-
-%% MODELLO
-% spiego il modello usato (cambiando i nomi magari) per far capire il tipo di bisogno che dobbiamo risolvere
-
-
-% struttura di base con funzionalità di default
-% Componenti separati, customizzabili e pluggabili
-
-% layer condiviso per l'esecuzione dei task
 
 
 
-\section{Computation model}
-\label{sec:model:computation}
-\input{Capitoli/Model/Computational}
+% Sezioni
+\section{Architectural model}
+\label{sec:model:architecture}
+\input{Capitoli/Model/Architecture}
 
-\section{Task distribution model}
-\label{sec:model:distribution}
-\input{Capitoli/Model/Distribution}
+\section{Data model}
+\label{sec:model:data}
+\input{Capitoli/Model/Data}
 
-\section{Task and performer model}
-\label{sec:model:performer}
-\input{Capitoli/Model/Task+Performer}
+\section{Execution model}
+\label{sec:model:execution}
+\input{Capitoli/Model/Execution}
 
-
-\section{CrowdSearcher????}
-\label{sec:model:cs}
-\input{Capitoli/Model/CrowdSearcher}
+\section{Pluggable strategies assignment}
+\label{sec:model:strategies}
+\input{Capitoli/Model/Pluggable+Strategies}
