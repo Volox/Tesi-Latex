@@ -122,17 +122,40 @@ We used two separated storage area in order to keep the runtime configuration
 separated from the abstract configuration data of the Task.
 
 The task runtime storage contains all the ad-hoc code written by the \emph{Requester}
-for each platform. \uwave{This code can be reused by the other \emph{Requester}
-to execute the same task (for example image tagging).}
-
+for each platform.
 % Codice che può diventare generico
+\textbf{This code can be reused by the other \emph{Requester} to execute the same
+task (for example image tagging).}
+
+
+
+
 
 \subsection{Performer \& Performer client}
-\todo
-Performs
+The \emph{Performer client} represents the platform (like desktop or mobile) on
+wich a \emph{Performer} executes the Task implementation. The \emph{Performer
+client} make use of the \emph{Execution layer API} to retrieve the correct
+implementation, communicate the status during the exection of a \utask{} and
+post the result of the execution. The \emph{Performer} is the actual user that
+is using the \emph{client}.
+
+
+
 \subsection{Planning strategies}
-\todo
-Plan
+Any third-part component in charge of the creation and management of the \utask{}
+associated with a Task. During the Task configuration step the \emph{Requester}
+decide when this external component need to be called. The \emph{Planning
+strategy} can be called only once, for example during the task creation, or
+ca behave like an handler to the \utask{} ended event, in this case the
+\emph{stategy} is able to decide wheter is necessary to spawn other \utask{}
+execution to fullfill the requirements.
+
+
+
 \subsection{Assignment strategies}
-\todo
-Assign
+Any third-part component used to associate \utask{} to Performers. The binding
+can leverage on some skill of the Performer, for example a stategy can be:
+associate this set of \utask{} to Performers skilled German translation, and
+all the other to any Performer. As for the \emph{Planning strategies} this
+component can be invoked only once or in response to some events (like \utask{}
+ended or created).
