@@ -61,43 +61,78 @@ communicate with the \emph{configurator}.
 % Subsection description
 
 \subsection{Configurator}
-\textbf{TODO}\\
-This component is the kernel of the task creation and configuration. It is responsible
-of the creation and the management of a \emph{Task}.
-
-Provides
-the following functionalities:
+The \textbf{Configurator} is the component in charge of the task lifecycle
+management. The principal functionalities offered by the \textbf{Configurator}
+are:
 \begin{itemize}
-	\item To allow a Requester to configure (at an abstract level) a new
-	crowdsourced task by using the Configuration UI
+	\item Allow the \textbf{creation} of a Task, also at abstract level, using
+	either the API or the built-in UI.
 
-	\item To allow a Task/Job Creator to monitor the execution of a crowdsourced
-	task
+	\item Allow a \emph{Performer} to \textbf{execute} the Task using a standard
+	non configurable UI, provided as-is for each Task type.
 
-	\item To allow a Performer to execute the assigned activity (Micro Task) by
-	using a default, not configurable UI.
-
-	\item To allow a CrowdSearcher Task/Job Client application to
+	\item Allow to \textbf{request information} about a Task, the information
+	that can be requested includes:
 	\begin{itemize}
-		\item Create, configure, and monitor a (set of) Task(s), Please notice
-		that the orchestration of several tasks is managed externally from
-		CrowdSearcher.
+		\item Retrieve the list of \utask{} associated with a given Task
 
-		\item To retrieve the set of Micro Task associated with a Task.
+		\item Post the result of the execution of a given \utask{}
 
-		\item To post the result of a Micro Task execution.
-
-		\item To get notified about the completion of a Task / MicroTask
+		\item Notify about the completion of a Task or \utask{}
 	\end{itemize}
 \end{itemize}
 
+Alongside these main functionalities it offer a \emph{Requester} the ability to
+monitor the state of a Task and/or a \utask{}.
+
+
+
+
 \subsection{Execution layer}
-Execute
-\subsection{Task sotrage \& task runtime storage}
-Store
+This component is in charge of managing the \utask{} implementation for each Task
+or for each \utask{}. The implementations have a fallback behaviour so, if a
+custom \utask{} implementation is not present then the system search for a
+custom Task implementation, if this is missing then the built-in implementation
+is used. On top of this fallback system the component offer the possibility to
+create code for a target platform.
+
+The \textbf{Execution layer} offer the following funcionalities:
+\begin{itemize}
+	\item Allow a \emph{Requester} to configure the implementations associated to
+	a Task and/or a \utask{}. The implementations are configured specifing the
+	target platform (mobile, desktop, tablet, ...) and the executable resources
+	used by the implementation (i.e. HTML, CSS and JS files). Wich implementation
+	to use is configured later in the \emph{Planning} step.
+
+	\item Create a layer of abstraction between the implementation and the
+	Configurator, creating a sandboxed environment where the implementation can
+	run and communicate with the Configurator.
+
+	\item Allow the \emph{Performer} to execute a specific \utask{} implementation.
+\end{itemize}
+
+
+
+
+
+
+\subsection{Task storage \& task runtime storage}
+These are the storage areas where we put all the data associated with the Task.
+We used two separated storage area in order to keep the runtime configuration
+separated from the abstract configuration data of the Task.
+
+The task runtime storage contains all the ad-hoc code written by the \emph{Requester}
+for each platform. \uwave{This code can be reused by the other \emph{Requester}
+to execute the same task (for example image tagging).}
+
+% Codice che può diventare generico
+
 \subsection{Performer \& Performer client}
+\todo
 Performs
 \subsection{Planning strategies}
+\todo
 Plan
 \subsection{Assignment strategies}
+\todo
 Assign
