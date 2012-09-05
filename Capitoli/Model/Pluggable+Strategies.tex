@@ -4,5 +4,159 @@
 %	assegnamento
 %	pianificazione
 %	distribuzione
+In this section are covered the pluggable strategies that can be \emph{replaced}
+by the \emph{Requester} during the creation of a \emph{WorkFlow}, first we
+present the standard implementation in the System, then we give an overview on
+the possible custom strategies that can be replaced.
 
-Pluggable+Strategies
+
+
+\subsection{Built-in strategies model}
+Here are presented the models of the default implementation for the pluggable
+strategies. These default models are quite flexible to allow the creation of
+most of the common Task that need a distributed approach, but other distributed
+human Task, like \ac{GWAP}, must have a direct control over the whole execution
+flow.
+
+
+\subsubsection{\utask{} planning strategy}
+\utask{} planning strategy is a pluggable logic focused on the organization and
+spawning of the \utask{} in order to execute a Task. A Task planning strategy is
+defined by:
+\begin{itemize}
+    \item A set of \textbf{Constraints} that rule the execution.
+
+    \item A \textbf{Planning policy} that can be defined at:
+        \begin{description}
+            \item[Design time:] the assignment is made at design time during the
+            creation phase. After the planning is done it can be modified only
+
+            \item[Dynamic:] the planning is done at least once, using a provided
+            set of input \emph{Object}s. The planning can be further invoked due
+            to:
+            \begin{itemize}
+                \item \emph{Variations} in the state of the Task. i.e. an object
+                can be reassigned to another \utask{}.
+
+                \item \emph{Addition} of new \emph{Object}s through the API.
+            \end{itemize}
+            Note that the addition of new \utask{} can be performed using the
+            API but usually do not involve the invocation of a \utask{} planning
+            strategy.
+        \end{description}
+\end{itemize}
+This strategy produce as output a set of \utask{} with the corresponding
+\emph{Object}s.
+
+
+
+\subsubsection{Performer assignment strategy}
+The Performer assignment strategy is a pluggable logic devoted to the assignment
+\emph{Performers} to \utask{}. A Performer assignment strategy is composed by:
+\begin{itemize}
+    \item A set of \textbf{Constraints}.
+    %defined on top user-specific statistics (e.g. do not assign more than 1 MicroTask per hour)
+
+    \item A list of \textbf{routes} that, by matching the description of a
+    \emph{Performer}, decide if a \utask{} can be assigned to a \emph{Performer}.
+
+    \item An \textbf{Assignment policy} that can be:
+        \begin{description}
+            \item[one-shot:] the assignment is performed according to a prdefined
+            number of \emph{Performer}s and \utask{}.
+            \item[dynamic:] the assignment is performed at least once and can be
+            invoked multiple times later according to \emph{Variables} that can
+            change over time.
+        \end{description}
+\end{itemize}
+
+
+
+\subsubsection{\utask{} implementation strategy}
+\utask{} implementation strategy is a pluggable logic in charge of selecting a
+suitable \utask{} implementation for an \emph{Execution}. A \utask{}
+implementation strategy is characterized by:
+\begin{itemize}
+    \item A set of assignment \textbf{Contraints}.
+    % possibly defined on top user-specific statistics (e.g. do not assign more than 1 MicroTask per hour)
+
+    \item A list of \textbf{routes} that, by matching the description of an
+    \emph{Execution}, decide if a \utask{} can be assigned to an \emph{Execution}.
+
+    \item An \textbf{Assignment policy} that can be:
+        \begin{description}
+            \item[static:] the assignment is performed according to a prdefined
+            number of \emph{Performer}s and \utask{}.
+            \item[dynamic:] the assignment is performed at least once and can be
+            invoked multiple times later according to \emph{Variables} that can
+            change over time.
+        \end{description}
+\end{itemize}
+
+
+
+\subsubsection{Task planning strategy}
+Task planning strategy embodies the functionalities of a \utask{} planning
+strategy and of a Performer Assignment strategy, deciding the logic by which the
+two strategies should be invoked.
+
+
+
+\subsubsection{Task control strategy}
+The Task control strategy is a pluggable logic devoted to verifing the status of
+a Task, possibly against the assigned constraints. The logic can be executed:
+\begin{itemize}
+    \item \textbf{Once} when the Task ends.
+    % (e.g. when all its micro tasks are executed)
+
+    \item According to a \textbf{temporal schedule}. % every hour
+
+    \item Every time a \utask{} is \textbf{executed}.
+\end{itemize}
+The corrective actiona available to the Task controller are: 
+\begin{itemize}
+    \item The \textbf{re-planning} of the task, also with the creation of new
+    \utask{}.
+
+    \item The \textbf{re-assignment} of \utask{} to \emph{Performer}s.
+
+    \item \textbf{Delete} of executed \utask{}.
+
+    \item \textbf{Change} the properties of an executed \utask{}.
+    %(e.g. invalidate a classification, etc.)
+
+    \item \textbf{Re-execution} of the entire Task.
+
+    \item \textbf{Halting} the Task.
+
+    \item Etc.
+\end{itemize}
+
+
+
+\subsubsection{Aggregation function}
+An Aggregation function is a pluggable logic devoted to the summarization of the
+results of several \utask{} aimed at creating the final output data of a Task.
+Examples of aggregation functions are Sum, Avg, MajorityAgreement, etc.
+
+
+\subsubsection{Emission policy}
+The Emission policy is a pluggable logic in charge of notifing the
+\emph{Subscribers} about the status of a Task. This logic can be executed:
+\begin{itemize}
+    \item \textbf{Once} the Task ends.
+    % (e.g. when all its micro tasks are executed)
+
+    \item According to a \textbf{temporal schedule}.
+
+    \item Every time a task is \textbf{executed}.
+\end{itemize}
+
+
+
+\subsection{Custom strategies}
+TODO ???
+\subsubsection{Example 1}
+TODO ???
+\subsubsection{Example 2}
+TODO ???
