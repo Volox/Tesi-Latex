@@ -1,2 +1,107 @@
 % Execution model
-Execution model
+\begin{figure}[htb]
+    \centering
+    \includegraphics[width=\columnwidth]{ExecutionModel}
+    \caption{Representation of the Task execution flow.}
+    \label{fig:execution-model}
+\end{figure}
+\autoref{fig:execution-model} represents the flow of the execution of a Task
+during the execution. As one can notice the flow is almost straightforward except
+the initial part when the \emph{Task control} strategy tweak the execution to
+fulfill some predefined requirements.
+
+The System is able to operate in different scenarios, according to the logic
+implemented in the \emph{Task planning}, the \emph{Task control} strategy may
+change the flow of the execution. In \autoref{tab:execution-matrix} are presented
+the different execution scenarios that the system is able to handle.
+\begin{table}[htb]
+	\caption{Task planning vs. Task Assignment.}
+	\label{tab:execution-matrix}
+	\centering
+	\begin{tabular}{r|c|c}
+		 & \textbf{Static} & \textbf{Dynamic}\\
+		\hline
+		\textbf{Static} & \ref{subs:static-static} & \ref{subs:static-dynamic}\\
+		\hline
+		\textbf{Dynamic} & \ref{subs:dynamic-static} & \ref{subs:dynamic-dynamic}
+	\end{tabular}
+\end{table}
+
+
+
+\subsection{Static execution}
+\label{subs:static-static}
+This scenario of execution represent the simplest use-case possible, where the
+\emph{Task planning} is executed only once at creation time and the \utask{} are
+planned and assigned only once. In this \code{mode} the \emph{Task control} have
+only the role of controlling if the \emph{constraints} are verified. Here is a
+list of the operation that the \emph{Task control} strategy must perform:
+\begin{itemize}
+	\item \textbf{Stop} a Task if constraints are met.
+	\item \textbf{Invoke} the \emph{Aggregation function} at the end of the Task
+	execution.
+	\item \textbf{Notify} the \emph{Subscribers} about the Task execution.
+\end{itemize}
+
+
+
+\subsection{Static \utask{} planning \& Dynamic assignment}
+\label{subs:static-dynamic}
+In this scenario the \utask{} are planned once at creation time, but the
+assignment is performed dynamically. In this scenario the \emph{Task control}
+strategy invokes the \emph{Performer assignment} strategy to assign
+\emph{Performers} to \utask{}, ensuring that the constraints are verified. The
+\emph{Task control} strategy can also decide to reassign \emph{Performer}s to
+\utask{}, while ensuring constraints validity. In
+this scenario the \emph{Task control} strategy:
+\begin{itemize}
+	\item \textbf{Stop} a Task if constraints are met.
+	\item \textbf{Invoke} the \emph{Aggregation function} at the end of the Task
+	execution.
+	\item \textbf{Notify} the \emph{Subscribers} about the Task execution.
+	\item \textbf{Invoke} the \emph{Performer assignment} strategy to bind \utask{}
+	to \emph{Performer}s.
+\end{itemize}
+
+
+
+
+
+\subsection{Dynamic \utask{} planning \& Static assignment}
+\label{subs:dynamic-static}
+In this scenario the \emph{Performer} assignment are performed at creation time
+and the \utask{} planning is performed during the flow of the execution.
+As one can notice this can lead to consistency problem due to the missing
+\utask{} during the binding step. Since this scenario can lead to consistency
+problems it must be used with care with respect to the others. To avoid problem
+we suggest to use simple \emph{Performer} assignment such as the \code{fixed}
+one, using this strategy we do not have to take care of the consistency.
+Summing up, the Task Control Strategy:
+\begin{itemize}
+	\item \textbf{Stop} a Task if constraints are met.
+	\item \textbf{Invoke} the \emph{Aggregation function} at the end of the Task
+	execution.
+	\item \textbf{Notify} the \emph{Subscribers} about the Task execution.
+	\item \textbf{Invoke} the \emph{Task planning} strategy to \emph{re-plan}
+	\utask{} or \textbf{Create} new \utask{}
+\end{itemize}
+
+
+
+\subsection{Dynamic \utask{} planning \& Dynamic assignment}
+\label{subs:dynamic-dynamic}
+In this scenario all the assignments are performed dynamically. Here the \utask{}
+can be associated either at creation time or during the flow of the execution.
+The same stands for the \emph{Performer} assignment, this can be done at any time,
+i.e. \emph{Performer}s can be assigned only upon the request of a Task execution. 
+Summing up, the Task Control Strategy:
+\begin{itemize}
+	\item \textbf{Stop} a Task if constraints are met.
+	\item \textbf{Invoke} the \emph{Aggregation function} at the end of the Task
+	execution.
+	\item \textbf{Notify} the \emph{Subscribers} about the Task execution.
+	\item \textbf{Invoke} the \emph{Performer assignment} strategy to bind \utask{}
+	to \emph{Performer}s.
+	\item \textbf{Invoke} the \emph{Task planning} strategy to \emph{re-plan}
+	\utask{} or \textbf{Create} new \utask{}
+\end{itemize}
