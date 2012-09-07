@@ -1,7 +1,50 @@
+% cos'è automatic omputation
+%% grid computing dove vengono eseguiti task
+%% 
+Unlike human computation, \emph{automatic computation} aim at executing task, or
+part of it, in an automatic fashoin, without user interaction. This kind of
+\emph{distributed computation} is based on the existence of a \emph{grid} of
+connected nodes able to perform data intensive calculation.
+
+The platforms that implement these solution use different frameworks for splitting
+algorithms into atomic operation executable by the nodes. One of these frameworks
+is MapReduce\footcite{dean2008mapreduce} that, using the core concept of
+\emph{Divide et impera} can produce highly parallelizable algorithms.\\
+
+\emph{Automatic computation} cen be further subdivided accordingly to the will
+of the user to perform computation on its computer.
+
 \subsubsection{Voluntary computing}
 \label{sec:bg:crowd:auto:voluntary}
 % spiego boinc/SETI funzionamento
-BOIC + SETI
+When the user want to share the computational power of its computer to some
+project he/she think are worth of it, then might think of using the \ac{BOINC}
+system.\\
+
+\begin{figure}[htb]
+    \centering
+    \includegraphics[width=\columnwidth]{boinc}
+    \caption{The \acs{BOINC} logo.}
+    \label{fig:boinc}
+\end{figure}
+The \ac{BOINC} system was originally developed to support the \ac{SETI@home}
+project, 
+% cos'è
+%% è un middleware system for volunteer and grid computing.
+%% scarichi il client
+
+%% come funziona
+This piece of software allow a user to connect to the \ac{BOINC} grid, by doing
+so a user is allowing the \ac{BOINC} client to use the idle time of its CPU to
+perform computation. The client can now  download all the necessary data from the
+chosen project site alonside with the code to run, once all the downloads are
+completed the \ac{BOINC} client can run the code and send the results back to
+the project site.\\
+
+The \ac{SETI@home} project leverage on the \ac{BOINC} famework to search for
+extraterrestrial intelligence by analyzing the narrow-band radio signal coming
+from the Arecibo radio telescope.
+
 
 \subsubsection{Parasitic computing}
 \label{sec:bg:crowd:auto:parasitic}
