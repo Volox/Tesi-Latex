@@ -4,50 +4,64 @@
 % come funziona
 
 Parasitic computing\footnote{In this thesis we are not covering, neither
-we are interested, in the ethical or moral implication of using such programming model.}
-is a technique that, using some exploits and ad-hoc code,
-permits to execute computation on unaware host computer. This approach was first
-proposed by \cite{barabasi2001parasitic} to solve the NP-complete 3-SAT problem
-using the existing TCP/IP protocol and its error handling routines.\\
+we are interested in, the ethical or moral implication of using this technique.}
+is a technique that, using some exploits and ad-hoc code, allow a \emph{malicious}
+user to use the computational power of the \emph{victim} computer without this
+being aware. As one can notice parassitic compiting has a strong relationship
+with \emph{distributed computing}, in fact is a specialization of the general
+class of \emph{voluntary computing}, where the user is unaware of
+the execution\footnote{In \emph{voluntary computing} the user can be unaware
+of the actual code they are executing, but they are aware of the execution.}.\\
 
-% TODO?
-% Spiego meglio come funzionava il loro metodo.
+This approach was first proposed by \cite{barabasi2001parasitic} to solve the
+NP-complete 3-SAT problem using the existing TCP/IP protocol stack and its error
+handling routines. The satisfiability problems or "SAT" involves finding a
+solution to a boolean equation that satisfies a number of logical clauses. For
+example, $(x_1 \oplus x_2) \land (x_2 \land x_3 )$ in principle has $2^3$ potential
+solutions, but it is satisfied only by the solution: $x_1=1, x_2=0, x_3=1$.
+Problems problem like the one in the example are known as 2-SAT problem because
+each clause, shown in parentheses, involves two variables. The more difficult
+3-SAT problem is known to be NP-complete, which in practice means that there is
+no known polynomial-time algorithm which solves it.\\
+\begin{figure}[htb]
+    \centering
+    \includegraphics[width=\columnwidth]{parasitic}
+    \caption{Schematic diagram of the parasitic computer solving the 3-SAT
+    problem.}
+    \label{fig:parasitic}
+\end{figure}
 
-Parassitic compiting has a strong relationship with \emph{distributed computing}, in
-fact it is like a specialization of the general class of \emph{distributed computing}
-where the user is unaware of the execution\footnote{In \emph{distributed computing}
-the user can be unaware of the purpose computation is for or what actial code they are
-executing, but they are aware of the execution.}.
-Given that we can list the main steps used to perform distributed computing:
-\begin{itemize}
-	\item Split task into atomic operations executable by any host
-	\item Send the code to all the host computers
-	\item Execute the code
-	\item Gather the results from the hosts
-	\item Join all the hosts result and compute the task output
-\end{itemize}
+The approach proposed in the paper was to perform a brute force attack to guess
+the right solution of a 3-SAT problem using a parallel apprach as depicted in
+\autoref{fig:parasitic}. The parasite node creates $2^n$ specially constructed
+messages designed to evaluate a potential solution. These messages are sent to
+many target servers throughout the Internet. After receiving the message, the
+target server verifies the data integrity of the TCP segment by calculating a
+TCP checksum. The construction of the message ensures that the TCP checksum fails
+for all messages containing an invalid solution to the posed SAT problem. Thus,
+a message that passes the TCP checksum contains a correct solution. The target
+server will respond to each message it receives (even if it does not understand
+the request). As a result, all messages containing invalid solutions are dropped
+in the TCP layer. Only a message which encodes a valid solution \emph{reaches}
+the target server, which sends a response to the \emph{request} it received.\\
 
-Distributed computing leverage on the idea of \emph{divide and conquer} like the
-programming model of MapReduce\footcite{dean2008mapreduce}. Frameworks as
-\ac{BOINC} and \ac{SETI@home} implement distributed computing paradigm to perform large
-scale operations (such as signal analisys) among the volunteers that installed the
-clients. These volunteers choose the project they are interested in and give the
-idle time of their machines to perform the computation.
+This approach may seem wrong or at leat not right, with respect to the user, but
+if one think about it notice how we are always making computation without even
+knowing. \ac{GWAP} or application like \href{reCAPTCHA}{http://www.google.com/recaptcha}
+are examples of involuntary human computation (as in \autoref{tab:matrix}). So
+thay are using the same technique to perform a sort of \emph{parasitic human
+computing} without complainig about the user will.\\
 
-Parasitic computing performs the same kind of task in the same \emph{distributed} fashion
-but the main difference is that the users are unaware of the computation that is being
-executed on their pc.
+To avoid the ethic implication of doing \emph{parasitic computing} a hybrid
+approach (parasitic/voluntary) can be used. If the user give the permission to
+run computation on its computer exchange of a return of any type, then we are
+able to score the best on both approaches. A similar solution was proposed in
+\cite{karame2011pay}.
+In this paper they propose a microcomputations as micropayments in web-based
+services. Their solution is to give the user access to online contents (such as
+newspaper, video, etc.) after performing small \js{} computation.
 
-\begin{itemize}
-	\item \textbf{Parlare di quante volte effettuiamo computazione parassitica senza sperlo.}\\Esempi?
-
-	\item \textbf{Parasitic computing può anche essere fatto in un modo conscio.} Notificando
-	all'utente la possibilità di eseguire del codice (senza sapere quale) in cambio di un ritorno di qualche
-	tipo (\cite{karame2011pay}).
-
-	\item Using the same model of unaware host we can perform high level computation using
-	\js{}.\citetitle{modernizr}
-\end{itemize}
+% Usando lo stesso approccio ma in js
 
 The main drawback of distributed computing is the portability and distribution.
 The installation of some kind of client to execute the code can be seen as a problem for some
@@ -57,9 +71,6 @@ frameworks is to perform massive parallel computation, but for the computation t
 massive we need a lot of volunteers that installed the client on their pc and are online to execute
 the code.
 
-% TODO
-{\bf Grafico con insiemi per distributed computing and parasitic computing?}
-
 \paragraph{Parasitic \js{}} can lead to a solution of these problems using a widespread
 and standard technologies. Using the Web as the distribution platform the audiance can scale
 rapidly from to thousands to hundred thousands of users. Regarding the need of third part software
@@ -68,28 +79,3 @@ runs is executed into a sandboxed execution environment so it cannot harm the us
 for the portability of the code, bacause almost all bowsers\footnote{\emph{**COUGH**} IE \emph{**COUGH**}} support
 \js{} with all the HTML5 features (see~\ref{sec:bg:web:html5}), so the porting of the code
 is guaranteed on every system that can run a browser.
-
-
-% TODO
-Let make an example \textbf{CREARE ESEMPIO CON BOINC E UN SITO DA 500.000 VISITE}
-
-Using parasitc \js{} can lead to some \textbf{hybrid} solution between distibuted and
-parassitic computing. Using the browser we can ask to user if it is willing to run some code
-\footnote{\textbf{mettere una nota in cui si parla del revenue dell'utente e alla sezione in cui viene discusso
-meglio il tutto}} then we can proceed downloading all the required resource to run the code.
-This approach make possible to have a proactive approach to volunteer computing, so there is no more the
-need of waiting until the users are willing to spend some time running a task.
-
-This \textbf{hybrid} approach is proposed in \cite{karame2011pay} as long as a $\mu$Payment model
-for task execution.
-
-% TODO?
-%Spiego meglio il loro approccio
-
-% TODO
-\begin{itemize}
-	\item problema del distributed computing (installazione del client|distribuzione) - FATTO
-	\item soluzione: piattaforma standard condivisa da tutti Javascript - FATTO
-	\item problema HTML4 -> HTML5 collegamento - FATTO
-	\item permette una soluzione idriba (avviso che può essere eseguita della computazione, l'utente sceglie) - FATTO
-\end{itemize}
