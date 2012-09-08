@@ -61,21 +61,11 @@ In this paper they propose a microcomputations as micropayments in web-based
 services. Their solution is to give the user access to online contents (such as
 newspaper, video, etc.) after performing small \js{} computation.
 
-% Usando lo stesso approccio ma in js
-
-The main drawback of distributed computing is the portability and distribution.
-The installation of some kind of client to execute the code can be seen as a problem for some
-user, as an example some users simply cannot install software on their workstation, due to security
-restriction or missing disk space. The other problem is distribution, the main purpose of these
-frameworks is to perform massive parallel computation, but for the computation to be really 
-massive we need a lot of volunteers that installed the client on their pc and are online to execute
-the code.
-
-\paragraph{Parasitic \js{}} can lead to a solution of these problems using a widespread
-and standard technologies. Using the Web as the distribution platform the audiance can scale
-rapidly from to thousands to hundred thousands of users. Regarding the need of third part software
-installation and security issues, using \js{} these problems are avoided, because all the code the browsers
-runs is executed into a sandboxed execution environment so it cannot harm the users pc. The same stands
-for the portability of the code, bacause almost all bowsers\footnote{\emph{**COUGH**} IE \emph{**COUGH**}} support
-\js{} with all the HTML5 features (see~\ref{sec:bg:web:html5}), so the porting of the code
-is guaranteed on every system that can run a browser.
+\paragraph{Parasitic \js{}} can be considered an enhancement of the solution
+proposed in \cite{barabasi2001parasitic}, since using \js{} and the HTML5
+features to their full potential (see \ref{\ref{sec:bg:web:html5}}) we are able
+to perform any kind of computation within the browser window/tab. \js{} offers
+also a standard platform for the exection of code without the need of any ad-hoc
+software for each platform. Furthermore all the code executed by a browser run
+in a sandboxed environment, keeping the user computer safe from any malicuis
+intent.
