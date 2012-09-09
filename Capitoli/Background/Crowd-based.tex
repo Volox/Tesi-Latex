@@ -16,9 +16,44 @@ Distributing computation (task computation) in the crowd means splitting
 the task execution into atomic subtask that can be executed by a host (human or
 not).
 
+%is a client server paragidm where the server is in charge of splitting the worlload
+%and distribute the atomic operations created to the clients.
+\begin{figure}[htb]
+    \centering
+    \includegraphics[width=\columnwidth]{DistributedComputing}
+    \caption{General structure of a distributed computing system.}
+    \label{fig:distributed-computing}
+\end{figure}
+Generally speaking \emph{computation distribution} is composed by few steps that
+can be spotted in all its specialization (i.e. grid computing, cloud computing,
+\hyperref[sec:bg:crowd:auto:parasitic]{parasitic computing}, etc.), here is the list:
+\begin{enumerate}
+    \item the server has to \textbf{split} the workload into smaller parallelizable
+    operations
+    \item the server \textbf{send the code}, among with the needed data, to the clients
+    \item the client \textbf{run} the code
+    \item the client \textbf{send the results} to the server
+    \item the server \textbf{gather} the results from all the clients
+    \item the server \textbf{join} the results
+\end{enumerate}
+The previous operations are the cornerstone of every distributed computing system,
+altough they can be done in different ways of can be merged. For instance the
+client can request the code to the server, the join process of the results can
+be performed by the clients with subsequent distributed computing task, and so on.\\
+
+Under the general name of \emph{distributed computing} we can refer to a wide
+range of distributed application and/or architecture supporting it.
+\nameref{sec:bg:crowd:human} are good examples of a specialization of the core
+concept of \emph{distributed computing}, here we have that the computation is
+performed by human being used as nodes for high level computation. Other
+specialization are \emph{Grid computing}, where the nodes form a super virtual
+computer, or \emph{Jungle computing}\footnote{Winner of the coolest name 2012},
+where using diverse, distributed and highly non-uniform high performance computer
+systems to achieve peak performance.\\
+
 
 % nostra divisione in human e automatic
-Following the subdivision presented in \autoref{tab:matrix} we subdivide the
+Following the subdivision presented in \autoref{tab:matrix} we separate the
 concept of crowd-based computation distribution in two parts, \emph{Human
 computation \& \ac{GWAP}} and \emph{Automatic computation}.
 

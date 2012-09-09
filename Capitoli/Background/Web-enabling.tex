@@ -1,7 +1,7 @@
 % Enabling web-based distributed computation
 
 % iniziative per facilitare la scrittura di app  lato client emscipten/google
-% app engine
+% web tooklit engine
 
 % parlo del we come piattaforma condivisa per distribuzione del codice
 % TODO evoluzione del web prima content delivery ora RIA
@@ -11,48 +11,55 @@
 %% Accesso ai dati File API, canvas
 %% dataStorage (prima server side) ora LoscalSotrage (WebSQL/indexedDB)
 
-Web-based computation implies that a client is able to perform almost any kind of task that usually
-is done by an application software, as an example think about image analisys, audio/video playback
-or socket connection; these operations are available to developers without the need of additional
-libraries or external \emph{plugins}.
+Using the web (i.e. the browser) as a platform for distributing and executiong
+code implies that the available technologies are powerful enough to perform
+high-level \emph{computation} and real-time \emph{communication}.
+These are the requirements for evaluating if the web is a suitable platform for
+code distribution.\\
 
-When building \ac{RIA} developers have to face the problem of building \emph{rich} web application
-without the required tools for \textbf{communication}, \textbf{data access} and \textbf{data storage}.
-Access to raw data of images or audio, API for file management, data storage and full-duplex
-communication are all problems that could not be solved without using plugins like Flash or Silverlight.
+\paragraph{Computation} is the key for being able to perform task within the
+browser. \emph{Computation} can involve any kind of operation on the data, and
+the data itself can be of any type. For instance creating an application that
+analyze audio files is relatively simple using standard languages (e.g. C, C++,
+Java, etc) and until a few years ago was almost\footnote{Without using strange
+interaction between Flash/Silverlight and the browser.} impossible to do within
+a browser, or creating a image manipulation program that runs without external
+plugins.
 
-The advent of HTML5 has brought a breath of fresh air to the Web. HTML5 specifies all these features
-as part of the language specifications so they are being implemented in all mayor javascript
-engines (Presto, V8, SquirrelFish, JägerMonkey). This means that almost all the required tools to build
-real \emph{rich} internet application are built-in in the \js{} language.
+HTML5 filled the gap that existed between any "standard" language and \js{}
+giving the developers access to all the required APIs needed to create fully
+functional web-applications. In \ref{sec:bg:web:html5} are presented all the
+features, along with some technical details, that have enabled these evolution.\\
 
-\begin{description}
-  \item[Communication] is being empowered by the introduction of \emph{WebSocket} that enable full-duplex
-  data exchange with the server. Also the introduction of \ac{CORS} give the developers the possibility
-  to contact foreign servers using \ac{AJAX} without the need of a proxy for forwarding the requests.
-  \item[Data access] is obtained using HTML5 media elements (\code{<video>} and \code{<audio>})
-  or the File API.
-  \item[Data storage] is available through the \code{localStorage} and \code{sessionStorage}
-  global variables or using IndexedDB or even a built-in WebSQL database.
-\end{description}
+There are also initiatives that aim at simplify the deployment of \js{}
+application. Since most of the developers have experience on languages other than
+\js{} there is the need of creating application in one language and \emph{cross
+comiling} it for the web. Projects like \citetitle{emscripten} and \citetitle{gwt}
+offer the possibility to write the code directly in C,C++ (\citetitle{emscripten})
+or Java (\citetitle{gwt}) and compile it into pure, and optimized, \js{}.
+
+\citetitle{emscripten}, by Mozilla, is an LLVM-to-JavaScript compiler. It takes
+LLVM bitcode (which can be generated from C/C++ using Clang, or any other
+language that can be converted into LLVM bitcode) and compiles that into \js{}.
+Since it is a compiler it offers miltiple grades of optimization that reduce the
+size of the \js{} file and speedup the computation. The website is full of demos
+of the ported application, including games, 2D/3D game engines, various libraries
+and also SQLite.
+
+\citetitle{gwt}, by Google, is a development toolkit for building and optimizing
+complex browser-based applications. Its goal is to enable productive development
+of high-performance web applications without the developer having to be an expert
+in browser quirks, XMLHttpRequest, and \js{}.\\
 
 
-With the introduction of all these features developers can use the power of \js{} to perform image analysis,
-audio/video palyback (without any external plugin installed), create 2D/3D games and so on.
 
-% TODO Trova come e dove infilarlo im modo che sia collegato
-These features make possible to create tools like \citetitle{emscripten} that is a LLVM-to-JavaScript compiler.
-Basically allow developers to convert their C/C++ code into standard \js{}, obviously the performance
-are not comparable but different level of code optimization lead to good performance gains in terms of
-code size and execution speed.
+\paragraph{Comminication} is being empowered, with respect to HTML4, by
+introducing \emph{WebSocket}, that enable full-duplex data exchange with the server,
+and also \ac{CORS} that give the developers the possibility to make \ac{AJAX}
+requests to "foreign" servers (other than \code{localhost}) without the need of
+a proxy for forwarding the requests.
 
-
-
-% TODO Trovare come e dove metterlo
-Additionally specification like \ac{CORS}, not strictly related to \js{}, allow the users to make
-cross-site request, that was a great limitation in \js{} develpment.
-
-\subsection{HTML5}
+\subsection{\acs{HTML}5}
 \label{sec:bg:web:html5}
 \input{Capitoli/Background/HTML5}
 
@@ -62,10 +69,10 @@ cross-site request, that was a great limitation in \js{} develpment.
 \input{Capitoli/Background/WebCL}
 
 
-% TODO
-\begin{itemize}
-	\item Come usiamo noi queste tecnologie
-	%\item Emiscripten permette di riutilizzare codice in C... - FATTO?
-	\item task monitoring
-	\item SIFT??
-\end{itemize}
+% TODO mmm non mi convince
+The availability of all those technical API give the possibility to create a
+system capable of performing any \emph{Human} or \emph{Automatic} computation
+task without the need of external plugins. We used all the features of HTML5
+for the computation side of the System, WebSocket are used for real-time task
+monitoring and with the \ac{CORS} are used within the task to request any
+external data that a \emph{Requester} need.

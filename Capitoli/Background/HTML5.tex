@@ -1,115 +1,241 @@
-In this thesis when i refer to HTML5 i'm not speaking only about the HTML5 tag reference. I am speaking about
-a set of thechnologies and specifications related to HTML5. It includes the \ac{HTML5} specification itself,
-the \ac{CSS3} recomendations and a whole new set of \js{} APIs. So, first things first, lets make some
-clarification:
+\begin{figure}[htb]
+    \centering
+    \includegraphics[width=0.75\columnwidth]{HTML5logos}
+    \caption{Official HTML5 logo \& unofficial CSS3 logo.}
+    \label{fig:html-logos}
+\end{figure}
+
+When speaking of \ac{HTML}5, usually, one is not only focusing on the markup language
+but on a set of web technologies and specifications strictly related to \ac{HTML}5.
+This set of technologies includes the \ac{HTML}5 specification itself, the
+\ac{CSS}3 recomendations and a whole new set of \js{} APIs. So, first things
+first, let's point out the differences:
 \begin{description}
-	\item[HTML5] refers to a new set of semantic tag (like \ctag{footer}, \ctag{header}, \ctag{article}, \ldots),
-	media tags (like \ctag{video} or \ctag{audio}) and the so called Web Form 2.0.
-	\item[CSS3] refers to the presentation layer specification including image effects, 3D transformation,
-	tag selectors and form element validation.
-	\item[JS] refers to the new set of API provided, that enable interaction with all these new elements, and additional,
-	non tag-related, functionalities (like WebSockets or WebWorkers).
+	\item[HTML5] refers to a set of semantic tag (like \ctag{footer},
+	\ctag{header}, \ctag{article}, \ldots), media tags (like \ctag{video} or
+	\ctag{audio}) and the so called Web Form 2.0 alongside with all the "old"
+	tags inherithed from HTML4. These tags helps developers to give semantics to
+	the website they make, so they (the websites, not the developers) can be
+	better understood by Seach engines or HTML parsers (like those used for
+	reading the site for blind people).
+
+	\item[CSS3] refers to the presentation layer of the pages. Here are introduced
+	specification including image effects, 3D transformation, new tag selectors, 
+	form element validation, etc. The specifications take care also of the new
+	devices (like smartphones and tablets) giving the user the \code{media
+	queries} to examine the media (screen, print, aural) and provide different
+	\ac{CSS} rules.
+	
+	\item[JS] refers to the \js{} with a new set of API for interacting with the
+	new media elements and other tags, as long as API for concurrent computation,
+	real-time communication, offline storage, etc.\\
 \end{description}
 
 % TODO da vedere dove metterlo
-With the advent of \ac{HTML5}, like any new web-technology, many problems were resolved and many others
-have been created. The main issue with using HTML5 is the browser compatibility and browser-specific methods.
-Every borowser has its own implementation of the HTML5, this is mainly due to the early implementation
-of draft specification\footnote{In fact HTML5 (at the time of writing) is not yet standardized, is still
-a draft. See \url{http://www.w3.org/TR/html5/}}.
+With the advent of \ac{HTML}5, like any new technology, many problems were
+resolved and many others have been created. The main issue with using \ac{HTML}5
+is the browser compatibility and browser-specific methods. When browser start
+implementing some \ac{HTML}5 draft feature, since is not fully standardized
+\footnote{In fact HTML5 (at the time of writing) is not yet standardized, its
+still a draft. See \url{http://www.w3.org/TR/html5/}}, they prevent the pollution
+the DOM by prefixing the standard method (i.e. \linebreak\code{requestAnimFrame}
+can became \code{mozRequestAnimFrame} or \code{webkitRequestAnimFrame})
+with a browser specific prefix\footnote{\code{o}: for
+Opera, \code{ms}: for Internet Explorer, \code{moz}: for Firefox, and
+\code{webkit}: for the WebKit based browser (Chrome and Safari)}. This prefixing
+is particularly common in the \ac{CSS}3 where thing becames awful\footnote{See
+CSS animation or gradients.}.\\
 
-To avoid browser inconsistency we could use \js{} frameworks. Frameworks like \citetitle{jquery} provide
-a layer of abstraction between browser-specific code and the user, giving developers \js{} fallbacks for the most
-common API and additional features not covered by the standard implementation. Other tools like \citetitle{modernizr}
-give developers the ability to test if some HTML5 features are supported or not and provide a general fallback system
-for dynamically loading polyfills\footnote{A polyfill is a \js{} library or third part plugin that emulates one or more HTML5
-features, providing websites to have the same \emph{look and feel} also on older browser.}.
 
-Now i will analyze in detail the main features of HTML5 to better understand their usefullness.
-% TODO davvero?
+To avoid browser inconsistency there are plenty of \js{} frameworks for every
+purpose. Frameworks like \citetitle{jquery} provide a layer of abstraction between
+browser-specific code and the user, giving developers \js{} fallbacks for the most
+common API and additional features not covered by the standard implementation.
+Other frameworks like \citetitle{modernizr} give developers the ability to test
+if some \ac{HTML}5 feature is available in the currently used browser and provide
+a general fallback system for dynamically load polyfills\footnote{A polyfill is
+a \js{} library or third part plugin that emulates one or more HTML5 feature,
+providing websites to have a consistent behaviour.}.\\
 
-% TODO Audio Tag???
+
+Now are presented the main \ac{HTML}5 features to better understand how they can
+be used in this System.
+
+
+
+
 
 \paragraph{Canvas}
-	Let's start with the official definition\footnote{Got from the specs:
-	\url{http://www.w3.org/TR/html5/the-canvas-element.html\#the-canvas-element}}
-	\begin{quoting}\rm\tt
-		The canvas element provides scripts with a resolution-dependent bitmap canvas, which can
-		be used for rendering graphs, game graphics, or other visual images on the fly.
-	\end{quoting}
+Let's start with the official definition\footnote{Got from the specs:
+\url{http://www.w3.org/TR/html5/the-canvas-element.html\#the-canvas-element}}
+\begin{quoting}\rm\tt
+	The canvas element provides scripts with a resolution-dependent bitmap canvas, which can
+	be used for rendering graphs, game graphics, or other visual images on the fly.
+\end{quoting}
 
-	So basically is a \emph{Canvas}, like the name says, but give the developer the access to the raw pixel
-	data of the canvas contents. Also in the canvas element you can draw the image taken from an \ctag{img}
-	tag or a frame from a \ctag{video} tag. As you can se now we have the capability to manage image data
-	directly and perform client-side task like image analisys or video manipulation.
-	Obviously there are plenty of \js{} libraries that give you methods to perform image filtering or
-	generally image manipulation (like \href{http://www.pixastic.com/}{Pixastic} or \href{http://camanjs.com/}{Camanjs}),
-	other libraries give you the possibility to create images on the fly (like \href{http://raphaeljs.com/}{Raphaël}
-	or \href{http://processingjs.org/}{Processingjs}).
+So the \code{canvas} element is basically a \emph{Canvas}, like the name says, where
+one can \emph{paint} anithing. On top of this, the \code{canvas} element give
+the developers access to the underlying raw pixel data. Also in the \code{canvas}
+element you can \emph{draw} images taken from a \ctag{img} tag or a frame taken
+from a \ctag{video} tag.
 
-	% TODO trovare dove metterlo e come collegarlo
-	The canvas element also provide a 3D context to draw and animate\footnote{Animation is not natively supported, you
-	must code it yourself.} high definition graphics and models using the WebGL API. This API is mantained by
-	the \href{http://www.khronos.org/}{Khronos Group} and is based on OpenGL ES 2.0 specifications. On top of these
-	API there are a lot of libraries\footnote{For a reference see \url{http://en.wikipedia.org/wiki/WebGL\#Developer_libraries}}
-	created for easy development, the most used is the \href{http://mrdoob.github.com/three.js/}{Three}
-	\js{} library, that ca be used for creating and animating 2D or 3D scenes in the canvas element.
+As one can se now we have all the tools we need to perform image analisys or
+video manipulation within the browser. Obviously there are plenty of \js{}
+libraries that facilitate the whole process of filtering or, in general, image
+manipulation (like \href{http://www.pixastic.com/}{Pixastic} or
+\href{http://camanjs.com/}{Camanjs}), other libraries give you the tools to
+create diagrams or charts on the fly (like \href{http://raphaeljs.com/}{Raphaël}
+or \href{http://processingjs.org/}{Processingjs}).
+
+% TODO trovare dove metterlo e come collegarlo
+The canvas element also provides a 3D context to draw and animate
+\footnote{Animations are not natively supported, must be coded separately.}
+high definition graphics and models using the WebGL API. This API is mantained
+by the \href{http://www.khronos.org/}{Khronos Group} and is based on OpenGL ES
+2.0 specifications. On top of these API there are a lot of libraries\footnote{For
+a reference see \url{http://en.wikipedia.org/wiki/WebGL\#Developer_libraries}}
+made to facilitate development of 3D applications, one of the the most used is
+the \href{http://mrdoob.github.com/three.js/}{Three} \js{} library, that ca be
+used for creating and animating 2D or 3D scenes within the canvas element.
+
+
+
+
+
+
+
 
 \paragraph{WebSocket}
-	% TODO Sembra buttato li da rivedere
-	The WebSocket is an API interface for enabling bi-directional full-duplex server communication on top of the \ac{TCP} protocol.
-	The WebSocket enables the clients to create a communication channel between the server and the client, allowing the server
-	to \b{push} data to the clients and obtain \emph{real} real-time content updates.
+The WebSocket is an API interface for enabling bi-directional full-duplex client
+server communication on top of the \ac{TCP} protocol. It enables real-time
+communication between clients and servers, allowing servers to \textbf{push} data
+to the clients and obtain \emph{real} real-time content updates.
 
-	Like other HTML5 features, WebSocket has a library, build on top of the API, that provides easy access to these functionality
-	as long as a couple of fallbacks. \citetitle{socket} provide a single entry-point to create a connection to the server and
-	manage the message exchange, it also provide a few fallbacks\footnote{ WebSocket, Adobe\reg
-	Flash\reg Socket,
-	AJAX long polling, AJAX multipart streaming, Forever Iframe,JSONP Polling} to ensure cross-browser compatibility.
+Like many other \ac{HTML}5 features on top of WebSocket was built a library that
+provides easy access to these functionality as long as fallbacks for old browsers.
+\citetitle{socket} provide a single entry-point to create a connection to the
+server and manage the message exchange, providing fallbacks\footnote{If WebSocket,
+are not avilable the library can use Adobe\reg Flash\reg Socket, AJAX long
+polling, AJAX multipart streaming, Forever Iframe and JSONP Polling} to ensure
+cross-browser compatibility.
 
-	% Esempio di funzionamento?
+
+
+
 
 \paragraph{WebWorkers}
-	A problem you have to face when you are building computationally heavy \js{} code is its single thread nature.
-	Every script runs in the same thread, this can lead to some unwanted behaviour like browser freezing or the newly
-	introduced warning dialog "\emph{A script is slowing the browser}". The browser shows the dialog to prevent freezing of crashing of the
-	whole bowser application, but this dialog prevent the script to fullfill their task. So how can we execute long running
-	\js{} computation if the browser stop the code?
+A problem of coding load intensive \js{} application is the single thread nature
+of the language. Every script runs in the same thread of the browser window/tab,
+this can lead to some unwanted behaviour (like browser freezing or a warning
+dialog that that alerts the user).
 
-	\cite{jenkin2008parasitic} proposed a timed-based programming structure that ensure the code to be run without any browser warning
-	and also offer the developer to tweak the performance of the script by dynamiccaly adjusting the interval between the step execution.
-	This method leaverage on the \code{setTimeout} function of javascript in order to split code into timestep-driven code chuncks to execute.
-	Here is an example of loop translated into a time-based loop:
-	\begin{multicols}{2}
-		\begin{algorithm}[H]
-			\While{condition}{
-				...do something...
+\begin{figure}[htb]
+    \centering
+    \includegraphics[width=0.75\columnwidth]{browser-slow-dialog}
+    \caption{The slow script dialog.}
+    \label{fig:browser-slow-dialog}
+\end{figure}
+
+To solve this problem \cite{jenkin2008parasitic} proposed a timed-based
+programming structure that ensures that the code runs without any browser warning
+or freezing and also offer the developer to tweak the performance of the script
+by dynamically adjusting the interval between the step execution. This method
+leaverage on the \code{setTimeout} function of \js{} in order to split code into
+timestep-driven code chuncks to execute. Here is an example of loop translated
+into a timer-based loop:
+\begin{multicols}{2}
+	\begin{algorithm}[H]
+		\While{condition}{
+			...do something...
+		}
+	\end{algorithm}
+
+	\vfill
+	\columnbreak
+
+	\begin{algorithm}[H]
+		\SetKwBlock{procedure}{procedure}{}
+		\SetKwFunction{setTimeout}{setTimeout}
+
+		\procedure(STEP){
+			...do something...\\
+			\If{condition}{
+				\setTimeout{STEP, delay}
 			}
-		\end{algorithm}
+		}
+	\end{algorithm}
+\end{multicols}
+Obviously this is not the solution to the problem, its a hack that trick the
+browser.\\
 
-		\vfill
-		\columnbreak
 
-		\begin{algorithm}[H]
-			\SetKwBlock{procedure}{procedure}{}
-			\SetKwFunction{setTimeout}{setTimeout}
+WebWorkers offer a simpler solution, they provide a simple, yet powerful, way of
+creating \emph{threads} in \js{}. The official definition says:
+\begin{quoting}\rm\tt
+	The WebWorkers specification defines an API for running scripts in the
+	background independently of any user interface scripts.	This allows for
+	long-running scripts that are not interrupted by scripts that respond to
+	clicks or other user interactions, and allows long tasks to be executed
+	without yielding to keep the page responsive.
+\end{quoting}
 
-			\procedure(STEP){
-				...do something...\\
-				\If{condition}{
-					\setTimeout{STEP, delay}
-				}
-			}
-		\end{algorithm}
-	\end{multicols}
+The core concept behind WebWorkers is the \code{Worker}. A \code{Worker} is a
+piece of \js{} code that runs in parallel to the main thread and is able to send
+and recieve messages (just like normal threads).
 
-	Obviously this is not a solution it is a way to hack the browser \js{} performance monitor and avoid the warning dialog.
-	WebWorkers provide a standard way to create \emph{Workers} that execute in background, also performing heavy computation without harming
-	the browser flow. Let's provide an official definition:
-	\begin{quoting}\rm\tt
-		The WebWorkers specification defines an API for running scripts in the background independently of any user interface scripts.
-		This allows for long-running scripts that are not interrupted by scripts that respond to clicks or other user interactions,
-		and allows long tasks to be executed without yielding to keep the page responsive.
-	\end{quoting}
 
-	So basically fills the gap of parallel code execution in \js{}.
+
+\paragraph{Storage}
+When web developers think of storing anything about the user, they immediately
+think of uploading to the server. \ac{HTML}5 changes that, as there are now
+several technologies allowing the app to save data on the client device.
+
+\ac{HTML}5 support a number of storage techniques able to store data within the
+browser to be accessed later, here is a simple list withe the principal features:
+\begin{description}
+	\item[Web storage] is a convenient form for offline storage, it uses a simple
+	key-value pairs like any \js{} \code{Object} stored in the browser accessible
+	every time the site need to use them.
+
+	\item[Web SQL database] is an offline SQL database, usually implemented using
+	SQLite, a general-purpose open-source SQL engine.
+
+	\item[IndexedDB] is a nice compromise between Web Storage and Web SQL Database.
+	Like the former, it's relatively simple; and like the latter, it's capable
+	of being very fast. It uses the same mapping as \emph{Web storage} and index
+	certain fields inside the stored data.
+
+	\item[Filesystem API] as the name says offer the ability to manipulate the
+	file system of the host.
+\end{description}
+
+
+\paragraph{Offline storage}
+In this category falls \code{application cache}. The \code{application cache} is
+controlled by a plain text file called a \code{manifest}, which contains a list
+of resources to be stored for use when there is no network connectivity. The list
+can also define the conditions for caching, such as which pages should never be
+cached and even what to show the user when he follows a link to an uncached page.
+
+If the user goes offline but has visited the site while online, the cached
+resources will be loaded so the user can still view the site in a limited form.
+Here is a simple cahce file:
+\begin{lstlisting}[language=make]
+CACHE MANIFEST
+      
+# This is a comment
+
+CACHE:
+/css/screen.css
+/css/offline.css
+/js/screen.js
+/img/logo.png
+
+http://example.com/css/styles.css
+
+FALLBACK:
+/ /offline.html
+
+NETWORK:
+*
+\end{lstlisting}
