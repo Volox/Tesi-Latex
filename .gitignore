@@ -24,6 +24,8 @@ Tesi-blx.bib
 *.bbl
 *.fdb_latexmk
 *.aux
+*.fls
+*.bcf
 
 
 # Sublime files #
