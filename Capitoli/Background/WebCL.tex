@@ -9,7 +9,6 @@ This intersection is known as \textbf{heterogeneus computing}. There are
 initiatives aimed at enabling numeric calculation, even complex, on the web client.
 \ac{OpenCL} is a framework for heterogeneus computing and \ac{WebCL} is a porting
 of this technlogy to the web.\\
-% Spiego meglio perchè è nato?
 
 \begin{figure}[htb]
     \centering
@@ -17,13 +16,37 @@ of this technlogy to the web.\\
     \caption{OpenCL execution flow.}
     \label{fig:opencl}
 \end{figure}
-\ac{OpenCL} uses a language based on C99\footnote{A programming language dialect
-for the past C developed in 1999 (formal name ISO/IEC 9899:1999)} for writing
-\emph{kernels}, functions that actually execute on OpenCL devices. Here is the
-list of action performed to run code on \ac{OpenCL} enabled computers:
+\ac{OpenCL} execution is based on \emph{kernels}, special functions written in
+a language based on C99\footnote{A programming language dialect for the past C
+developed in 1999 (formal name ISO/IEC 9899:1999)} with some extensions. These
+\emph{kernels} can be compiled at build-time or at run-time and also have a rich
+setof built-in function, e.g. \code{cross}, \code{dot}, \code{sin}, \code{cos},
+\code{pow}, \code{log}, etc.
+
+\begin{figure}[htb]
+    \centering
+    \includegraphics[width=\columnwidth]{opencl-device}
+    \caption{OpenCL device composition.}
+    \label{fig:opencl-device}
+\end{figure}
+An \ac{OpenCL} device (like CPU or GPU) is composed by (see
+\autoref{fig:opencl-device}):
+\begin{itemize}
+    \item A collection of one or more \textbf{compute units}, this concept is
+    similar to the \emph{cores} of a standard CPU.
+
+    \item A \emph{compute unit} is composed by one or more \textbf{processing
+    elements}, this concept is similar to the \emph{threads}.
+
+    \item Processing elements execute code as \ac{SIMD} or \ac{SPMD}.
+\end{itemize}
+
+Once the \emph{kernels} have been created the flow for executing an \ac{OpenCL}
+program can start. Here is the list of action performed to run code on
+\ac{OpenCL} enabled computer:
 \begin{enumerate}
-    \item Query host for OpenCL devices.
-    \item Create a context to associate OpenCL devices.
+    \item Query host for \ac{OpenCL} devices.
+    \item Create a context to associate \ac{OpenCL} devices.
     \item Create programs for execution on one or more associated devices.
     \item From the programs, select kernels to execute.
     \item Create memory objects accessible from the host and/or the device.
@@ -32,16 +55,22 @@ list of action performed to run code on \ac{OpenCL} enabled computers:
     \item Copy results from the device to the host
 \end{enumerate}
 
-
-% TODO rifati? togli?
-The main focus when building high-end web-application like 3D games is
-responsiveness. Altough \js{} can be optimized and parallelized (see
-\ref{sec:bg:web:html5}) it cannot be fast as an application software, because
-\js{} must be interpreted by the browser and then executed as machine code.
-\ac{WebCL} provide an easy framework for building and running machine code in
-parallel directly from the browser.
-
-% Implementazioni
-%% common API 
-% prestazioni, esempi
-% integrazione con webGL
+Currently there are two main implementation of this API, one supporting Windows
+and Linux using Firefox (holded by Nokia), and one, holded by Samsung, that
+bring this interface to WebKit browsers. Speaking of performance improvements
+\autoref{tab:webcl-speedup} shows the data from the TIZEN\tm{} developer
+conference held in May 2012:
+\begin{table}[h!tb]
+    \caption{Samsung WebCL performance compared to pure \js{}.}
+    \label{tab:webcl-speedup}
+    \centering
+    \begin{tabular}{r|c|c|c}
+        \textbf{Demo name} & \textbf{\js{}} & \textbf{WebCL} & \textbf{Speed-up}\\
+        \hline
+        Sobel filter (with 256x256 image) & $\sim{}$200ms & $\sim{}$15ms & 13x\\
+        \hline
+        N-body simulation (1024 particles) & 5-6fps & 75-115fps & 12-23x\\
+        \hline
+        Deformation (2880 vertices) & $\sim{}$1fps & 87-116fps & 87-116x
+    \end{tabular}
+\end{table}

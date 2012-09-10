@@ -14,21 +14,131 @@ accomplish this task are used an automatic face recognition algorithm\footnote{
 Available at \url{https://github.com/liuliu/ccv/tree/unstable/js} with a demo
 application here: \url{http://liuliu.me/ccv/js/nss/}} plus a human interacition
 that has the double purpose of validating the algotithm result and detect the
-missing faces in the image.\\
+missing faces in the image.
 
 This scenario is implemented in 2 steps, in the first step we run the algorithm
-for detecting the faces (this is the \emph{automatic} scenario), in the second
-step we present a subset of detected faces to the user asking to find the
-missing faces. We need to remove some result from the set in order to check the
-trustworthiness of the user.\\
+for detecting the faces (this is the \emph{automatic} scenario), the second step
+is implemented as a \ac{GWAP}.\\
+
+The game, under the name \textbf{ThemAmongUs} has been inspired by the 1988
+film "\emph{They Live}" directed by John Carpenter. \emph{ThemAmongUs} is a
+single player arcade shooter in which the player assumes a role of an agent that
+fights against an alien race disguised as human beings. Equipped with a special
+camera able to distinguish between human beings and non humans, the agent is
+asked to shoot at the head of the beings that have not been identified by the
+camera software. The camera may fail in some occasion, so the agent has to use
+his judgment to fire only at the right targets.
+
+\subsection{Task implementation}
+Objective of the game is being able to identify the visage of the subject
+portrayed in a photo. Automatic algorithms for face detection may fail in this
+task, by recognizing objects that are not the required ones (e.g. knees) or not
+recognizing at all the face of a person. For this reason the game will be able
+to perform two different tasks: identify faces that have not been recognized and
+remove elements that have been marked improperly.
+
+The game present the image with the bounding boxes of the faces that has been
+identified by the first step to the player. The faces that have not been
+recognized are the ones that the player needs to mark during the game by
+clicking over them with the left mouse button and the area interested by the
+click will be circumscribed in order to obtain the bounding box for the identified
+face. 
+
+Possible wrong bounding boxes will be removed by the player with the right mouse
+button, in order to remove the false positives that may be identified by automatic
+algorithms. Bounding boxes with high level confidence are kept into the image,
+while bounding boxes with low level confidence values will be removed: it will
+be a player duty to mark those faces by playing the game.
 
 At the end of the execution we obtain a set of automatically detected faces plus
 all the faces detected by the user. By intersecting this two set we could improve
 the performance of our algorithm by adding the faces it was unable to find to
 the training set.
 
-\subsubsection{Benchmark/Metric}
+\subsection{Introducing Score Degradation}
+The new game mechanic that is presented to manage the task is called
+Score-Degradation. This technique may be used in scenarios in which there are not
+the possibility to compare the results provided by the players with techniques
+such as the one provided in output-aggregation or inversion-problems games,
+because the game that is being taken into consideration is a not a multiplayer
+game but a single player one.
+
+Goal of the technique is to force the user to always provide the right answer
+with game mechanics that involve low reaction times , high penalties for mistakes
+(such as early game termination) and incentives to achieve the best results
+compared to all the other players.
+
+Players are first evaluated based on well known trial examples tasks to understand
+their reliability level. Failing the required task in these training examples
+usually ends the gaming experience for the player, forcing him to start the game
+from the beginning.
+
+Once a sufficient level of trust for the player has been reached, the player is
+then provided with a sequence of mixed tasks, some of them with an already well
+established knowledge of the expected results, some of them with completely
+unknown expected results. While the results of the first kind of tasks will
+still be checked against the right results, for the second kind of tasks the
+results provided by the players will always be considered good results.
+
+The players will not be able to distinguish which of the instances of the tasks
+are being checked against their provided results and which results are simply
+considered “true as provided” without any further checks. This behaviour is also
+enforced by the fact that the player is not able to understand the moment in which
+the “trial phase” will end and the fast reaction times force him to not even have
+the time to think about providing misleading results, with the risk of having to
+start the game from the beginning again.
+
+In this way the player are always forced to try to give the best possible solution
+for a specific task. The collected results can be further improved by using
+traditional aggregation techniques such as majority voting or similar, depending
+on the task that has to be solved.
+
+\begin{figure}[htb]
+    \centering
+    \includegraphics[width=0.75\columnwidth]{Hybrid1}
+    \caption{Hybrid implementation gameplay.}
+    \label{fig:Hybrid2}
+\end{figure}
+
+\subsection{Gameplay}
+Goal of the game is to obtain the highest possible score given a limited amount
+of time (1 minute). The player is provided with a series of images that present
+bounding boxes of the face of human beings automatically identified by the special
+camera of the agent. Each provided image will constitute a round of the game. If
+in the image some face has not been surrounded by a bounding box, it means that
+the portrayed subject is an alien and must be shot at by pressing the left click
+button.
+
+The player has a limited amount of time, typically 5 seconds, to shoot at all the
+faces that have not been recognized, in order to obtain a certain amount of points.
+During a round the player may also find improper bounding boxes, such as knees or
+other part of the body that have been recognized as a face.
+
+The player may right click on these boxes to remove them and obtain additional
+points. When the player has shoot to all the unboxed faces, he may shoot at a
+button on the right lower corner of the screen to play the next round of the game.
+The game will end if the player will shoot at a recognized face by mistake.
+
+At the end of each round (after the 5 seconds have passed or when the player has
+pressed the end button), the system checks if the player has missed any face. If
+it is the case and the image was a trial one or one for which the results were
+known, the player will lose the game with a score equal to the number of points
+he achieved so far. Otherwise the score for the current round are calculated in
+the following way:
+\begin{equation}
+\begin{split}
+    Score &= (RoundNumber*10)*(NumberOfAliensKilled)\\
+          &+(100*(FalseBBRemoved))
+\end{split}
+\end{equation}
+
+At the end of the global gaming time, a player who has not made any mistake will
+receive 1000 additional points. The points are used to provide an incentive to
+improve and beat other players by improving the score on further matches.
+
+
+\subsection{Benchmark/Metric}
 With this hybrid approach we are able to stress all the matrix in with a single
 example. The most similar approach to this solution is \ac{GWAP}.
 
-TODO ???
+%TODO ???

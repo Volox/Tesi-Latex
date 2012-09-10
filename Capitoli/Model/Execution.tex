@@ -29,7 +29,7 @@ the different execution scenarios that the system is able to handle.
 
 
 
-\subsection{Static execution}
+\paragraph{Static execution}
 \label{subs:static-static}
 This scenario of execution represent the simplest use-case possible, where the
 \emph{Task planning} is executed only once at creation time and the \utask{} are
@@ -45,7 +45,8 @@ list of the operation that the \emph{Task control} strategy must perform:
 
 
 
-\subsection{Static \utask{} planning \& Dynamic assignment}
+
+\paragraph{Static \utask{} planning \& Dynamic assignment}
 \label{subs:static-dynamic}
 In this scenario the \utask{} are planned once at creation time, but the
 assignment is performed dynamically. In this scenario the \emph{Task control}
@@ -67,7 +68,7 @@ this scenario the \emph{Task control} strategy:
 
 
 
-\subsection{Dynamic \utask{} planning \& Static assignment}
+\paragraph{Dynamic \utask{} planning \& Static assignment}
 \label{subs:dynamic-static}
 In this scenario the \emph{Performer} assignment are performed at creation time
 and the \utask{} planning is performed during the flow of the execution.
@@ -88,7 +89,8 @@ Summing up, the Task Control Strategy:
 
 
 
-\subsection{Dynamic \utask{} planning \& Dynamic assignment}
+
+\paragraph{Dynamic \utask{} planning \& Dynamic assignment}
 \label{subs:dynamic-dynamic}
 In this scenario all the assignments are performed dynamically. Here the \utask{}
 can be associated either at creation time or during the flow of the execution.
@@ -105,3 +107,63 @@ Summing up, the Task Control Strategy:
 	\item \textbf{Invoke} the \emph{Task planning} strategy to \emph{re-plan}
 	\utask{} or \textbf{Create} new \utask{}
 \end{itemize}
+
+
+Now the built-in implementation of task creation, planning and execution are
+described to better understand how the whole system works. The description is
+focused on the built-in implementation, because it is the default behaviour of
+the system. By pluggin-in custom strategies one can completely change how the
+system behaves, thus this case will not be covered here. For examples on how the
+pluggable strategies works see \ref{sec:model:strategies}.
+
+\subsection{Task creation}
+The task creation if performed by the \emph{Configurator} either by using its
+web-interface or via API calls. The creation of a Work/Task can be done by
+providing a JSON file, containing all the data definition as long as the data
+instances, or "manually" following a step by step procedure within the
+\emph{Configurator}. As shown in \autoref{fig:task-creation} the manual Task
+creation involves the definition of a \textbf{Schema} for the data. The schema
+is composed of \textbf{Field}s, for each filed the \emph{Requester} must specify
+a type. The data instances can be added to the \emph{Schema} either during the
+definition of the \emph{Fields} or at the end of the \emph{Schema} definition.
+
+\begin{figure}[htb]
+    \centering
+    \includegraphics[width=0.65\columnwidth]{task-creation}
+    \caption{Work/Task creation flow.}
+    \label{fig:task-creation}
+\end{figure}
+
+
+
+\subsection{Task planning}
+\begin{figure}[htb]
+    \centering
+    \includegraphics[width=\columnwidth]{planning}
+    \caption{Manual Task planning vs Automatic Task planning.}
+    \label{fig:auto-manual-planning}
+\end{figure}
+The planning of a Task involves the creation of subtasks with associated data
+that need to be executed. The assignment can be performed automatically or
+manually. The automatic plan assignment uses a simple subdivision based on the
+number of instances to assign to each subTask.
+
+As depicted in \autoref{fig:task-planning} manual planning involves the
+\emph{Requester} interaction in orer to create \textbf{subTasks}. After creating
+the subTask the \emph{Requester} has to select the instances belonging to this
+subTask. Eventually the \emph{Requester} is able to select and, if needed,
+configure the type of the subTask, based on the task types of the parent Task.
+\begin{figure}[htb]
+    \centering
+    \includegraphics[width=0.65\columnwidth]{task-planning}
+    \caption{Task planning flow.}
+    \label{fig:task-planning}
+\end{figure}
+
+
+
+\subsection{Task execution}
+
+
+
+

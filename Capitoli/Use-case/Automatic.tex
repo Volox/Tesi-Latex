@@ -25,38 +25,57 @@ managing of the I/O data for a WebCL \emph{kernel}.
 \paragraph{The MultiMedia library} is used to perform the operation required by
 the algorithm (such as \code{blur}, \code{scale}, \code{RGB to gray} etc.) either
 using \ac{WebCL} or the built-in HTML5 functions.
-
 \begin{figure}[htb]
     \centering
     \includegraphics[width=\columnwidth]{Automatic2}
     \caption{Intermediate results of the algorithm.}
     \label{fig:Automatic2}
 \end{figure}
-\paragraph{The algorithm} is composed of 4 sequential steps:
-\begin{description}
-    \item[Scale-space extrema detection:] in this step we generate the so called
-    scale space representation of the image. In order to do this we need to
-    convolve the image at different scales with a varing guassian kernel and
-    then the difference of successive blurred images are taken. This step
-    produce the \ac{DoG} images, the first \emph{Keypoints} are identified as
-    local minima/maxima of the \ac{DoG} image across scales.
-    
-    \item[Keypoint localization:] in this step the \emph{keypoints} are filtered
-    to remove unstable points and keep only the good ones. This step can be
-    further subdivided into 3 stages
-        \begin{itemize}
-            \item \emph{Interpolation} of nearby data for accurate position.
-            \item \emph{Discarding} low-contrast keypoints.
-            \item \emph{Eliminating} edge responses.
-        \end{itemize}
-    
-    \item[Orientation assignment:] in this step foe each keypoint is assigned an
-    orientation and a magnitude. This step is used to achieve \emph{invariance
-    rotation}.
-    
-    \item[Keypoint descriptor:] this step generate the descriptors for the
-    remaining keypoints.
-\end{description}
+
+\subsection{SIFT alogorithm}
+The \ac{SIFT} algorithm is composed of 4 sequential steps: Scale-space extrema
+detection, Keypoint localization, Orientation assignment and Keypoint descriptor.
+
+\subsubsection{Scale-space extrema detection}
+in this step we generate the so called
+scale space representation of the image. In order to do this we need to
+convolve the image $I(x,y)$ at different scales $k\sigma$ with a varing
+guassian kernel $G(x,y,k\sigma)$ obtainig:
+\[
+    L(x,y,k\sigma) = G(x,y,k\sigma) \ast I(x,y)
+\]
+Then the difference of successive blurred images are taken
+\[
+    D(x,y,\sigma) = L(x,y,k_i\sigma) - L(x,y,k_j\sigma)
+\]
+This step produce the \ac{DoG} images, the first \emph{Keypoints} are identified
+as local minima/maxima of the \ac{DoG} image across scales.
+
+
+
+\subsubsection{Keypoint localization}
+In this step the \emph{keypoints} are filtered
+to remove unstable points and keep only the good ones. This step can be
+further subdivided into 3 stages
+\begin{itemize}
+    \item \emph{Interpolation} of nearby data for accurate position.
+    \item \emph{Discarding} low-contrast keypoints.
+    \item \emph{Eliminating} edge responses.
+\end{itemize}
+
+
+
+\subsubsection{Orientation assignment}
+In this step for each keypoint is assigned an
+orientation and a magnitude. This step is used to achieve \emph{invariance
+rotation}. The mangnitude $m(x,y)$ and orientation $\theta(x,y)$ are
+calculated as follows:
+\begin{equation*}
+\begin{split}
+    m(x,y)&=\sqrt{\left(L(x+1,y)-L(x-1,y)\right)^2+\left(L(x,y+1)-L(x,y-1)\right)^2}\\
+    \theta(x,y)&=\tan^{-1}{\left(\frac{L(x,y+1)-L(x,y-1)}{L(x+1,y)-L(x-1,y)}\right)}
+\end{split}
+\end{equation*}
 
 \begin{figure}[htb]
     \centering
@@ -65,15 +84,18 @@ using \ac{WebCL} or the built-in HTML5 functions.
     \label{fig:Automatic3}
 \end{figure}
 
+\subsubsection{Keypoint descriptor}
+In this step the descriptors are generated from the remaining keypoints.
 
-\subsubsection{Benchmark/Metric}
+
+\subsection{Benchmark/Metric}
 Since the purpose of this use-case is the feasability of high load computation
 on the user browser, the implementation of the algorithm has not been optimized.
 The preformance of this implementation are not comparable to the existing
 implementation in C/C++, but we can leverage on the parallelism of the whole
 system to obtain usable results.
 
-Nevertheless in our test cases we obtained the following results:
+Nevertheless in our test cases we obtained the results in \autoref{tab:auto-data}.
 \begin{table}[htb]
     \caption{\acs{SIFT} performace.}
     \label{tab:auto-data}
@@ -92,4 +114,3 @@ Nevertheless in our test cases we obtained the following results:
         \hline
     \end{tabular}
 \end{table}
-%non è possibile una vera comparazione data la velocità
