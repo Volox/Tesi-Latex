@@ -1,65 +1,58 @@
 %Crowd-based computation distribution
 
-% cos'è
-%% distribuzione della computazione alla massa in generale
-%% comprende sia BOIC che Mturk serve per ottimizzare
-%% usano infrastrutture per distribuire e recuperare i dati
-% sfaccettature/specializzazioni dello stesso concetto
-%% Human computation
-%% GWAP
-%% grid computing
 
-
-
-
-Distributing computation (task computation) in the crowd means splitting
-the task execution into atomic subtask that can be executed by a host (human or
-not).
-
-%is a client server paragidm where the server is in charge of splitting the worlload
-%and distribute the atomic operations created to the clients.
+Under the name of \emph{Crowd-based computation distribution} can fall a lot of
+different computational model. As shown in
+\autoref{fig:crowd-distributed-computing}, distributing computation to the crowd
+embodies not only the \ac{HC} field but also the concept of \emph{distributed
+computing}, because the crowd can be composed by humans or computers. When dealing
+with an \emph{automated crowd} we are speaking of \textbf{distributed computing},
+otherwise we are dealing with a \emph{human crowd}.
 \begin{figure}[htb]
     \centering
-    \includegraphics[width=\columnwidth]{DistributedComputing}
-    \caption{General structure of a distributed computing system.}
-    \label{fig:distributed-computing}
+    \includegraphics[width=\columnwidth]{crowd-distributed-computing}
+    \caption{General structure of a crowd based distributed computing system.}
+    \label{fig:crowd-distributed-computing}
 \end{figure}
-Generally speaking \emph{computation distribution} is composed by few steps that
-can be spotted in all its specialization (i.e. grid computing, cloud computing,
-\hyperref[sec:bg:crowd:auto:parasitic]{parasitic computing}, etc.), here is the list:
+% TODO image with the task distributed to human and computers
+
+Generally speaking \emph{computation distribution} is a paradigm for splitting
+a task into atomic subtasks that can be performed on multiple nodes, eventually
+the nodes send the result of the \emph{computation} back to the central hub.
+Using a client-server architecture the list of operation required to have
+\emph{computation distribution} is:
 \begin{enumerate}
-    \item the server has to \textbf{split} the workload into smaller parallelizable
-    operations
-    \item the server \textbf{send the code}, among with the needed data, to the clients
-    \item the client \textbf{run} the code
-    \item the client \textbf{send the results} to the server
+    \item the server \textbf{splits} the workload into atomic operations
+    \item the server \textbf{send the task}, among with the needed data, to the
+    clients
+    \item the client \textbf{performs} the atomic task
+    \item the client \textbf{send the results} back to the server
     \item the server \textbf{gather} the results from all the clients
     \item the server \textbf{join} the results
 \end{enumerate}
-The previous operations are the cornerstone of every distributed computing system,
-altough they can be done in different ways of can be merged. For instance the
-client can request the code to the server, the join process of the results can
-be performed by the clients with subsequent distributed computing task, and so on.\\
+The previous operations are the cornerstone of every \emph{computation
+distribution} system, although they can be "implemented" in different ways or can
+be joined together, they are always present.\\
 
-Under the general name of \emph{distributed computing} we can refer to a wide
-range of distributed application and/or architecture supporting it.
-\nameref{sec:bg:crowd:human} are good examples of a specialization of the core
-concept of \emph{distributed computing}, here we have that the computation is
-performed by human being used as nodes for high level computation. Other
-specialization are \emph{Grid computing}, where the nodes form a super virtual
-computer, or \emph{Jungle computing}\footnote{Winner of the coolest name 2012},
-where using diverse, distributed and highly non-uniform high performance computer
-systems to achieve peak performance.\\
+Consistently with the \autoref{tab:matrix} and with the previous subdivision we
+splitted the general problem of crowd-based computation distribution into two
+fields: \emph{\acl{HC} \& \acl{GWAP}} and \emph{distributed computing}
 
+In \ref{sec:bg:crowd:human} are presented the theoretical basis as long as
+the state of the art tools that deals with \ac{HC} and the distribution of task
+to a human crowd.
 
-% nostra divisione in human e automatic
-Following the subdivision presented in \autoref{tab:matrix} we separate the
-concept of crowd-based computation distribution in two parts, \emph{Human
-computation \& \ac{GWAP}} and \emph{Automatic computation}.
+In \ref{sec:bg:crowd:auto} the concept of \emph{distributed computing} will
+be presented and the main tools that implements this paradigm are described.
+
 
 \subsection{Human computation \& \acs{GWAP}}
 \label{sec:bg:crowd:human}
 \input{Capitoli/Background/HumanComputation}
+
+\subsection{CrowdSearcher}
+\label{sec:bg:crowd:cs}
+\input{Capitoli/Background/CrowdSearcher}
 
 \subsection{Automatic computation}
 \label{sec:bg:crowd:auto}
