@@ -2,33 +2,9 @@
 \begin{figure}[htb]
     \centering
     \includegraphics[width=\columnwidth]{DataModel}
-    \caption{Data Model.}
+    \caption{Overall Data Model schema, with logical subdivision.}
     \label{fig:data-model}
 \end{figure}
-In this section, we define the \emph{Data model} of the System. All the components
-used in the \emph{Architectural model} are based on this model and all it's.
-As can be seen in \autoref{fig:data-model} the \emph{Data model} is composed of
-5 parts that together compose a basic human/automatic computation platform.
-
-\begin{description}
-	\item[The WorkFlow] contains the all the information about a \emph{Work},
-    including how is composed, in terms of Task, and the relations that
-    intercour between two or more Task.
-
-    \item[The Task Data Model] contains the actual data structure for each Task
-    or Work.
-
-    \item[The Task Model] contains all the data assocated to a Task or Work.
-
-    \item[The Task Execution] focus on the actual execution step for each Task,
-    providing information on wich implementation to use according to a specific
-    Performer.
-
-    \item[Statistics] provide all the statistics associated to the Work
-    lifeclycle, from the creation to the execution.
-\end{description}
-
-
 \begin{figure}[htb]
     \centering
     \includegraphics[width=0.75\columnwidth]{ConceptualModel}
@@ -48,83 +24,66 @@ As can be seen in \autoref{fig:data-model} the \emph{Data model} is composed of
 
 \subsection{WorkFlow}
 The WorkFlow embodies all the data associated to the \emph{flow} of Task
-that need to be executed in order to complete a \textbf{Work}. As an example
-consider image tagging with tag validation as a \emph{Work}, to complete this
-we need to perform a few steps:
-\begin{enumerate}
-    \item Let the user tag an image
-    \item Gather the result tags associated to an image
-    \item Let some different validate the tags for the image
-    \item Gather the validation result
-    \item Output the validated tag
-\end{enumerate}
-As one can notice this \emph{Work} is subdivided in two main steps, the first
-when we gather a seet of tag from the users, the second  when these tags are
-validated. These tow steps are human computation Task that are part of the
-\emph{Work} of image tagging and validation.
+that need to be executed in order to complete a set of Tasks. The tasks can belong
+to different archetypes (e.g. Human, Automatic) and have their own set of objects.
+The \emph{Workflow} is composed of:
+\begin{description}
+    \item[The Work:] is the abstract representation of a set of Tasks related
+    to each other.
+    \item[The Flow:] describes how the Tasks, belonging to a Work, are related
+    to each other, also defining the type (e.g. dependency, parallel) of relation
+    between such Tasks. 
+    \item[The Task:] is the representation of a general activity that can be
+    performed by the framework.
+\end{description}
 
-\subsubsection{The Work}
-The Work represent the main goal of the \emph{Requester} and it's defined by:
+\subsubsection{The Work}\label{data:work}
+The \emph{Work} represents a set of related Task finalized to the execution of
+some kind of data manipulation or analysis on a set of input Objects. The
+result of the execution produces output Objects described by a Schema. The Work
+is defined by:
 \begin{itemize}
     \item A \textbf{Name} that identifies the Work.
 
-    \item \textbf{Contraints} definied by the \emph{Requester} used to prioritize
-    the Work among the others (e.g. Due date, Perormer skills, Max execution time).
-    % TODO Spiega cosa cazzo vuol dire
+    \item \textbf{Constraints} used to bind some aspect of the Work or to make
+    decision for giving less or more priority to this work with respect to the
+    others. Example of constraints are: Due date, Performer skills, Max execution
+    time, etc.
 
-    \item \textbf{Input} data, defined by a \emph{Schema}. To keep the model as
-    general as possible no assumption are made on the \emph{Schema} type
-    (relational, graph, etc.).
+    \item \textbf{Input} data, defined by a \emph{Schema} and the associated
+    Objects. To keep the model as general as possible no assumption are made on
+    the \emph{Schema} type (relational, graph, etc.).
     \item \textbf{Output} data, defined as an extension of the input schema
     (sharing the same schema type).
 
-    \item A set of \textbf{Task}. Their orchestration is made at design time,
-    specifing a \emph{Flow}
+    \item A set of \textbf{Task} composing the Work. Their orchestration is made
+    at design time, by specifying a \emph{Flow}.
 \end{itemize}
 
-
-
-
-
-
-
-\subsubsection{The Flow}
-The Flow describes how the \emph{Task} are connected (organized) to fullfill the
-rewuirements of a \emph{Work}. In a Flow we can use control structures and
-\emph{Variables}. The control structures availabe are:
-\begin{description}
-     \item[Sequence:] represent the normal flow of an application where one
-     operation is executed after the previous is completed.
-     \item[Choice:] give the possibility to made choice according to one, or
-     more, \emph{Variables}.
-     \item[Loop:] Allow to execute some steps multiple times, according to a
-     predefined value or a \emph{Variable}.
-     \item[Parallel:] the steps of the flow are not executed in \emph{Sequence},
-     allowing the parallelization of some steps.
- \end{description} 
-The \emph{Variables} can be predefined or computed during the Flow execution to
-change the behaviour of the Flow itself. For instance a variable can decide
-wheter to execute a loop or not or even decide what control sequence to use in
-the next steps.
-
-
-
-
-
-
 \subsubsection{The Task}
-The Task is the kernel of the whole system, it represent an activity, tipically
-focusing on a purpose. A Task is characterized by:
+The Task is the central unit of computation, It represent a single activity
+focusing on a particular action. The activity must not be an atomic operation,
+like in an algorithm a single function call, but it should be focused on a
+single purpose. For example tagging an image can be considered as a single Task,
+otherwise tagging and validating an image should be divided in two separated
+tasks if possible. the flexibility of the framework allow the creation of any
+type of Task, the previous statement is only an advice to better separate
+different activities into different Task. As we mentioned our system can
+seamlessly handle complex Task involving multiple activities, such as whole
+\ac{GWAP} game into a single Task. A Task is characterized by:
 \begin{itemize}
     \item A \textbf{Name} that identifies the Task.
 
-    \item \textbf{Input} data, with a \emph{Schema}. Usually the \emph{Schema}
-    of a Task is a projection of the \emph{Schema} of a \emph{Work}.
-    \item \textbf{Output} data, with a \emph{Schema} that is an exetension of
-    the input \emph{Schema}.
+    \item \textbf{Input} data, defined by a \emph{Schema} and the associated
+    Objects. To keep the model as general as possible no assumption are made on
+    the \emph{Schema} type (relational, graph, etc.). Usually the Schema
+    is a projection of the Schema of a Work. Like the Schema the input Object
+    usually are a selection of the Work input Objects.
+    \item \textbf{Output} data, defined as an extension of the input schema
+    (sharing the same schema type).
 
     \item A Task \textbf{type}\footnote{An assumption is made to make the list fit
-    all the possible abstract task our System is able to handle.}
+    all the possible abstract task our framework is able to handle.}
     defining, at abstract level, what kind of data manipulation will be performed
     by a Task. These categorization are taken from \cite{paperboz}, here are a
     few:
@@ -155,37 +114,35 @@ focusing on a purpose. A Task is characterized by:
             \item \emph{Planning-Assignment}: a set of \emph{Performers} has
             been selected to execute the \utask{}.
             
-            \item \emph{Wait}: Task planned, \utask{} ready for executiuon.
+            \item \emph{Wait}: Task planned, \utask{} ready for execution.
             
             \item \emph{Running}: \utask{} are running.
             
             \item \emph{Ended}: all the \utask{} have completed their execution.
         \end{itemize}
     
-    \item A set of \textbf{Subscriber}s able to recieve updates on the Task
-    execution.
+    \item A set of \textbf{Subscriber}s able to receive updates on the Task
+    execution. The Subscribers are declared during the Task creation step and the
+    updates that they will receive are about change on the Status of the Task.
 
-    \item A set of \textbf{Execution constraints} used for priortizing the Task
-    among others or to modify the standard behaviour of the task to fullfill
-    these constraints. The availbale constraints are:
-        \begin{itemize}
-            \item Maximum execution time
-            \item Due date
-            \item TODO others
-        \end{itemize}
+    \item A set of \textbf{Execution constraints} used for prioritizing the Task
+    among others or to modify the standard behavior of the Task. The constraints
+    that can be used are the same defined for the Work in \ref{data:work}.
 
-    \item \textbf{Configuration data}, provided as \ac{JSON}. For instance the
-    classes we want to use in a calssification Task.
+    \item \textbf{Configuration data} are application specific data used to
+    configure the behavior of the Task once it is executing. For instance
+    we can store here the classes for a classify Task type.
 
-    \item \textbf{\utask{}}s TODO????.
-    % i.e. instances of the concrete Task assigned to one or more Performers, to be performed on one or more input objects.
+    \item \textbf{\utask{}}s are the instances of Task assigned to one or more
+    Performers on a Device, to be performed on one or more input Objects.
+    % TODO ???
 
     \item An \textbf{Aggregation} function, in charge of collecting the \utask{}
-    results and generating the Task output.
+    results and generate the Task output.
     
     \item \textbf{\utask{} planning} strategy, in charge of defining how many
     \utask{} create for a given Task and associate the right portion of input
-    data to such \utask{}. For example total disjunction, redundancy, partial
+    objects to each \utask{}. For example total disjunction, redundancy, partial
     overlap, etc.
     
     \item \textbf{Performer assignment} strategy able to assign \emph{Performers}
@@ -193,22 +150,46 @@ focusing on a purpose. A Task is characterized by:
 
     \item \textbf{\utask{} implementation} strategy in charge of routing the
     correct \utask{} implementation for each \utask{} execution. The routing
-    can be done according to the \emph{user-agent} (e.g. Browser) or to the 
-    \emph{user profile} or even \emph{fixed} for all.
+    can be \emph{fixed} for everyone, can be done according to the
+    \emph{user-agent} (e.g. Browser) or other conditions.
 
-    \item A \textbf{Task planning} wich embodies the funcitonalities of
+    \item A \textbf{Task planning} which embodies the functionalities of
     \emph{\utask{} planning} strategy, \emph{Performer assignment} strategy and
-    \emph{\utask{} implementation} strategy deciding the logic behind the
-    invocation of those strategies.
+    \emph{\utask{} implementation} strategy and whose purpose is to decide the 
+    logic behind the invocation of those strategies.
 
-    \item A \textbf{Task control} strategy able to control the status of the
+    \item A \textbf{Task control} strategy is able to control the status of the
     Task and if needed perform corrective actions.
 
-    \item An \textbf{Emission policy} specifing wich \emph{Subscriber} need to
+    \item An \textbf{Emission policy} specifying which \emph{Subscriber} need to
     be notified of a Task change in \emph{Status}.
 \end{itemize}
 
 
+The \textbf{relationships} that may exist between Tasks are materialized into the
+\emph{Task Relationship} object. This object contains all the information related
+to the flow of the task execution during the execution of a Work. An example of
+a Task relation can be the validation of the results obtained by an Automatic
+computation task previously performed. In this case the relation is the simple
+sequence.
+
+In a flow we can use \emph{Control Structures} and \emph{Variables}. The
+\emph{variables} are included into the flow to control the behavior of the Work
+and can be modified by some condition upon Task execution. For instance if an
+Automatically obtained results from Task are below a certain threshold, this
+check is performed after the Task execution, then a variable is changed accordingly.
+The \emph{Control Structures} are common to all the Workflow managers and 
+control hoe the Tasks are executed:
+\begin{description}
+     \item[Sequence:] represent the normal flow of an application where one
+     operation is executed after the previous is completed.
+     \item[Choice:] give the possibility to made choice according to one, or
+     more, \emph{Variables}.
+     \item[Loop:] Allow to execute some steps multiple times, according to a
+     predefined value or a \emph{Variable}.
+     \item[Parallel:] the steps of the flow are not executed in \emph{Sequence},
+     allowing the parallelization of some steps.
+ \end{description} 
 
 
 
@@ -246,7 +227,7 @@ defined by:
 \begin{itemize}
     \item A \textbf{Name} that identify the Field.
     
-    \item A \textbf{type} definig the type of the data that this field contains.
+    \item A \textbf{type} defining the type of the data that this field contains.
     i.e. \code{string}, \code{number}, etc.
 
     \item A set \textbf{related fields} that defines how this field is composed.
@@ -271,7 +252,7 @@ metadata-like model of the System, we need to store all these information into
 a separate table and use the \emph{Object} as a simple reference table.
 
 \subsubsection{The Object}
-The Object contains the actial data value as reference to field value instances;
+The Object contains the actual data value as reference to field value instances;
 it's composed by:
 \begin{itemize}
     \item A \textbf{Name}.
@@ -285,7 +266,7 @@ The Field Value contains the data associated to a particular field, defined in
 the metedata model. It's defined by:
 \begin{itemize}
     \item An \textbf{Object} that define tho what \emph{Object} they refer to.
-    \item The \textbf{Field} to wich the datta belongs.
+    \item The \textbf{Field} to which the data belongs.
     \item TODO ???
 \end{itemize}
 
@@ -296,9 +277,9 @@ the metedata model. It's defined by:
 
 
 \subsection{Task Execution}
-The Task Exection embodies all the information relative to the actual exection
+The Task Execution embodies all the information relative to the actual execution
 of the code. The majority of these data belongs to the \textbf{Execution layer}
-thus can be phisically located into another piece of software in charge of the
+thus can be physically located into another piece of software in charge of the
 execution of the code.
 
 
@@ -394,7 +375,7 @@ model are contained data about \emph{Work}, \emph{Task}, \emph{\utask{}},
 \begin{itemize}
     \item \textbf{Creation date}
     \item \textbf{Total execution time}
-    \item \textbf{Average number of \emph{Performer}s/h}
+    \item \textbf{Average number of \emph{Performer}s per hour}
     \item \textbf{Last execution}
     \item etc.
 \end{itemize}

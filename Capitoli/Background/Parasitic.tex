@@ -1,13 +1,8 @@
-% Spiego l'idea
-% chi è stato
-% e perchè
-% come funziona
-
 Parasitic computing\footnote{In this thesis we are not covering, neither
 we are interested in, the ethical or moral implication of using this technique.}
 is a technique that, using some exploits and ad-hoc code, allow a \emph{malicious}
 user to use the computational power of the \emph{victim} computer without this
-being aware. As one can notice parassitic compiting has a strong relationship
+being aware. As one can notice parasitic computing has a strong relationship
 with \emph{distributed computing}, in fact is a specialization of the general
 class of \emph{voluntary computing}, where the user is unaware of
 the execution\footnote{In \emph{voluntary computing} the user can be unaware
@@ -32,7 +27,7 @@ no known polynomial-time algorithm which solves it.\\
 \end{figure}
 
 The approach proposed in the paper was to perform a brute force attack to guess
-the right solution of a 3-SAT problem using a parallel apprach as depicted in
+the right solution of a 3-SAT problem using a parallel approach as depicted in
 \autoref{fig:parasitic}. The parasite node creates $2^n$ specially constructed
 messages designed to evaluate a potential solution. These messages are sent to
 many target servers throughout the Internet. After receiving the message, the
@@ -45,19 +40,19 @@ the request). As a result, all messages containing invalid solutions are dropped
 in the TCP layer. Only a message which encodes a valid solution \emph{reaches}
 the target server, which sends a response to the \emph{request} it received.\\
 
-This approach may seem wrong or at leat not right, with respect to the user, but
+This approach may seem wrong or at least not right, with respect to the user, but
 if one think about it notice how we are always making computation without even
 knowing. \ac{GWAP} or application like \href{http://www.google.com/recaptcha}{reCAPTCHA}
 are examples of involuntary human computation (as in \autoref{tab:matrix}). So
 they are using the same technique to perform a sort of \emph{parasitic human
-computing} without complainig about the user will.\\
+computing} without complaining about the user will.\\
 
 To avoid the ethic implication of doing \emph{parasitic computing} a hybrid
-approach (parasitic/voluntary) can be used. If the user give the permission to
+approach (parasitic \& voluntary) can be used. If the user give the permission to
 run computation on its computer exchange of a return of any type, then we are
 able to score the best on both approaches. A similar solution was proposed in
 \cite{karame2011pay}.
-In this paper they propose a microcomputations as micropayments in web-based
+In this paper they propose a micro-computations as micro-payments in web-based
 services. Their solution is to give the user access to online contents (such as
 newspaper, video, etc.) after performing small \js{} computation.
 
@@ -66,6 +61,6 @@ considered an enhancement of the solution proposed by \cite{barabasi2001parasiti
 since using \js{} and the HTML5 features to their full potential (see
 \ref{sec:bg:web:html5}) we are able to perform any kind of computation
 within the browser window/tab. \js{} offers also a standard platform for the
-exection of code without the need of any ad-hoc software for each platform.
+execution of code without the need of any ad-hoc software for each platform.
 Furthermore all the code executed by a browser run in a sandboxed environment,
-keeping the user computer safe from any malicuis intent.
+keeping the user computer safe from any malicious intent.

@@ -1,4 +1,8 @@
 
+Unlike human computation, \emph{automatic computation} aim at executing task, or
+part of it, in an automatic fashion, without user interaction. This kind of
+\emph{distributed computation} leverage on the existence of a \emph{grid} of
+connected nodes able to perform data intensive calculation.
 
 
 Distributed computing deals with the execution of code on multiple computers
@@ -9,7 +13,6 @@ through a computer network. The computers interact with each other in order to
 achieve a common goal. A computer program that runs in a distributed system is
 called a distributed program, and distributed programming is the process of
 writing such programs.}"
-
 \begin{figure}[htb]
     \centering
     \includegraphics[width=\columnwidth]{DistributedComputing}
@@ -17,55 +20,59 @@ writing such programs.}"
     \label{fig:distributed-computing}
 \end{figure}
 
-The term refers to a wide range of different application (i.e. grid computing,
-cloud computing, \nameref{sec:bg:crowd:auto:parasitic}, jungle computing
-\footnote{Winner of the coolest name 2012}) so there is a need of a further
-categorization of 
-
-
-% cos'è automatic omputation
-%% grid computing dove vengono eseguiti task
-%% 
-Unlike human computation, \emph{automatic computation} aim at executing task, or
-part of it, in an automatic fashoin, without user interaction. This kind of
-\emph{distributed computation} leverage on the existence of a \emph{grid} of
-connected nodes able to perform data intensive calculation.
-
+% TODO ???
 The platforms that implement these solution use different frameworks for splitting
 algorithms into atomic operation executable by the nodes. One of these frameworks
 is MapReduce\footcite{dean2008mapreduce} that, using the core concept of
 \emph{Divide et impera} can produce highly parallelizable algorithms.\\
 
-\emph{Automatic computation} cen be further subdivided accordingly to the will
-of the user to perform computation on its computer.
+The name "\emph{distributed computing}" refers to a wide range of different
+application (i.e. grid computing, cloud computing,
+\nameref{sec:bg:crowd:auto:parasitic}, jungle computing\footnote{Winner of the
+coolest name 2012}), that implement the same paradigm with different purposes.
+Using the dimensions presented in \autoref{tab:matrix} we can specialize the
+core concept of \emph{distributed computing} in two: \emph{voluntary computing}
+and \emph{parasitic computing}.
+
 
 \subsubsection{Voluntary computing}
 \label{sec:bg:crowd:auto:voluntary}
-% spiego boinc/SETI funzionamento
+\emph{Voluntary computing} refers to all those \emph{distributed computation}
+systems where the computation is performed on behalf of the user will. In such
+systems users go the website of the "project" they intend to support and, usually
+by installing an ad-hoc client, give the resources (i.e. CPU idle time, storage,
+etc.) of their machines to the chosen "project".\\
 
-%% TODO ??? rifa
-When a user want to share the computational power of its computer to some
-project he/she think are worth of it, then might think of using the \ac{BOINC}
-system.\\
+The first project implementing such computing paradigm was
+\ac{GIMPS}\footnote{\url{http://www.mersenne.org/}}, started in 1995, then other
+platforms (such as \href{http://www.distributed.net/}{distributed.net},
+\href{http://setiathome.berkeley.edu/}{SETI@home}, etc. ) has been developed to
+support this type of computation.
 
 \begin{figure}[htb]
     \centering
-    \includegraphics[width=0.5\columnwidth]{boinc}
-    \caption{The \acs{BOINC} logo.}
+    \includegraphics[width=0.8\columnwidth]{boinc}
+    \caption{The \acs{BOINC} computational flow.}
     \label{fig:boinc}
 \end{figure}
-The \ac{BOINC} system was originally developed to support the \ac{SETI@home}
-project, before it became used as a platform for other distributed computing
-applications. \ac{BOINC} is an open source middleware system for volunteer
-and grid computing. It consist on two parts, the backend server, running on
-linux pletfomrs, and the client, cross-platform, for the end-user.\\
+\acf{BOINC}\footnote{\url{http://boinc.berkeley.edu/}} is an open-source software
+for Voluntary computing and grid computing. \ac{BOINC} was originally developed
+to support the \acf{SETI@home} project, before it became used as a platform for
+other distributed computing applications. It consist on two parts, the back-end
+server, running on Linux platforms, and the client, cross-platform, for the
+end-user computing.\\
 
-This piece of software allow a user to connect to the \ac{BOINC} grid, by doing
-so a user is allowing the \ac{BOINC} client to use the idle time of its CPU to
-perform computation. The client can now  download all the necessary data from the
-chosen project site alonside with the code to run, once all the downloads are
-completed the \ac{BOINC} client can run the code and send the results back to
-the project site.\\
+The client software allow users to connect to the \ac{BOINC} grid, to perform
+computation. The flow of the execution, as depicted in \autoref{fig:boinc} is
+the standard \emph{distributed computing}, here is the list of actions performed
+to run the task on the client:
+\begin{enumerate}
+    \item get instruction from the server on how to get all the resources needed
+    to perform the task
+    \item download all the resources from the server
+    \item execute the downloaded application
+    \item send the results obtained to the server
+\end{enumerate}
 
 There are over 40\footnote{At the time of writing.} projects that leverage on
 the \ac{BOINC} platform to perform computation on different application areas,

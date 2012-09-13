@@ -1,6 +1,6 @@
 %************************************************
 %\chapter{A model for distributed web-based human- and machine-driven computation}
-\chapter{The Model}
+\chapter{Conceptual model}
 \label{cap:model}
 %************************************************
 
@@ -26,45 +26,36 @@
 
 
 
-
-
-
-
-
-
-% TODO: cambiare il nome: no system model!
 \newcommand{\model}{\emph{architectural model}}
-In this chapter, we define the \model for our system and the reference
-infrastructure supporting this model.
-The \model is the data model on which the single components of the system are build upon.
-It describes the components that interact each other during the task lifecycle and
-embodies also the requirements and the features of the system as expressed in
-the \hyperref[intro]{introduction}.\\
+
+In this chapter will be presented a framework for task distribution and execution
+able to cover all the dimension defined in \autoref{tab:matix}.
+First is introduced a methodology to follow in order to pass from the model to the
+actual application implementation, available in \autoref{cap:implementation}.
+The components that will compose the framework are founded on a data model, describing the logical structure of the data processed by the application.
+
+The data model is composed of three parts: the \emph{Data Model}, the
+\emph{Architectural Model} and the \emph{Execution model}. Eventually are
+explained the pluggable strategies available for this framework.
 
 
+\paragraph{The \hyperref[sec:model:data]{Data Model}} describes the data structures
+used to create this system. TODO ??
 
-Concerning the data model we have subdivided it in 3 parts, this subdivion is made to
-better distinguish each of the 3 main steps used in every distribution system in order
-to create, distribute and process the data. \autoref{fig:model} gives an overview of
-the \model that is composed by:
-% model subdivision
-\begin{description}
-	\item[The {\hyperref[sec:model:data]{data model}}:] describes
-	the data structure used to create this system.
+\paragraph{The \hyperref[sec:model:architecture]{Architectural Model}} describes
+the reference architecture of the framework.TODO ??
 
-	\item[The {\hyperref[sec:model:architecture]{architectural model}}:] describes
-	the reference architecture of the sytem.
-	
-	\item[The {\hyperref[sec:model:execution]{execution model}}:] focuses
-	on the execution model of the task.
+\paragraph{The \hyperref[sec:model:execution]{Execution Model}} focuses on the
+execution model of the task.TODO ??
 
-	\item[{\hyperref[sec:model:strategies]{Pluggable strategies}}:] here
-	are provide some example of strategy that can be plugged to the system.
-\end{description}
-
-
+\paragraph{The \hyperref[sec:model:strategies]{Pluggable Strategies}} here are
+provide some example of strategy that can be plugged to the system.TODO ??
 
 % Sezioni
+\section{Development methodology}
+\label{sec:model:method}
+\input{Capitoli/Model/DevMethod}
+
 \section{Data model}
 \label{sec:model:data}
 \input{Capitoli/Model/Data}

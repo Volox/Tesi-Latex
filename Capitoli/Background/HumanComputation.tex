@@ -121,11 +121,9 @@ of the \emph{Worker}s is done within the browser.\\
 \end{figure}
 
 
-
-
 This platform has been \emph{extended} as presented in \cite{little2010turkit}
 to create complete \acl{AI} algorithms able to use human computation as functions
-during the execution process. The code in \ref{lst:tirkit} is an example of an
+during the execution process. The code in \autoref{lst:turkit} is an example of an
 algorithm implemented using Turkit, here \code{mturk.prompt} and \code{mturk.vote}
 are \acl{HIT} executed on the \citetitle{turk} platform.
 \begin{lstlisting}[language=C++,caption={Example of a Turkit algorithm.},
@@ -140,6 +138,8 @@ ideas.sort(function (a, b) {
 	return v == a ? -1 : 1
 })
 \end{lstlisting}
+
+
 
 
 
@@ -173,6 +173,11 @@ structure of selected proteins to the best of the player's ability. The highest
 scoring solutions are analyzed by researchers, that can determine whether or not
 there is a native structural configuration that can be applied to the relevant
 proteins (see \autoref{fig:foldit}).
+
+
+
+
+
 
 
 \subsubsection{\acl{GWAP}}
