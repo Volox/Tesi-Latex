@@ -25,8 +25,8 @@
 \subsection{WorkFlow}
 The WorkFlow embodies all the data associated to the \emph{flow} of Task
 that need to be executed in order to complete a set of Tasks. The tasks can belong
-to different archetypes (e.g. Human, Automatic) and have their own set of objects.
-The \emph{Workflow} is composed of:
+to different archetypes (e.g. Human, Automatic) and have their own set of assigned
+objects. The \emph{Workflow} is composed of:
 \begin{description}
     \item[The Work:] is the abstract representation of a set of Tasks related
     to each other.
@@ -200,45 +200,60 @@ control hoe the Tasks are executed:
 
 
 \subsection{Task Data Model}
-The Task Data Model contains all the data related to the description of the
-\emph{Schema} of the data of a Work/Task. This model resembles a the
-\emph{metadata} of the actual data of the Work/Task defining all the fields
-and their type according to a \emph{Schema}.
+The Task Data Model contains all the information about the Task metamodel. The
+metamodel is organized in Fields and the Fields are grouped into a Schema. This
+data structure resembles the standard DBMS schema organization, where we have
+a Schema defined as a collection of Fields with possible relationship between
+them. The Task Data Model is composed by
+\begin{description}
+    \item[The Schema:] is the abstract representation of a table structures.
+    \item[The Field:] contains all the information of the field type and
+    relationships.
+\end{description}
 
 
 \subsubsection{The Schema}
-The Schema contains all the information related to the data structure of a
-Work/Task, and its defined by:
+The Schema is used as a container of Fields that compose the metamodel of the
+Task data. The Schema is defined by:
 \begin{itemize}
-    \item A \textbf{Name} that identify the Schema among the others.
+    \item A \emph{Name}
 
-    \item A set of \textbf{Field}s that compose the actual schema of the data. 
-    
-    \item A list of \textbf{Object}s associated to this \emph{Schema}, these
-    objects represents the actual data associated to the Work/Task.
+    \item A \emph{list of Fields} defining the structure of the Task data.
+
+    \item A \emph{list of Objects} representing the Task Data instances
 \end{itemize}
 
+The Schema is in \textbf{relation} with the actual data instances of the Task,
+called Objects, and the Fields it is composed of.
 
 
 \subsubsection{The Field}
-The Field represent the definition of a Field in a \emph{Schema}, with all the
-properties that define if the field is calculated, derived, etc. The Field is
-defined by:
+The Field contains information on the type of the data it contains and information
+on the relation between two, or more, Fields (like the type of dependency).
+The Field is composed by:
 \begin{itemize}
-    \item A \textbf{Name} that identify the Field.
+    \item A \textbf{Name} that identifies the Field.
     
-    \item A \textbf{type} defining the type of the data that this field contains.
-    i.e. \code{string}, \code{number}, etc.
+    \item A \textbf{type} defining the type of the data that this field contains,
+    for instance \code{string}, \code{number}, etc.
 
-    \item A set \textbf{related fields} that defines how this field is composed.
-    TODO ???
+    \item A set \textbf{related fields}. the relationship between the fields
+    is defined by the \emph{relation} attribute.
     
-    \item A \textbf{relation} that specifies which type of relation occurs among
-    the \emph{related fields}.
+    \item A \textbf{relation} that specifies which type of relationship occurs
+    among the \emph{related fields}.
 
-    \item The list of \textbf{data} of in terms of the associated \emph{Field
-    values}
+    \item The \textbf{list of field values} representing the data contained within
+    this field in the Object structure.
 \end{itemize}
+
+The \textbf{relationship} existing between the Field are materialized using the
+\emph{Field Relationship} table. Here we have all the information of the fields
+involved and on the type of the relationship (e.g. derivate of, copy of, calculated
+etc.).
+
+
+
 
 
 
