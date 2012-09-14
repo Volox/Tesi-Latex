@@ -1,161 +1,44 @@
-%% Modello computazionale
-% descrivere il problema della computazione distribuita nel nostro contesto
-
-% io parto da questa architettura che funziona così...
-% ho un'architettura di riferimento con una macchina/mainframe centralizzata che definisce e distribuisce il
-% carico di lavoro ed il calcolo; ho tanti client trasparenti/coerenti con i browser e poi gli utenti
-% Immagine di come funziona
-
-
-%Architettura:
-% Modello statico->
-% DEfinizione di cos'è uno User
-% DEfinizione di cos'è un uTask
-% DEfinizione di cos'è un Task generico
-
-% Modello astratto->
-%% TASK: dal punto di vista astratto è la definizione di un'operazione data driven
-% su un modello di dati in ingresso e un modello di uscita, in cui posso caratterizzare
-% cosa ci sta im mezzo in modo preciso con associato un codice di esecuzione.
-%% Utente: è una persona con una macchina con certe caratteistiche e certe skill lui
-%% uTask: istanziazione di un task con un particolare codice su una particolare macchina su dei dati
-
-% TODO nell'immagine metto anche un dispositivo mobile e un utente con 2 device
 \begin{figure}[htb]
 	\centering
 	\includegraphics[width=0.75\columnwidth]{Architecture}
 	\caption{Reference architecture.}
 	\label{fig:architecture}
 \end{figure}
-The system use as a reference architecture the one depicted in \autoref{fig:architecture}.
-Here we have a centralized hub that \emph{defines} and \emph{distribute} the workload,
-a pletora of clients with their browsers and the users. The clients of this model
-are all coherent and transparent to the execution of the code, wich is distributed
-to the end-user according to the platform they are using.
-As you can see the structure is almost the same as any other task distribution
-platform, the strenghts of this system are in the characterization of the actors
-in the system.
+% TODO nell'immagine metto anche un dispositivo mobile e un utente con 2 device
 
-The reference model in \autoref{fig:architecture} has been customized to meet our
-needs of flexibility and pluggability, so we introduced a \emph{configurator} and
-a \emph{execution layer} in the central hub. These are the components that allow
-our system to cover all the dimension presented in \autoref{tab:matrix}.
+During the Design Process we faced the problem of finding a suitable Architectural
+Model able to support all the requirements, in terms of flexibility and pluggability,
+raised during the Process Design. In our model we use as a reference architecture
+the one depicted in \autoref{fig:architecture}. Here we have a central hub
+in charge of distributing the Tasks to the nodes\footnote{We refer to nodes
+because we want to enclose both humans and devices.} and an abstraction layer.
 
-The \textbf{configurator} is in charge of defining and configuring a task in the
-system, allowing the \emph{requester} to add hooks to exeternal resource in order
-to manage the assignment cycle and the planning strategy.
+The \emph{Central Hub} is used to manage all the data exchange between to the
+nodes and the hub itself, orchestrating all the communication flow.
 
-The \textbf{execution layer} provides useful API for managing the \utask{} and
-communicate with the \emph{configurator}.
-
-\begin{figure}[tb]
-	\centering
-	\includegraphics[width=\columnwidth]{Architecture2}
-	\caption{Specialized architecture.}
-	\label{fig:architecture2}
-\end{figure}
+The \emph{Abstraction Layer} is used to normalize the differences between the
+nodes, creating a coherent representation of nodes.\\
 
 
 
 
-% Subsection description
-
-\subsection{Configurator}\label{sec:configurator}
-The \textbf{Configurator} is the component in charge of the task lifecycle
-management. The principal functionalities offered by the \textbf{Configurator}
-are:
-\begin{itemize}
-	\item Allow the \textbf{creation} of a Task, also at abstract level, using
-	either the API or the built-in UI.
-
-	\item Allow a \emph{Performer} to \textbf{execute} the Task using a standard
-	non configurable UI, provided as-is for each Task type.
-
-	\item Allow to \textbf{request information} about a Task, the information
-	that can be requested includes:
-	\begin{itemize}
-		\item Retrieve the list of \utask{} associated with a given Task
-
-		\item Post the result of the execution of a given \utask{}
-
-		\item Notify about the completion of a Task or \utask{}
-	\end{itemize}
-\end{itemize}
-
-Alongside these main functionalities it offer a \emph{Requester} the ability to
-monitor the state of a Task and/or a \utask{}.
-
-
-
-
-\subsection{Execution layer}\label{sec:exec-layer}
-This component is in charge of managing the \utask{} implementation for each Task
-or for each \utask{}. The implementations have a fallback behaviour so, if a
-custom \utask{} implementation is not present then the system search for a
-custom Task implementation, if this is missing then the built-in implementation
-is used. On top of this fallback system the component offer the possibility to
-create code for a target platform.
-
-The \textbf{Execution layer} offer the following funcionalities:
-\begin{itemize}
-	\item Allow a \emph{Requester} to configure the implementations associated to
-	a Task and/or a \utask{}. The implementations are configured specifing the
-	target platform (mobile, desktop, tablet, ...) and the executable resources
-	used by the implementation (i.e. HTML, CSS and JS files). Wich implementation
-	to use is configured later in the \emph{Planning} step.
-
-	\item Create a layer of abstraction between the implementation and the
-	Configurator, creating a sandboxed environment where the implementation can
-	run and communicate with the Configurator.
-
-	\item Allow the \emph{Performer} to execute a specific \utask{} implementation.
-\end{itemize}
-
-
-
-
-
-
-\subsection{Task storage \& task runtime storage}
-These are the storage areas where we put all the data associated with the Task.
-We used two separated storage area in order to keep the runtime configuration
-separated from the abstract configuration data of the Task.
-
-The task runtime storage contains all the ad-hoc code written by the \emph{Requester}
-for each platform.
-% Codice che può diventare generico
-\textbf{This code can be reused by the other \emph{Requester} to execute the same
-task (for example image tagging).}
-
-
-
-
-
-\subsection{Performer \& Performer client}
-The \emph{Performer client} represents the platform (like desktop or mobile) on
-wich a \emph{Performer} executes the Task implementation. The \emph{Performer
-client} make use of the \emph{Execution layer API} to retrieve the correct
-implementation, communicate the status during the exection of a \utask{} and
-post the result of the execution. The \emph{Performer} is the actual user that
-is using the \emph{client}.
-
-
-
-\subsection{Planning strategies}
-Any third-part component in charge of the creation and management of the \utask{}
-associated with a Task. During the Task configuration step the \emph{Requester}
-decide when this external component need to be called. The \emph{Planning
-strategy} can be called only once, for example during the task creation, or
-ca behave like an handler to the \utask{} ended event, in this case the
-\emph{stategy} is able to decide wheter is necessary to spawn other \utask{}
-execution to fullfill the requirements.
-
-
-
-\subsection{Assignment strategies}
-Any third-part component used to associate \utask{} to Performers. The binding
-can leverage on some skill of the Performer, for example a stategy can be:
-associate this set of \utask{} to Performers skilled German translation, and
-all the other to any Performer. As for the \emph{Planning strategies} this
-component can be invoked only once or in response to some events (like \utask{}
-ended or created).
+As described in \ref{design:work}, our framework has multiple configuration
+points used to customize the Task behavior. As described in \vref{data:task},
+for each Task we identified seven configuration points:
+\begin{description}
+	\item[\utask{} planning strategy:] defines how many \utask{} to create for
+	each Task and associate the right portion of Objects to each of them.
+	\item[\utask{} implementation strategy:] defines the logic behind the choice
+	of a \utask{} implementation sent to a user.
+	\item[Performer assignment strategy:] in charge of choosing the users who
+	are suitable to execute a certain Task.
+	\item[Task Planning strategy:] orchestrates the invocation of the \utask{}
+	planning strategy, the \utask{} implementation strategy and the Performer
+	assignment strategy.
+	\item[Task Control strategy:] defines a controller for the Task, able to
+	check the status, and if needed, perform corrective actions.
+	\item[Aggregation function:] is in charge of joining the results obtained
+	from the \utask{}s execution and create a Task output.
+	\item[Emission policy:] is used to rule notifications sent to the Subscribers.
+\end{description}
+All these configuration points are described in \ref{sec:model:strategies}.

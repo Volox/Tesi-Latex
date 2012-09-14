@@ -60,7 +60,7 @@ is defined by:
     at design time, by specifying a \emph{Flow}.
 \end{itemize}
 
-\subsubsection{The Task}
+\subsubsection{The Task}\label{data:task}
 The Task is the central unit of computation, It represent a single activity
 focusing on a particular action. The activity must not be an atomic operation,
 like in an algorithm a single function call, but it should be focused on a
@@ -199,7 +199,7 @@ control hoe the Tasks are executed:
 
 
 
-\subsection{Task Data Model}
+\subsection{Task Data Model}\label{data:model}
 The Task Data Model contains all the information about the Task metamodel. The
 metamodel is organized in Fields and the Fields are grouped into a Schema. This
 data structure resembles the standard DBMS schema organization, where we have
@@ -216,11 +216,11 @@ them. The Task Data Model is composed by
 The Schema is used as a container of Fields that compose the metamodel of the
 Task data. The Schema is defined by:
 \begin{itemize}
-    \item A \emph{Name}
+    \item A \textbf{Name}
 
-    \item A \emph{list of Fields} defining the structure of the Task data.
+    \item A \textbf{list of Fields} defining the structure of the Task data.
 
-    \item A \emph{list of Objects} representing the Task Data instances
+    \item A \textbf{list of Objects} representing the Task Data instances
 \end{itemize}
 
 The Schema is in \textbf{relation} with the actual data instances of the Task,
@@ -260,30 +260,51 @@ etc.).
 
 
 \subsection{Task Data}
-The Task Data contains the actual data instance for each Task, defined in the
-\emph{Schema}. All the data are contained in a \emph{Object} that represent the
-the instance of the Task data (e.g. A row of the Task Data table). Due to the
-metadata-like model of the System, we need to store all these information into
-a separate table and use the \emph{Object} as a simple reference table.
+The Task Data contains the actual data instance for each Task. The data
+are subdivided into \emph{Field Values} and \emph{Objects}, this division is made
+to mirror the structure presented in \ref{data:model}. The Objects represents
+the "tuple" of the table, while the Field Values contains the atomic information
+of a Field within a Tuple. This structure allows the direct access to Field
+Values without the need of parsing the whole Object element. As mentioned the
+Task Data is composed of:
+\begin{description}
+    \item[The Object:] a Task data instance, represented by a set of Field Values.
+    \item[The Field Value:] represents the instance of a Field. As the Fields
+    they can be related to each other.
+\end{description}
+
 
 \subsubsection{The Object}
-The Object contains the actual data value as reference to field value instances;
-it's composed by:
+The Object represents the Task data instances. They are composed of a set of
+Field Values that, joined together, forms the Object. The object itself is
+composed by:
 \begin{itemize}
     \item A \textbf{Name}.
-    \item A list of field values \textbf{data}.
-    \item TODO ??
+    \item A \textbf{list of Field Value}s data.
 \end{itemize}
+
+A Objects can have \textbf{relationships} among them. These relationships are
+materialized into the \emph{Object Relationship} entity. This object contains
+the needed information used to identify a set of Objects belonging to a
+particular Task.
+
 
 
 \subsubsection{The Field Value}
-The Field Value contains the data associated to a particular field, defined in
-the metedata model. It's defined by:
+The Field Value contains the actual data of a Field. Since this object is used
+to represent any kind of data, it must be able to handle different types of
+information (e.g. \code{string}, \code{BLOB}, \code{number}, \code{date}, etc.).
+The Task Field is composed by:
 \begin{itemize}
-    \item An \textbf{Object} that define tho what \emph{Object} they refer to.
-    \item The \textbf{Field} to which the data belongs.
-    \item TODO ???
+    \item The field \textbf{Value}.
+    \item A \textbf{related Object} used to identify to which Object this Field
+    Value belongs to.
+    \item The \textbf{Field} to which data belongs.
 \end{itemize}
+
+The Field Value have \textbf{relationships} with the Object to which it belongs
+and with the Field that defines the general type of the Field Value.
+
 
 
 
@@ -292,82 +313,71 @@ the metedata model. It's defined by:
 
 
 \subsection{Task Execution}
-The Task Execution embodies all the information relative to the actual execution
-of the code. The majority of these data belongs to the \textbf{Execution layer}
-thus can be physically located into another piece of software in charge of the
-execution of the code.
+The Task Execution is used to collect information on the Task execution. Since
+a Task must be distributed to multiple nodes\footnote{We use the broad term node
+to identify both the user and the device on which the Task must be executed.} the
+Task must be splitted in \utask{}. Then we need to know what user is performing
+such \utask{}, and, based on the device used, we can have multiple implementation
+of the same \utask{}. All these information are subdivided in:
+\begin{description}
+    \item[The \utask{}:] is a subclass of the Task. The \utask{} is a portion
+    of the Task executed by the end-user.
+    \item[The \utask{} Implementation:] represent the real implementation
+    of the \utask{}.
+    \item[The Performer:] is the Human being in charge of the execution of the
+    Task.
+    \item[The Execution:] represent a bridge object connecting the \utask{},
+    the \utask{} Implementation and the Performer to identify the execution of a
+    \utask{} using a \utask{} implementation by a particular user.
+\end{description}
 
 
 \subsubsection{\utask{}}
-The \utask{} is the implementation of a Task that insist on a specific subset
-of data of the Task. Can be also considered as an activity assigned to one or
-more Performers. It is defined by:
+Since the same Task must be distributed to many users there is the need of a
+further subdivision of a Task into "atomic" activities (see
+\autoref{fig:conceptual-model}).
+The \utask{} is a subclass of the Task that representing this subdivision. As
+a subclass it inherits all the information of the data and the schema from the
+parent Task. Usually \utask{}s have associated only a portion of the parent
+Task data objects. The \utask{} is defined by:
 \begin{itemize}
     \item A \textbf{Name}.
     
-    \item A list of \textbf{Execution}, representing the actual activities
-    performed by a \emph{Performer}
+    \item A set of \textbf{Execution constraints}, similar to the ones defined
+    in \ref{data:work}. The difference is that this constraints bind the
+    execution "client side". This means that with these we can control the
+    computational load on the user machine according to some policy (like
+    user preferences, device capabilities, etc).
     
-    \item A set of \textbf{Execution constraints}.
-    
-    \item \textbf{Input} data, as a subset of the Task input data.
-    
+    \item \textbf{Input} data, as a subset of the Task input Objects.
     \item \textbf{Output} data, with the same schema as the related Task output
-    data.
+    Objects.
     
-    \item A list of \textbf{Properties}, defined as name-value pairs, having
-    domain specific meaning. 
-    
-    \item One or more \textbf{\utask{} implementation}.
+    \item A \textbf{list of Properties}, defined as name-value pairs, having
+    domain specific meaning. For instance .
 \end{itemize}
 
-
-
-
-
-
-
-\subsubsection{The Execution}
-The Execution is related to one \emph{Performer} that need to compute a \utask{}.
-An Execution is defined by:
-\begin{itemize}
-    \item a \textbf{Status} telling the status of the execution of the \utask{},
-    the available statuses are:
-    \begin{itemize}
-        \item \emph{running}
-        \item \emph{suspended}
-        \item \emph{idle}
-        \item \emph{ended}
-    \end{itemize}
-
-    \item A set of \textbf{Execution data} provided as \ac{JSON} object.
-
-    \item A \utask{} \textbf{Implementation}
-\end{itemize}
-
-
-
-
+The \utask{} is in \textbf{relationship} with its \utask{} implementations. This
+relation is useful when choosing a suitable implementation to execute on a
+particular device.
 
 
 
 \subsubsection{\utask{} implementation}
-The \utask{} Implementation is the actual application logic and presentation
-delivered to a \emph{Performer} to run a \utask{}. The System provides a default
-implementation according to the Task type, in addition, a \emph{Requester} can
-specify one or more Custom implementations, in order to obtain more control over
-the execution process.
-
-
-
-
+The \utask{} Implementation represent the application logic and presentation
+delivered to a user to perform a Task. The Task have a default implementation
+and the other implementations can be supplied to customize the Task execution.
+Each \utask{} implementation is in \textbf{relation} with the corresponding
+\utask{}.
 
 
 
 
 \subsubsection{Performer}
-A Performer is a human being able to execute one or more \utask{}. The performer is characterized by a set of attributes such as:
-
+The Performer is an object used to characterize a human being in the Data Model.
+The user is characterized with properties that defines his/her skills on a
+certain field (like music, style, etc.) and some other attributes used for
+profiling. The Performer object is defined by
 \begin{itemize}
     \item A \textbf{Name}
     \item \textbf{Demographic} information
@@ -378,15 +388,37 @@ A Performer is a human being able to execute one or more \utask{}. The performer
 
 
 
+\subsubsection{The Execution}
+The Execution is a bridge object that joins together \utask{}, \utask{}
+implementation and performer. This object represent a single instance execution
+of a Task by a user. Using this object we can identify cheaters or reward good
+Performers, or using it as a timeline to see how the Performers respond to
+the Task and change it accordingly. An Execution object is defined by:
+\begin{itemize}
+    \item A \textbf{Status} that identifies the current status of a \utask{}
+    implementation, the available statuses are:
+    \begin{itemize}
+        \item \emph{running}
+        \item \emph{suspended}
+        \item \emph{idle}
+        \item \emph{ended}
+    \end{itemize}
+
+    \item A \textbf{set of Execution data}. TODO ??
+\end{itemize}
+
+Since it is a bridge object the Execution have \textbf{relationships} with 
+\utask{}, \utask{} implementation and the Performer. These relationships
+identifies the Execution itself.
 
 
 
 \subsection{Statistics}
-This Statistics model contains all the information related to the Task profiling
-and statistics used to tweak the performance of a Task, or used by components
-(like the \emph{Task controller}) to take decision on the Task flow. In this
-model are contained data about \emph{Work}, \emph{Task}, \emph{\utask{}},
-\emph{Performer}, etc. The data contained in these tables can be:
+This Statistics model contains all the statistics and data related to the profiling
+of a Task. These data can be used by other components, such as the Task controller
+to take decision during the flow of a Task. The Statistics are about \emph{Work},
+\emph{Task}, \emph{\utask{}}, \emph{Performer}, etc. The data contained in these
+objects are:
 \begin{itemize}
     \item \textbf{Creation date}
     \item \textbf{Total execution time}

@@ -5,15 +5,28 @@
     \caption{Representation of the Task execution flow.}
     \label{fig:execution-model}
 \end{figure}
-\autoref{fig:execution-model} represents the flow of the execution of a Task
-during the execution. As one can notice the flow is almost straightforward except
-the initial part when the \emph{Task control} strategy tweak the execution to
-fulfill some predefined requirements.
 
-The System is able to operate in different scenarios, according to the logic
-implemented in the \emph{Task planning}, the \emph{Task control} strategy may
-change the flow of the execution. In \autoref{tab:execution-matrix} are presented
-the different execution scenarios that the system is able to handle.
+During the Framework Design stage we found how our framework processes a Task and
+how this behavior can be configured. In \autoref{fig:execution-model}
+is depicted the typical flow of a Task execution. As one can notice all the
+controlling strategy is handled by the \emph{Task Control strategy} that,
+accordingly to the \emph{Task Planning strategy}, tweaks the execution of a Task.
+By changing the Task Planning strategy we can obtain four different execution
+modalities, summarized in \autoref{tab:execution-matrix}:
+\begin{description}
+    \item[Static execution:] where both the \utask{} planning and the Performer
+    assignment is performed statically at Task design time.
+    \item[Static \utask{} planning \& Dynamic assignment:] in this scenario the
+    \utask{} are planned at design time and the Performer assignment can be made
+    at "any" time after the creation of the Task.
+    \item[Dynamic \utask{} planning \& Static assignment:] in this scenario we
+    first Assign Performers to \utask{} and then we Plan the \utask{}s\footnote{
+    This scenario presents some pitfalls, see \ref{exec:dynamic-static} to
+    further explanations.}.
+    \item[Dynamic \utask{} planning \& Dynamic assignment:] where both the
+    strategies can be specified after the Task creation\footnotemark[\value{footnote}].
+\end{description}
+
 \begin{table}[htb]
 	\caption{Task planning vs. Task Assignment.}
 	\label{tab:execution-matrix}
@@ -21,21 +34,24 @@ the different execution scenarios that the system is able to handle.
 	\begin{tabular}{r|c|c}
 		 & \textbf{Static} & \textbf{Dynamic}\\
 		\hline
-		\textbf{Static} & \ref{subs:static-static} & \ref{subs:static-dynamic}\\
+		\textbf{Static} & \hyperref[exec:static-static]{static-static} &
+        \hyperref[exec:static-dynamic]{static-dynamic}\\
 		\hline
-		\textbf{Dynamic} & \ref{subs:dynamic-static} & \ref{subs:dynamic-dynamic}
+		\textbf{Dynamic} & \hyperref[exec:static-dynamic]{static-dynamic} &
+        \hyperref[exec:dynamic-dynamic]{dynamic-dynamic}
 	\end{tabular}
 \end{table}
 
 
 
 \paragraph{Static execution}
-\label{subs:static-static}
-This scenario of execution represent the simplest use-case possible, where the
-\emph{Task planning} is executed only once at creation time and the \utask{} are
-planned and assigned only once. In this \code{mode} the \emph{Task control} have
-only the role of controlling if the \emph{constraints} are verified. Here is a
-list of the operation that the \emph{Task control} strategy must perform:
+\label{exec:static-static}
+This execution mode represents the simplest scenario possible. Static execution
+means that both the \emph{Task Planning strategy} and the \emph{Performer
+Assignment strategy} are executed once at Task creation time. The Task Control
+strategy duty is to control if the \emph{Constraints} are verified and monitor
+the Task status. Here is the list of the default actions performed by the Task
+Control strategy: 
 \begin{itemize}
 	\item \textbf{Stop} a Task if constraints are met.
 	\item \textbf{Invoke} the \emph{Aggregation function} at the end of the Task
@@ -47,14 +63,15 @@ list of the operation that the \emph{Task control} strategy must perform:
 
 
 \paragraph{Static \utask{} planning \& Dynamic assignment}
-\label{subs:static-dynamic}
-In this scenario the \utask{} are planned once at creation time, but the
-assignment is performed dynamically. In this scenario the \emph{Task control}
-strategy invokes the \emph{Performer assignment} strategy to assign
-\emph{Performers} to \utask{}, ensuring that the constraints are verified. The
-\emph{Task control} strategy can also decide to reassign \emph{Performer}s to
-\utask{}, while ensuring constraints validity. In
-this scenario the \emph{Task control} strategy:
+\label{exec:static-dynamic}
+In this execution mode the user wants to define all the \utask{} and then
+assign Performers later, usually with a custom Performer Assignment strategy.
+In this scenario the \utask{} Planning strategy is are planned once at creation
+time and the assignment can be performed at any time. In this scenario the \emph{Task
+Control} strategy invokes the \emph{Performer Assignment} strategy ensuring that
+the constraints are met. The \emph{Task control} strategy can also decide to
+reassign \emph{Performer}s to \utask{} later during the execution. Here is a
+list of the default actions performed by the \emph{Task control} strategy:
 \begin{itemize}
 	\item \textbf{Stop} a Task if constraints are met.
 	\item \textbf{Invoke} the \emph{Aggregation function} at the end of the Task
@@ -69,15 +86,16 @@ this scenario the \emph{Task control} strategy:
 
 
 \paragraph{Dynamic \utask{} planning \& Static assignment}
-\label{subs:dynamic-static}
-In this scenario the \emph{Performer} assignment are performed at creation time
-and the \utask{} planning is performed during the flow of the execution.
-As one can notice this can lead to consistency problem due to the missing
-\utask{} during the binding step. Since this scenario can lead to consistency
-problems it must be used with care with respect to the others. To avoid problem
-we suggest to use simple \emph{Performer} assignment such as the \code{fixed}
-one, using this strategy we do not have to take care of the consistency.
-Summing up, the Task Control Strategy:
+\label{exec:dynamic-static}
+In this scenario we want the user requesting the Task to be able to dynamically
+assign the \utask{} to the Performers. This scenario can lead to some pitfalls.
+For instance if the Performer assignment is executed and there are no \utask{}
+defined then we can have unhandled behavior\footnote{This behavior is not
+managed by the framework. A custom logic must be supplied to handle such
+execution.}. Supposed we not fall into these pitfalls, in this scenario the
+\emph{Performer Assignment} strategy is called at creation time and the
+\emph{\utask{} Planning} strategy can be called at any time. Summing up, the
+\emph{Task Control} strategy:
 \begin{itemize}
 	\item \textbf{Stop} a Task if constraints are met.
 	\item \textbf{Invoke} the \emph{Aggregation function} at the end of the Task
@@ -91,12 +109,13 @@ Summing up, the Task Control Strategy:
 
 
 \paragraph{Dynamic \utask{} planning \& Dynamic assignment}
-\label{subs:dynamic-dynamic}
-In this scenario all the assignments are performed dynamically. Here the \utask{}
-can be associated either at creation time or during the flow of the execution.
-The same stands for the \emph{Performer} assignment, this can be done at any time,
-i.e. \emph{Performer}s can be assigned only upon the request of a Task execution. 
-Summing up, the Task Control Strategy:
+\label{exec:dynamic-dynamic}
+This scenario covers the most flexible use-case. Here the user can create an
+"empty" Task and later assign the \utask{}s and Performers. Also the strategies
+can be called more than once to adapt to the user preferences. For instance if
+the user that created the Task notice that the results are biased then he/she can
+decide to expand the Performers set and re-plan the \utask{}s. Summing up, the
+\emph{Task Control} strategy:
 \begin{itemize}
 	\item \textbf{Stop} a Task if constraints are met.
 	\item \textbf{Invoke} the \emph{Aggregation function} at the end of the Task
@@ -107,63 +126,3 @@ Summing up, the Task Control Strategy:
 	\item \textbf{Invoke} the \emph{Task planning} strategy to \emph{re-plan}
 	\utask{} or \textbf{Create} new \utask{}
 \end{itemize}
-
-
-Now the built-in implementation of task creation, planning and execution are
-described to better understand how the whole system works. The description is
-focused on the built-in implementation, because it is the default behaviour of
-the system. By pluggin-in custom strategies one can completely change how the
-system behaves, thus this case will not be covered here. For examples on how the
-pluggable strategies works see \ref{sec:model:strategies}.
-
-\subsection{Task creation}
-The task creation if performed by the \emph{Configurator} either by using its
-web-interface or via API calls. The creation of a Work/Task can be done by
-providing a JSON file, containing all the data definition as long as the data
-instances, or "manually" following a step by step procedure within the
-\emph{Configurator}. As shown in \autoref{fig:task-creation} the manual Task
-creation involves the definition of a \textbf{Schema} for the data. The schema
-is composed of \textbf{Field}s, for each filed the \emph{Requester} must specify
-a type. The data instances can be added to the \emph{Schema} either during the
-definition of the \emph{Fields} or at the end of the \emph{Schema} definition.
-
-\begin{figure}[htb]
-    \centering
-    \includegraphics[width=0.65\columnwidth]{task-creation}
-    \caption{Work/Task creation flow.}
-    \label{fig:task-creation}
-\end{figure}
-
-
-
-\subsection{Task planning}
-\begin{figure}[htb]
-    \centering
-    \includegraphics[width=\columnwidth]{planning}
-    \caption{Manual Task planning vs Automatic Task planning.}
-    \label{fig:auto-manual-planning}
-\end{figure}
-The planning of a Task involves the creation of subtasks with associated data
-that need to be executed. The assignment can be performed automatically or
-manually. The automatic plan assignment uses a simple subdivision based on the
-number of instances to assign to each subTask.
-
-As depicted in \autoref{fig:task-planning} manual planning involves the
-\emph{Requester} interaction in orer to create \textbf{subTasks}. After creating
-the subTask the \emph{Requester} has to select the instances belonging to this
-subTask. Eventually the \emph{Requester} is able to select and, if needed,
-configure the type of the subTask, based on the task types of the parent Task.
-\begin{figure}[htb]
-    \centering
-    \includegraphics[width=0.65\columnwidth]{task-planning}
-    \caption{Task planning flow.}
-    \label{fig:task-planning}
-\end{figure}
-
-
-
-\subsection{Task execution}
-
-
-
-

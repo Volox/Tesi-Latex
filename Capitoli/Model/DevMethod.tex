@@ -35,7 +35,7 @@ each Task, providing information on which user is performing which task, as long
 as data associated to the execution itself.
 
 
-\subsection{Workflow Design}
+\subsection{Workflow Design}\label{design:work}
 \begin{figure}[htb]
     \centering
     \includegraphics[width=\columnwidth]{Workflow}
@@ -48,7 +48,7 @@ framework deal with the client and how the task are executed. During the
 \emph{Data Design} we stated that the tasks can have relationships and thus our
 framework must be able to handle different Task types seamlessly. In
 \autoref{fig:workflow} is depicted a typical flow of execution of a Work (a
-composition of task) with multiple task types.\\
+composition of Tasks) with multiple task types.\\
 
 Our Workflow model must be able to handle the interleaving of human and automatic
 task without any human intervention. The Workflow must take into account also the
@@ -74,7 +74,7 @@ In the design of the framework all the conceptual designed data and workflows as
 long as the requirements are merged and adapted to create the whole structure for
 supporting the framework.\\
 
-During the \textbf{Data Design} we pointed out what are the data structures that
+During the \textbf{Data Design} we pointed out the data structures that
 need to be managed. The \emph{Workflow Model} need to specify the relationship
 between the modules an the "connection points" where the third part softwares
 are plugged. On top of that every Task must have defined its set of input and
