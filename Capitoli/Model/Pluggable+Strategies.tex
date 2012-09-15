@@ -1,30 +1,39 @@
 %% Pluggable+Strategies
 
-% standard oppure pluggabili->
-%	assegnamento
-%	pianificazione
-%	distribuzione
-In this section are covered the pluggable strategies that can be \emph{replaced}
-by the \emph{Requester} during the creation of a \emph{WorkFlow}, first we
-present the standard implementation in the System, then we give an overview on
-the possible custom strategies that can be replaced.
+As pointed out during the Process Design and briefly introduced in the 
+Architectural Model, our framework must handle custom strategies. These strategies
+are used to grant to our model enough flexibility to handle all the application
+archetypes defined in \autoref{tab:matrix}. Here is the list of the configurable
+strategies:
+\begin{description}
+    \item[\utask{} planning strategy:] defines how many \utask{} to create for
+    each Task and associate the right portion of Objects to each of them.
+    \item[\utask{} implementation strategy:] defines the logic behind the choice
+    of a \utask{} implementation sent to a user.
+    \item[Performer assignment strategy:] in charge of choosing the users who
+    are suitable to execute a certain Task.
+    \item[Task Planning strategy:] orchestrates the invocation of the \utask{}
+    planning strategy, the \utask{} implementation strategy and the Performer
+    assignment strategy.
+    \item[Task Control strategy:] defines a controller for the Task, able to
+    check the status, and if needed, perform corrective actions.
+    \item[Aggregation function:] is in charge of joining the results obtained
+    from the \utask{}s execution and create a Task output.
+    \item[Emission policy:] is used to rule notifications sent to the Subscribers.
+\end{description}
+
+\noindent This section explains the purposes of each strategy and what are the
+main properties for each strategy.
 
 
-
-\subsection{Built-in strategies model}
-Here are presented the models of the default implementation for the pluggable
-strategies. These default models are quite flexible to allow the creation of
-most of the common Task that need a distributed approach, but other distributed
-human Task, like \ac{GWAP}, must have a direct control over the whole execution
-flow.
-
-
-\subsubsection{\utask{} planning strategy}
-\utask{} planning strategy is a pluggable logic focused on the organization and
-spawning of the \utask{} in order to execute a Task. A Task planning strategy is
-defined by:
+\subsection{\utask{} Planning strategy}
+The \utask{} Planning strategy is a pluggable logic devoted to the creation, or
+deletion, of \utask{}. Eventually this strategy must, during the creation
+time of a \utask{}, bind a corresponding set of Task Objects to the \utask{}.
+This binding produce a set of \utask{} with the corresponding Task Objects. A
+Task planning strategy is defined by:
 \begin{itemize}
-    \item A set of \textbf{Constraints} that rule the execution.
+    \item A set of \textbf{Constraints} that rules the execution. TODO ??
 
     \item A \textbf{Planning policy} that can be defined at:
         \begin{description}
@@ -45,24 +54,25 @@ defined by:
             strategy.
         \end{description}
 \end{itemize}
-This strategy produce as output a set of \utask{} with the corresponding
-\emph{Object}s.
 
 
 
-\subsubsection{Performer assignment strategy}
+\subsection{Performer Assignment strategy}
 The Performer assignment strategy is a pluggable logic devoted to the assignment
-\emph{Performers} to \utask{}. A Performer assignment strategy is composed by:
+\emph{Performers} to \utask{}. Once we have a set of \utask{} we can assign to
+them the suitable Performers. The Performers are chosen according to some
+criteria like their skills or the place they live. A Performer assignment
+strategy is composed by:
 \begin{itemize}
-    \item A set of \textbf{Constraints}.
+    \item A \textbf{set of Constraints}. TODO ??
     %defined on top user-specific statistics (e.g. do not assign more than 1 MicroTask per hour)
 
-    \item A list of \textbf{routes} that, by matching the description of a
-    \emph{Performer}, decide if a \utask{} can be assigned to a \emph{Performer}.
+    \item A \textbf{list of routes} that, by matching the description of a
+    \emph{Performer}, decide if a \utask{} can be assigned to that \emph{Performer}.
 
     \item An \textbf{Assignment policy} that can be:
         \begin{description}
-            \item[one-shot:] the assignment is performed according to a prdefined
+            \item[one-shot:] the assignment is performed according to a predefined
             number of \emph{Performer}s and \utask{}.
             \item[dynamic:] the assignment is performed at least once and can be
             invoked multiple times later according to \emph{Variables} that can
@@ -72,20 +82,22 @@ The Performer assignment strategy is a pluggable logic devoted to the assignment
 
 
 
-\subsubsection{\utask{} implementation strategy}
-\utask{} implementation strategy is a pluggable logic in charge of selecting a
-suitable \utask{} implementation for an \emph{Execution}. A \utask{}
-implementation strategy is characterized by:
+\subsection{\utask{} Implementation strategy}
+\utask{} Implementation strategy is a pluggable logic in charge of selecting a
+suitable \utask{} implementation for an \emph{Execution}. This strategy is invoked
+before the execution of a Task on a device. Based on the Performer preferences
+or on the device characteristics a suitable \utask{} implementation is routed to
+the user. A \utask{} implementation strategy is characterized by:
 \begin{itemize}
-    \item A set of assignment \textbf{Contraints}.
+    \item A \textbf{set of assignment Constraints}. TODO ???
     % possibly defined on top user-specific statistics (e.g. do not assign more than 1 MicroTask per hour)
 
-    \item A list of \textbf{routes} that, by matching the description of an
+    \item A \textbf{list of routes} that, by matching the description of an
     \emph{Execution}, decide if a \utask{} can be assigned to an \emph{Execution}.
 
     \item An \textbf{Assignment policy} that can be:
         \begin{description}
-            \item[static:] the assignment is performed according to a prdefined
+            \item[static:] the assignment is performed according to a predefined
             number of \emph{Performer}s and \utask{}.
             \item[dynamic:] the assignment is performed at least once and can be
             invoked multiple times later according to \emph{Variables} that can
@@ -95,68 +107,66 @@ implementation strategy is characterized by:
 
 
 
-\subsubsection{Task planning strategy}
-Task planning strategy embodies the functionalities of a \utask{} planning
-strategy and of a Performer Assignment strategy, deciding the logic by which the
-two strategies should be invoked.
+\subsection{Task Planning strategy}
+The Task Planning strategy embodies the functionalities of a \utask{} Planning
+strategy and Performer Assignment strategy, deciding the logic by which the
+two strategies should be invoked. This strategy can be used to manage the
+re-planning of the \utask{}s or to call the Performer Assignment strategy. The
+invocation of this strategy is controlled by the Task Control strategy that can
+call this strategy upon changes in the Task status.
+
 
 
 
 \subsubsection{Task control strategy}
-The Task control strategy is a pluggable logic devoted to verifing the status of
-a Task, possibly against the assigned constraints. The logic can be executed:
+The Task control strategy is a pluggable logic devoted to verifying the status of
+a Task, possibly against the assigned constraints. This logic can be executed:
 \begin{itemize}
-    \item \textbf{Once} when the Task ends.
-    % (e.g. when all its micro tasks are executed)
+    \item \textbf{Once} when the Task ends. For instance when all the \utask{}s
+    are executed to re-plan the execution.
 
-    \item According to a \textbf{temporal schedule}. % every hour
+    \item According to a \textbf{temporal schedule} (i.e. every $x$ minutes,
+    once a day, at noon, etc.).
 
     \item Every time a \utask{} is \textbf{executed}.
 \end{itemize}
-The corrective actiona available to the Task controller are: 
+\noindent Among the corrective actions available to the Task controller we have: 
 \begin{itemize}
     \item The \textbf{re-planning} of the task, also with the creation of new
     \utask{}.
 
     \item The \textbf{re-assignment} of \utask{} to \emph{Performer}s.
 
-    \item \textbf{Delete} of executed \utask{}.
+    \item \textbf{Deletion} of executed \utask{}.
 
-    \item \textbf{Change} the properties of an executed \utask{}.
-    %(e.g. invalidate a classification, etc.)
+    \item \textbf{Change} the properties of an executed \utask{}. For instance
+    we can set the results as invalid if we have spotted a cheater.
 
     \item \textbf{Re-execution} of the entire Task.
 
     \item \textbf{Halting} the Task.
 
-    \item Etc.
+    \item etc.
 \end{itemize}
 
 
 
-\subsubsection{Aggregation function}
-An Aggregation function is a pluggable logic devoted to the summarization of the
-results of several \utask{} aimed at creating the final output data of a Task.
-Examples of aggregation functions are Sum, Avg, MajorityAgreement, etc.
+\subsection{Aggregation function}
+An Aggregation function is a pluggable logic devoted to joining the results
+obtained with the \utask{}s execution. These results are merged according to a
+Task specific logic in order to produce the Task output result. An aggregation
+function can be as simple as a \emph{Sum} or an \emph{Average} but can can also
+be more complex. For instance we can gather the results obtained, perform
+filtering operation and eventually produce an image.
 
 
 \subsubsection{Emission policy}
-The Emission policy is a pluggable logic in charge of notifing the
-\emph{Subscribers} about the status of a Task. This logic can be executed:
+The Emission policy controls how the \emph{Subscribers} are notified about the
+status changes in a Task. This logic can be executed:
 \begin{itemize}
     \item \textbf{Once} the Task ends.
-    % (e.g. when all its micro tasks are executed)
 
     \item According to a \textbf{temporal schedule}.
 
     \item Every time a task is \textbf{executed}.
 \end{itemize}
-
-
-
-\subsection{Custom strategies}
-TODO ???
-\subsubsection{Example 1}
-TODO ???
-\subsubsection{Example 2}
-TODO ???

@@ -304,3 +304,36 @@ configure the type of the subTask, based on the task types of the parent Task.
 
 
 
+
+
+
+
+
+% USE CASES
+%% AUTO
+In order to build a working example of the algorithm we started with the creation
+of an abstraction layer over the \ac{WebCL} raw implementation, then we created
+a small \emph{MultiMedia} library able to compute the needed operation on the
+images using our \emph{abstraction layer} eventually we implemented the algorithm
+in the \emph{MultiMedia} library.
+
+\paragraph{The abstraction layer} is in charge of the communication with the raw
+Nokia WebCL framework as well as creating a stateful object capable of
+managing of the I/O data for a WebCL \emph{kernel}.
+
+\paragraph{The MultiMedia library} is used to perform the operation required by
+the algorithm (such as \code{blur}, \code{scale}, \code{RGB to gray} etc.) either
+using \ac{WebCL} or the built-in HTML5 functions.
+\begin{figure}[htb]
+    \centering
+    \includegraphics[width=\columnwidth]{Automatic2}
+    \caption{Intermediate results of the algorithm.}
+    \label{fig:Automatic2}
+\end{figure}
+
+\begin{figure}[htb]
+    \centering
+    \includegraphics[width=\columnwidth]{Automatic3}
+    \caption{\acs{SIFT} result comparison with the reference data.}
+    \label{fig:Automatic3}
+\end{figure}

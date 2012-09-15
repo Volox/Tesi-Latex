@@ -17,16 +17,29 @@
 
 %Faccio gli esempi solo sulla parte volontaria, la parte involontaria viene straightforward
 
-
-This chapter will cover the use-cases used to test the System. These use-cases
-represents the principal scenarios where there is a need of a distributed
-platform to spread the computation, or the computation itself is distributed
-(like the \ac{GWAP}). These use-cases are also chosen to stess the matrix in
-\autoref{tab:matrix}, in particular the \emph{voluntary} part, because the
-\emph{involuntary} part can be implmented straightforward.
-
-At the end of every use-case will be presented a benchmark/metric, if available,
-with the corresponding available tools.
+In the previous chapter we introduced a framework for web-based human and machine
+computation, able to handle different types of application archetypes. In this
+chapter we present the use-cases use to test this framework under different
+scenarios. Since we wanted to test the framework with all the possible application
+archetypes we implemented three use-cases: \emph{Automatic}, \emph{Human} and
+\emph{Hybrid}:
+\begin{description}
+    \item[Automatic:] the automatic use-case is used to simulate a
+    \emph{Distributed Computing} application. In this scenario we compute the
+    SIFT algorithm on an image and return the obtained keypoints to the server.
+    \item[Human:] the human use-case is used to test if we can perform \acl{HC}
+    with our framework. To test this scenario we implemented a text disambiguation
+    application.
+    \item[Hybrid:] the hybrid use-case is used to test both the automatic and the
+    human scenarios. Here we implemented a \ac{GWAP} on top of a face recognition
+    algorithm.
+\end{description}
+\noindent We focused on the implementation of the \emph{Voluntary} scenario, see
+\autoref{tab:matrix}, because the \emph{involuntary} case is almost straightforward
+to obtain.
+At the end of every use-case will be presented, if possible, a simple
+benchmark/metric where the use-case results are compared with the ones obtained
+with the available tools. 
 
 
 
