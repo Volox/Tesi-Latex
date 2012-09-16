@@ -1,4 +1,60 @@
-Dato un testo disambiguarlo usando YAGO (AIDA, https://d5gate.ag5.mpi-sb.mpg.de/webaida/), EntityPedia?, e altri
-\citetitle{modernizr}
 
-\subsection{Benchmark}
+% testato per connettività esterna
+% 
+In this scenario we want to create a completely human computation Task. To 
+create this kind of application we decided to use word-sense disambiguation.
+
+In computational linguistics, \ac{WSD} is an open problem of natural language
+processing, which governs the process of identifying which sense of a word
+(i.e. meaning) is used in a sentence, when the word has multiple meanings.
+Research has progressed steadily to the point where \ac{WSD} systems achieve
+sufficiently high levels of accuracy on a variety of word types and ambiguities.
+
+A rich variety of techniques have been researched, from dictionary-based methods
+that use the knowledge encoded in lexical resources, to supervised machine
+learning methods in which a classifier is trained for each distinct word on a
+corpus of manually sense-annotated examples, to completely unsupervised methods
+that cluster occurrences of words, thereby inducing word senses. Among these,
+supervised learning approaches have been the most successful algorithms to date.\\
+
+For the purposes of \ac{WSD} there are plenty of online solution to use like
+DBpedia\footnote{\url{http://wiki.dbpedia.org/}},
+YAGO2\footnote{\url{http://www.mpi-inf.mpg.de/yago-naga/yago/}} or
+Entitypedia\footnote{\url{http://entitypedia.org/}}.
+
+
+\paragraph{DBpedia} as described in \cite{auer2007dbpedia}, is is a community
+effort to extract structured information from Wikipedia and to make this
+information available on the Web. DBpedia allows you to ask sophisticated queries
+against datasets derived from Wikipedia and to link other datasets on the Web to
+Wikipedia data.
+
+\paragraph{Entitypedia} TODO ??
+
+\paragraph{YAGO2} as described in \cite{hoffart2010yago2} is a huge semantic
+knowledge base, derived from Wikipedia, WordNet and GeoNames. At the time of
+writing, YAGO2 has knowledge of more than 10 million entities (like persons,
+organizations, cities, etc.) and contains more than 120 million facts about these
+entities. YAGO2 has some special features:
+\begin{itemize}
+    \item The accuracy of YAGO2 has been manually evaluated, proving a confirmed
+    accuracy of 95. Every relation is annotated with its confidence value.
+    \item YAGO2 is an ontology that is anchored in time and space. YAGO2 attaches
+    a temporal dimension and a spacial dimension to many of its facts and entities.
+    \item YAGO2 is particularly suited for disambiguation purposes, as it
+    contains a large number of names for entities. It also knows the gender of
+    people.
+\end{itemize}
+
+\noindent AIDA is a framework and online tool for entity detection and disambiguation. Given
+a natural-language text or a Web table, it maps mentions of ambiguous names onto
+canonical entities (e.g. individual people or places) registered in the YAGO2
+knowledge base. 
+
+
+\subsection{Use-case deployment}
+To test out framework we built a \acl{HC} application like AIDA. The purpose of
+this application is to let the user disambiguate the words in a piece of text.
+This application allowed us to test also the connection capabilities of our
+framework. Since the Task we implemented need to communicate to external servers
+to gather the information on a word.

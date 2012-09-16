@@ -1,6 +1,10 @@
-This use-case is the implementation of an \emph{hybrid} use-case that embodies
-both the automatic and the human scenario. In the matrix at \autoref{tab:matrix}
-this use case is placed between the human and the automatic, voluntary, scenario.
+
+With the previous sections we presented two applications able to handle the
+human and the automatic scenarios. In this section we are presenting a use-case
+where both the previous scenarios are blended together. This is used to test
+if our framework is flexible enough to seamlessly support mixed application
+archetypes. In the matrix at \autoref{tab:matrix} this use-case fits between the
+human and the automatic computation.
 
 \begin{figure}[htb]
     \centering
@@ -9,11 +13,9 @@ this use case is placed between the human and the automatic, voluntary, scenario
     \label{fig:Hybrid1}
 \end{figure}
 
-This use-case has the purspose of \emph{detecting faces} in a picture, to
-accomplish this task are used an automatic face recognition algorithm\footnote{
-Available at \url{https://github.com/liuliu/ccv/tree/unstable/js} with a demo
-application here: \url{http://liuliu.me/ccv/js/nss/}} plus a human interacition
-that has the double purpose of validating the algotithm result and detect the
+This use-case has the purpose of \emph{detecting faces} in a picture, to accomplish
+this Task are used an automatic face recognition algorithm plus a human interaction
+that has the double purpose of validating the algorithm result and detect the
 missing faces in the image.
 
 This scenario is implemented in 2 steps, in the first step we run the algorithm
@@ -82,9 +84,9 @@ results provided by the players will always be considered good results.
 
 The players will not be able to distinguish which of the instances of the tasks
 are being checked against their provided results and which results are simply
-considered “true as provided” without any further checks. This behaviour is also
+considered "true as provided" without any further checks. This behavior is also
 enforced by the fact that the player is not able to understand the moment in which
-the “trial phase” will end and the fast reaction times force him to not even have
+the "trial phase" will end and the fast reaction times force him to not even have
 the time to think about providing misleading results, with the risk of having to
 start the game from the beginning again.
 

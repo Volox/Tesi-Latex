@@ -5,92 +5,69 @@
 \chapter{Introduction}
 \label{intro}
 
-% INTRODUZIONE
-% Spiego il problema che intendo risolvere, la distribuzione dei task attraverso una piattaforma
-% condivisa.
-% 1)
-% Problema delle generalità dei task (sia dal punto di vista della computazione che dal punto
-% di vista delle richieste all'utente)
-% Complessità  doppia (complessità come carico di lavoro sia come tipo di computazione richiesta)
-%% Human computation -> complessità algoritmiche
-%% Automatic computation -> complessità di carico
-% Spiego i tipi di task che posso incontrare, human, automatic e hybrid (in modo da definire le
-% casistiche possibili) e faccio vedere quali affronto
-% 2)
-% usiamo il web perchè permette di fare qualunque tipo di operazione su una piattaforma comune
+In the last years a great hype has been seen in the field of \emph{Crowd-based
+Computation Distribution}. Methods and techniques have been presented to allow the
+distribution of computation not only to computers but also to humans. Despite
+all the methodologies presented the available online technologies are focused
+only on a few application scenarios, like \acl{HC} or \acl{DC}. When the
+distribution of computation is directed towards humans we have \ac{HC},
+otherwise we are dealing with \ac{DC}.\\
 
 
-% Siamo nel contensto della computazione distribuita
-% paradigma grid computing / cluod computing si basa sul concetto di astarre le
-% risorse disponibili per renderle omegennee. Cloud intende astrarre tutto non solo porzioni
-% di hardware.
-In the field of distributed computing have been used several methods to create a
-common layer able to execute code on different systems and platforms. The paradigm
-of distributed computing is based on the paradigm of grid computing and on that of
-cloud computing. These paradigms leverage on the core concept of creating an abstraction
-layer on top of the available resource in order to make them consistent, for example
-grid computing abstract only part of the available resources, meanwhile cloud
-computing abstract the whole hardware.\\
 
-% la distribuzione è fatta a parità di software o hardware
-%% parità di hardware
-%%% Risorse distribuite simili (oppure astraibili) distribuisco e poi raggruppo MapReduce
-%% parità di sofware
-The distribution of the computation can be done at \textbf{hardware} or 
+\emph{\acl{DC}} deals with the computation distribution among computers, also
+called nodes, connected to a network. The execution of the code is possible thanks
+to the creation of an abstraction layer on top of each node. This layer normalize
+the differences between computers by abstracting the available resources in order
+to make them consistent. For instance grid computing abstracts only part of the
+available resources, meanwhile cloud computing abstracts the whole hardware.
+
+The distribution of the computation can be done at \textbf{hardware} or
 \textbf{software} level.
-
 At \textbf{hardware} level we have similar distributed resources, or at least
-can be easily abstracted, so we can distribute and gather the results. This
-paradigm is used in frameworks like \cite{dean2008mapreduce} where the
-computation is spread on large cluster of computers.
+they can be easily abstracted, so we are able to offload the same code to the
+nodes and gather the results. This type of computation distribution is used in
+frameworks like MapReduce, as described in \cite{dean2008mapreduce}, where the
+computation is spread on large clusters of computers.
+The distribution of computation at \textbf{software} level uses ad-hoc softwares
+to normalize the resources of a computer. With this coherent representation of
+nodes, the distributed system is now able to send code and gather results.\\
 
-% partono dal concetto di sistemi distribuiti in cui il calcolo automatico viene
-% distribuito su macchine diverse separate dalla rete ( di solito)
-% La computazione viene eseguita, il risultato processato dal server che nel caso scatena
-% altra computazione, e così via...
-The distribution of computation at \textbf{software} level uses the concept of
-distributed systems, where the automatic computation is spread among different
-machines usually separated by a network. Once the computation is executed by a
-node, the result is processed by the server and if needed another computation is
-triggered by ther server, an so on.\\
 
-% si è delineato un nuovo paradigma in questo ambito che è human computation, nel quale
-% ho sempre computaionze da fare, inoltre i miei nodi hanno la proprietà di poter fare computazione
-% che altri nodi standard (PC) non sanno/possono fare
-Another paradigm has been outlined in this field, \textbf{human computation}.
-The paradigm is the same as above because we need to computation but here the nodes
-have the ability to perform computation that other standard nodes, like pc and
-similar, are not able to do.
+\emph{\acl{HC}} is a technique where a computational process performs its
+functions by outsourcing certain steps to humans. As one may notice \ac{HC}
+is suitable only for a certain category of tasks, like for example image
+recognition or \acl{WSD}. This kind of applications, usually, rely on the Web
+as the main platform for distributing and executing such tasks. A major issue
+for \ac{HC} is how to engage the user, and, more important, how to keep the
+user engaged.  \\
 
-% si nota che l'idea di human computation somiglia al calcolo distribuito, e si appoggia su
-% tecnologie di distribuzione web-based che si appoggiano su architetture comuni.
-%% ES:
-% Gli utenti vengono ingaggiati attraverso il web, i task sono eseguiti sul web, le applicazioni
-% human computation o GWAP di solito di appoggiano su piattaforme web comuni
-% per es peekaboom (von2006peekaboom) o applicazioni standalone normalizzate come foldIt
+
+
+{\Huge$\downarrow$RIFARE$\downarrow$}
+In both
+
+
+
+
+
 As one may notice, the idea of human computation is very similar to distributed
-computation also it leverage on web-based distribution technologies. Usere get
+computation also it leverages on web-based distribution technologies. 
+
+
+User get
 engaged using the web, and also the tasks are executed within a web browser.
 Human computation application or \ac{GWAP} usually relies on the web as a common
 platform like \cite{von2006peekaboom} or \citetitle{turk}. Another solution is to
 create a standalone normalized software platform like \citetitle{foldit}.\\
 
-
-% detto ciò è evidente che siamo giunti ad una condizione in cui si ha la capacità tecnica
-% di utilizzare gli utenti del WEB come nodi di calcolo (umano o automatico) per calcoli
-% arbitrariamente complessi
 Given this general overview one can spot that we reached a condition where we have
 the technical ability to use all the web-users as nodes able to perform arbitrarily
 complex computation either automatic or human.
 
-% Per quanto ne sappiamo non esistono dei metodi e strumenti che consentono lo sfruttamento di
-% questa opportunità, perchè sono focalizzati su Human o automatico (non web-based)
-% matrice stato attuale, io voglio fare tutto
-% se voglio usare BOINC sul WEB non posso
-% se voglio fare HC distribuita
-% il contributo originale di questa tesi: CONTRIBUTION
 
-% tassonomia di come chiamare questo tipo di oggetto da noi creato%
+
+
 As far as we know there are no methods or tools able to stress this opportunities,
 because they focus on human or automatic computation\footnote{Not web-based, but
 using standalone clients.}. The matrix in \autoref{tab:matrix} is the representation
@@ -103,12 +80,12 @@ complexity \emph{workload complexity} and \emph{algorithm complexity}.\\
 huge amount of simple (or not so simple) computation on a lot of data. To address
 this problem we need use the \emph{Divide et impera} paradigm, like the one used
 in \cite{dean2008mapreduce}, allowing to split algorithms that operates on huge
-amount of data into atomc steps that can be executed by any node. When dealing
+amount of data into atomic steps that can be executed by any node. When dealing
 with this type of complexity we need to do \textbf{automatic} computation.
 
-\textbf{Algorithm complexity} addesses the other dimension, here we consider the
+\textbf{Algorithm complexity} addresses the other dimension, here we consider the
 complexity as the computational feasibility of each step of the algorithm.
-As an example consider the following algoritm:\\
+As an example consider the following algorithm:\\
 \begin{algorithm}[H]
 	\caption{Tweet validation}
 	\label{alg:intro_example}
@@ -131,7 +108,7 @@ As an example consider the following algoritm:\\
 \end{algorithm}
 The algorithm itself is not complex but operation like \code{opinion} $\ne$
 \code{IN\_FAVOR}
-cannot be done by a normal node, like a pc, or they took too long to be computed.
+cannot be done by a normal node, like a PC, or they took too long to be computed.
 These cases belongs to the field of \textbf{human} computation.\\
 \begin{table}[htb]
 	\caption{Task distribution and execution matrix.}
@@ -151,11 +128,11 @@ These cases belongs to the field of \textbf{human} computation.\\
 % Custom clients
 A limitation of the available frameworks for automatic computation is the ease
 of access of the tool for the end-users. Let's take \ac{SETI@home} as an example,
-this tool uses the \ac{BOINC} platform to search for extraterrestral activity
-using radio telescope and analizing narrow-bandwidth radio signal.
-A user who want to partecipate to this priject must install the \ac{BOINC}
+this tool uses the \ac{BOINC} platform to search for extraterrestrial activity
+using radio telescope and analyzing narrow-bandwidth radio signal.
+A user who want to participate to this project must install the \ac{BOINC}
 platform and then enter a specific URL to start contributing.
-This steps, despite their semplicity, have hidden overhead to the user and to
+This steps, despite their simplicity, have hidden overhead to the user and to
 the \ac{SETI@home} project. The installation of ad-hoc clients can be a problem
 when a user work an a machine with strong restriction, also the \ac{SETI@home}
 project must adapt their data and computation to be executed within the \ac{BOINC}
@@ -163,7 +140,6 @@ platform.
 
 
 \section*{Original contribution}
-% Feature requested
 The aim of this thesis is to present a model for distributing and executing task that covers all
 the matrix dimension expressed in table \ref{tab:matrix}, and on top of that provide:
 \begin{itemize}
@@ -173,7 +149,6 @@ the matrix dimension expressed in table \ref{tab:matrix}, and on top of that pro
 	\item ease of execution by the users
 \end{itemize}
 
-% Original contribution
 The original contributions are:
 \begin{enumerate}
 	\item Definition of a model for automatic, human and hybrid computation

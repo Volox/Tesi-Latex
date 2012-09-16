@@ -3,109 +3,17 @@
 \label{cap:implementation}
 %************************************************
 
-In this chapter the architecture of the whole system is explained as long as
-the motivation that led us to these choices.
-
-%% TODO ???
-When chosing a suitable backend for our System we needed to take care of all the
-features it must be able to perform (see \autoref{tab:matrix}). Without all these
-needs fullfilled the System cannot bring any original contributions.
+The previous chapters presented the Conceptual Model and the Use-cases of a
+framework for web-based human and machine computation. In this chapter are
+presented the actual implementation of the framework and the use-cases.
+The framework implementation is dived in two parts the Configurator, managed by
+the Crowdsearcher (see \autoref{sec:bg:crowd:cs}) and the Execution Layer
+implemented in NodeJS.
+The use-cases implementation are built on the Execution Layer and leverages on
+the \ac{HTML}5 features described in \autoref{sec:bg:web:html5}.
 
 \section{Architecture}
 \label{sec:implementation:arch}
-
-The architecture is divided in two main parts, the task creation (managed by
-the \hyperref[sec:configurator]{Configurator}) and the task execution (managed by
-the \hyperref[sec:exec-layer]{Execution layer}).
-As shown in \autoref{fig:architecture2} in the \hyperref[cap:model]{Model}
-this two parts can be safely separated into standalone components.
-
-\subsection{Configurator}
-\begin{figure}[htb]
-    \centering
-    \includegraphics[width=\columnwidth]{crowdsearcher}
-    \caption{The Crowdsearcher interface.}
-    \label{fig:crowdsearcher}
-\end{figure}
-The configuration and the management of the Task/Work lifecycle is demanded to a
-third part component, the \textbf{CrowdSearcher}. As descibed in
-\ref{sec:bg:crowdsearch} the \emph{CrowdSearcher} is a \emph{centralized} human
-computation platform able to execute the task once the user reached the
-\emph{CrowdSearcher} website. For the execution the \emph{CrowdSearcher} give its
-default implementation for the most common Task.
-
-% TODO cos'è
-The \emph{CrowdSearcher} has been implemented using the
-\href{http://www.webratio.com}{WebRatio} tool and so is a Java standard
-web-application.
-
-
-\subsection{Execution Layer}
-\begin{figure}[htb]
-    \centering
-    \includegraphics[width=0.6\columnwidth]{nodejs}
-    \caption{Official NodeJS logo.}
-    \label{fig:node-logo}
-\end{figure}
-The execution layer is being developed using the great flexibility of \citetitle{node}.
-Node.js is a platform built on Chrome's JavaScript runtime for easily building fast,
-scalable network applications. Node.js uses an event-driven, non-blocking I/O model
-that makes it lightweight and efficient, perfect for data-intensive real-time
-applications that run across distributed devices.
-This platform was chosen due to the great speed of the request-response cycle
-when dealing with relatively small files (like in our scenario).
-
-Due to the great hype around \citetitle{node} and the ease of developing
-libraries for this platform, there are thousands of these being developed and
-made available via the built-in package manager (\code{npm}).\\
-
-For the implementation of the sever we used the \citetitle{express} web
-application framework. This framework allow to create easy routing on pages and
-provide a robust templating system. With all these features we were able to
-create a REST web-server that interact with the \emph{Configurator} in order to
-recieve \utask{}, execute the code and post the results back to the Configurator.
-
-The \emph{execution layer} allow the \utask{} implementation to inherith a
-\js{} \emph{Class} that give a set of API for retrieving Task configuration,
-gathering data and eventially post the \utask{} results back to the
-\emph{Configurator}.\\
-
-The storage of the \utask{} implementations is made using the filesystem because
-the resources needed to execute a \utask{} are almost text or binary files like
-images or \js{}/\ac{CSS} files. If for a certain task a custom default\footnote{
-By default we mean a single implementation for all the platforms/devices, see
-\ref{} } implementation is provided than a \code{default} folder is created for
-that task containing all the files. If the \emph{Requester} provides a
-platform-specific implementation than a folder with the platform name (e.g.
-\code{mobile}, \code{tablet}, etc.) is created and the code qill be uploaded
-there. When a user visit the page containig the logic to run a task, then according
-to the strategy configured the right implementation will be sent to the device.
-
-
-\section{Performance comparison???}
-\label{sec:implementation:performance}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -229,6 +137,143 @@ is using the \emph{client}.
 
 
 
+%% VECCHIO
+
+
+The architecture is divided in two main parts, the task creation (managed by
+the \hyperref[sec:configurator]{Configurator}) and the task execution (managed by
+the \hyperref[sec:exec-layer]{Execution layer}).
+As shown in \autoref{fig:architecture2} in the \hyperref[cap:model]{Model}
+this two parts can be safely separated into standalone components.
+
+\subsection{Configurator}
+\begin{figure}[htb]
+    \centering
+    \includegraphics[width=\columnwidth]{crowdsearcher}
+    \caption{The Crowdsearcher interface.}
+    \label{fig:crowdsearcher}
+\end{figure}
+The configuration and the management of the Task/Work lifecycle is demanded to a
+third part component, the \textbf{CrowdSearcher}. As descibed in
+\ref{sec:bg:crowdsearch} the \emph{CrowdSearcher} is a \emph{centralized} human
+computation platform able to execute the task once the user reached the
+\emph{CrowdSearcher} website. For the execution the \emph{CrowdSearcher} give its
+default implementation for the most common Task.
+
+% TODO cos'è
+The \emph{CrowdSearcher} has been implemented using the
+\href{http://www.webratio.com}{WebRatio} tool and so is a Java standard
+web-application.
+
+
+\subsection{Execution Layer}
+\begin{figure}[htb]
+    \centering
+    \includegraphics[width=0.6\columnwidth]{nodejs}
+    \caption{Official NodeJS logo.}
+    \label{fig:node-logo}
+\end{figure}
+The execution layer is being developed using the great flexibility of \citetitle{node}.
+Node.js is a platform built on Chrome's JavaScript runtime for easily building fast,
+scalable network applications. Node.js uses an event-driven, non-blocking I/O model
+that makes it lightweight and efficient, perfect for data-intensive real-time
+applications that run across distributed devices.
+This platform was chosen due to the great speed of the request-response cycle
+when dealing with relatively small files (like in our scenario).
+
+Due to the great hype around \citetitle{node} and the ease of developing
+libraries for this platform, there are thousands of these being developed and
+made available via the built-in package manager (\code{npm}).\\
+
+For the implementation of the sever we used the \citetitle{express} web
+application framework. This framework allow to create easy routing on pages and
+provide a robust templating system. With all these features we were able to
+create a REST web-server that interact with the \emph{Configurator} in order to
+recieve \utask{}, execute the code and post the results back to the Configurator.
+
+The \emph{execution layer} allow the \utask{} implementation to inherith a
+\js{} \emph{Class} that give a set of API for retrieving Task configuration,
+gathering data and eventially post the \utask{} results back to the
+\emph{Configurator}.\\
+
+The storage of the \utask{} implementations is made using the filesystem because
+the resources needed to execute a \utask{} are almost text or binary files like
+images or \js{}/\ac{CSS} files. If for a certain task a custom default\footnote{
+By default we mean a single implementation for all the platforms/devices, see
+\ref{} } implementation is provided than a \code{default} folder is created for
+that task containing all the files. If the \emph{Requester} provides a
+platform-specific implementation than a folder with the platform name (e.g.
+\code{mobile}, \code{tablet}, etc.) is created and the code qill be uploaded
+there. When a user visit the page containig the logic to run a task, then according
+to the strategy configured the right implementation will be sent to the device.
+
+
+\section{Use cases}
+\label{sec:implementation:use-cases}
+
+
+
+
+% USE CASES
+\subsubsection{Automatic}
+In order to build a working example of the algorithm we started with the creation
+of an abstraction layer over the \ac{WebCL} raw implementation, then we created
+a small \emph{MultiMedia} library able to compute the needed operation on the
+images using our \emph{abstraction layer} eventually we implemented the algorithm
+in the \emph{MultiMedia} library.
+
+\paragraph{The abstraction layer} is in charge of the communication with the raw
+Nokia WebCL framework as well as creating a stateful object capable of
+managing of the I/O data for a WebCL \emph{kernel}.
+
+\paragraph{The MultiMedia library} is used to perform the operation required by
+the algorithm (such as \code{blur}, \code{scale}, \code{RGB to gray} etc.) either
+using \ac{WebCL} or the built-in HTML5 functions.
+\begin{figure}[htb]
+    \centering
+    \includegraphics[width=\columnwidth]{Automatic2}
+    \caption{Intermediate results of the algorithm.}
+    \label{fig:Automatic2}
+\end{figure}
+
+\begin{figure}[htb]
+    \centering
+    \includegraphics[width=\columnwidth]{Automatic3}
+    \caption{\acs{SIFT} result comparison with the reference data.}
+    \label{fig:Automatic3}
+\end{figure}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -244,12 +289,12 @@ is using the \emph{client}.
 
 % execution
 
-
+{\Huge TODO ??? dove lo palmetto?}
 
 Now the built-in implementation of task creation, planning and execution are
 described to better understand how the whole system works. The description is
-focused on the built-in implementation, because it is the default behaviour of
-the system. By pluggin-in custom strategies one can completely change how the
+focused on the built-in implementation, because it is the default behavior of
+the system. By plugging-in custom strategies one can completely change how the
 system behaves, thus this case will not be covered here. For examples on how the
 pluggable strategies works see \ref{sec:model:strategies}.
 
@@ -286,7 +331,7 @@ manually. The automatic plan assignment uses a simple subdivision based on the
 number of instances to assign to each subTask.
 
 As depicted in \autoref{fig:task-planning} manual planning involves the
-\emph{Requester} interaction in orer to create \textbf{subTasks}. After creating
+\emph{Requester} interaction in order to create \textbf{subTasks}. After creating
 the subTask the \emph{Requester} has to select the instances belonging to this
 subTask. Eventually the \emph{Requester} is able to select and, if needed,
 configure the type of the subTask, based on the task types of the parent Task.
@@ -308,32 +353,3 @@ configure the type of the subTask, based on the task types of the parent Task.
 
 
 
-
-% USE CASES
-%% AUTO
-In order to build a working example of the algorithm we started with the creation
-of an abstraction layer over the \ac{WebCL} raw implementation, then we created
-a small \emph{MultiMedia} library able to compute the needed operation on the
-images using our \emph{abstraction layer} eventually we implemented the algorithm
-in the \emph{MultiMedia} library.
-
-\paragraph{The abstraction layer} is in charge of the communication with the raw
-Nokia WebCL framework as well as creating a stateful object capable of
-managing of the I/O data for a WebCL \emph{kernel}.
-
-\paragraph{The MultiMedia library} is used to perform the operation required by
-the algorithm (such as \code{blur}, \code{scale}, \code{RGB to gray} etc.) either
-using \ac{WebCL} or the built-in HTML5 functions.
-\begin{figure}[htb]
-    \centering
-    \includegraphics[width=\columnwidth]{Automatic2}
-    \caption{Intermediate results of the algorithm.}
-    \label{fig:Automatic2}
-\end{figure}
-
-\begin{figure}[htb]
-    \centering
-    \includegraphics[width=\columnwidth]{Automatic3}
-    \caption{\acs{SIFT} result comparison with the reference data.}
-    \label{fig:Automatic3}
-\end{figure}
