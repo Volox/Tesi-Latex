@@ -1,43 +1,32 @@
 % Enabling web-based distributed computation
 
-% iniziative per facilitare la scrittura di app  lato client emscipten/google
-% web tooklit engine
-
-% parlo del we come piattaforma condivisa per distribuzione del codice
-% TODO evoluzione del web prima content delivery ora RIA
-% RIA (HTML4) mancavano accesso ai dati, data storage e comunicazione
-% HTML5 ->
-%% Comunicazione CORS e WeBSocket
-%% Accesso ai dati File API, canvas
-%% dataStorage (prima server side) ora LoscalSotrage (WebSQL/indexedDB)
-
 Using the web (i.e. the browser) as a platform for distributing and executing
 code implies that we have the available technologies to perform high-level
 \emph{computation} and real-time \emph{communication}. These are the requirements
 for evaluating the web as a suitable platform for code distribution.\\
 
-\paragraph{Computation} is the key for being able to perform task within the
+\paragraph{Computation} is the key for being able to perform tasks within the
 browser. \emph{Computation} can involve any kind of operation on the data, and
 the data itself can be of any type. For instance creating an application that
-analyze audio files is relatively simple using standard languages (e.g. C, C++,
-Java, etc) and until a few years ago was almost\footnote{Without using strange
-interaction between Flash/Silverlight and the browser.} impossible to do within
-a browser, or creating a image manipulation program that runs without external
-plugins.
+analyzes audio files, or creating a image manipulation program that runs without
+external plugins is relatively simple using standard languages (e.g. C, C++,
+Java, etc). Until a few years ago it was almost\footnote{Without using strange
+interaction between Flash/Silverlight and the browser.} impossible to do it within
+a browser.
 
 HTML5 filled the gap that existed between any "standard" language and \js{}
 giving the developers access to all the required APIs needed to create fully
 functional web-applications. In \ref{sec:bg:web:html5} are presented all the
-features, along with some technical details, that have enabled these evolution.\\
+features, along with some technical details, that have enabled this evolution.\\
 
 There are also initiatives that aim at simplify the deployment of \js{}
 application. Since most of the developers have experience on languages other than
-\js{} there is the need of creating application in one language and \emph{cross
-compiling} it for the web. Projects like \citetitle{emscripten} and \citetitle{gwt}
+\js{} there is the need of porting existing application to the Web.
+Projects like \citetitle{emscripten} and \citetitle{gwt}
 offer the possibility to write the code directly in C,C++ (\citetitle{emscripten})
 or Java (\citetitle{gwt}) and compile it into pure, and optimized, \js{}.
 
-\citetitle{emscripten}, by Mozilla, is an LLVM-to-JavaScript compiler. It takes
+\citetitle{emscripten}, by Mozilla, is a LLVM-to-JavaScript compiler. It takes
 LLVM bitcode (which can be generated from C/C++ using Clang, or any other
 language that can be converted into LLVM bitcode) and compiles that into \js{}.
 Since it is a compiler it offers multiple grades of optimization that reduce the
@@ -52,20 +41,20 @@ in browser quirks, XMLHttpRequest, and \js{}.\\
 
 
 
-\paragraph{Communication} is being empowered, with respect to HTML4, by
+\paragraph{Communication} is being empowered by
 introducing \emph{WebSocket}, that enables full-duplex data exchange with the
-server, and \ac{CORS} that give the developers the possibility to make \ac{AJAX}
+server, and \ac{CORS} that gives the developers the possibility to make \ac{AJAX}
 requests to "foreign" servers (other than \code{localhost}) without the need of
 a proxy for forwarding the requests.\\
 
 
-% TODO mmm non mi convince
-The availability of all those technical API give the possibility to create a
+% TODO non mi convince
+The availability of all those technical API gives the possibility to create a
 system capable of performing any \emph{Human} or \emph{Automatic} computation
 task without the need of external plugins. We used all the features of HTML5
-for the computation side of the System, WebSocket are used for real-time task
-monitoring and with the \ac{CORS} are used within the task to request any
-external data that a \emph{Requester} need.
+for the computation side of the System. WebSocket are used for real-time task
+monitoring and \ac{CORS} are used within the task to request any
+external data needed by the application.
 
 \subsection{\acs{HTML}5}
 \label{sec:bg:web:html5}

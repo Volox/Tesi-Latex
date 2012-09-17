@@ -1,7 +1,7 @@
 Web search has evolved since it was a massive link analysis system. Now the
-contents of a search query has been enriched with multimedia contents from the
+contents of a search query have been enriched with multimedia contents from the
 crowd. For instance a query can show results as links to other websites,
-user generated video, tweets or images. On top of this, a lot of tasks has been
+user generated videos, tweets or images. On top of this, a lot of tasks has been
 tweaked to generate more searchable data (e.g. image and video tagging), so now
 we are able to search for them. The crowd is becoming part of the search process,
 by adding information, ranking the results, moderating contents, etc.\\
@@ -9,7 +9,7 @@ by adding information, ranking the results, moderating contents, etc.\\
 CrowdSearch is targeted to enabling, promoting and understanding individual
 and social participation to search \cite{fraternali2012crowdsearch}.
 CrowdSearch uses the crowds as sources for the content processing and information
-seeking processes; it fills the gap between generalized search systems, which
+seeking processes. It fills the gap between generalized search systems, which
 operate upon world-wide information - including facts and recommendations as
 crawled and indexed by computerized systems { and social systems, capable of
 interacting with real people, in real time \cite{fraternali2012crowdsearch}.
@@ -29,7 +29,7 @@ retrieval algorithms with the calibrated contribution of humans \cite{paperboz}.
 The framework (see \autoref{fig:CS-framework}) proposed by \cite{paperboz}, uses the
 humans' skills to improve some the result of a query. To perform such operation
 the framework must choose which task must be executed by humans and which must
-not. This has been addressed by mapping some task to humans and some to machines.
+not. This has been addressed by mapping some tasks to humans and some others to machines.
 
 When a task is assigned to the crowd, the execution mode is chosen according to
 the \emph{Human Task Design}. This step produces the actual design of the
@@ -41,15 +41,15 @@ or desired characteristics of task execution including: a time budget for
 completing the work, a monetary budget for paying workers, etc.
 
 The framework provides an abstraction for the crowd and their skills, called
-\emph{Crowd Abstraction}, human performers and content elements are represented
+\emph{Crowd Abstraction}. Human performers and content elements are represented
 as nodes connected by edges in a bipartite graph.
 Edges connecting performers denote a friendship, edges connecting content
-elements denotes a semantic relationships and finally, a connection from a
+elements denote a semantic relationship and finally, a connection from a
 performer to a content element may denote an interest.
 
 The next step to the \emph{Human Task Design} is the \emph{Task Deployment}, whose
 goal is to assign the crowd tasks to the most suited performers. This step is
-subdivided in two sub-step: \emph{People to Task Matching} and \emph{Task
+subdivided into two sub-steps: \emph{People to Task Matching} and \emph{Task
 Assignment}. The first sub-step is almost a query matching problem, where the
 workers must be ranked according to the \emph{Task Deployment Criteria} and a
 set of suitable workers is selected (e.g. top-k).

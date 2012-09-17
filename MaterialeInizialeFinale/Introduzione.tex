@@ -7,12 +7,9 @@
 
 In the last years a great hype has been seen in the field of \emph{Crowd-based
 Computation Distribution}. Methods and techniques have been presented to allow the
-distribution of computation not only to computers but also to humans. Despite
-all the methodologies presented the available online technologies are focused
-only on a few application scenarios, like \acl{HC} or \acl{DC}. When the
+distribution of computation not only to computers but also to humans. When the
 distribution of computation is directed towards humans we have \ac{HC},
 otherwise we are dealing with \ac{DC}.\\
-
 
 
 \emph{\acl{DC}} deals with the computation distribution among computers, also
@@ -31,87 +28,39 @@ frameworks like MapReduce, as described in \cite{dean2008mapreduce}, where the
 computation is spread on large clusters of computers.
 The distribution of computation at \textbf{software} level uses ad-hoc softwares
 to normalize the resources of a computer. With this coherent representation of
-nodes, the distributed system is now able to send code and gather results.\\
+nodes, the distributed system is now able to send code and gather results.
+Software level abstraction is used by many distributed computing frameworks such
+as \ac{BOINC} or Distributed.net\footnote{\url{http://www.distributed.net}}.
+
+As one may notice this type of distributed computation strongly rely on the
+presence the abovementioned abstraction layer. For creating such layer there is
+the need of creation complex cross-platform application software able to normalize
+the execution of code among different OS and architectures.\\
 
 
-\emph{\acl{HC}} is a technique where a computational process performs its
+\emph{\acl{HC}} is used  where a computational process performs its
 functions by outsourcing certain steps to humans. As one may notice \ac{HC}
 is suitable only for a certain category of tasks, like for example image
-recognition or \acl{WSD}. This kind of applications, usually, rely on the Web
-as the main platform for distributing and executing such tasks. A major issue
-for \ac{HC} is how to engage the user, and, more important, how to keep the
-user engaged.  \\
+recognition or \acl{WSD}. This kind of applications usually rely on the Web
+as the main platform for distributing and executing such tasks. For instance
+\citetitle{turk} is an web-based market for performing \ac{HC} in exchange of
+money rewards.
+A major issue for \ac{HC} is how to engage users, and, more important, how to keep
+the them engaged. To overcome this issue some \ac{HC} task can be adapted to create
+a \ac{GWAP}. Games such as PeekaBoom\footcite{von2006peekaboom}, the
+ESP Game\footnote{\url{http://www.gwap.com/gwap/gamesPreview/espgame/}} and
+\citetitle{foldit} utilize the entertainment given by playing the game as an
+engaging factor. \ac{GWAP} has the same problem of portability as distributed
+computing, in fact we need to code an ad-hoc application to run the game.\\
 
 
 
-{\Huge$\downarrow$RIFARE$\downarrow$}
-In both
-
-
-
-
-
-As one may notice, the idea of human computation is very similar to distributed
-computation also it leverages on web-based distribution technologies. 
-
-
-User get
-engaged using the web, and also the tasks are executed within a web browser.
-Human computation application or \ac{GWAP} usually relies on the web as a common
-platform like \cite{von2006peekaboom} or \citetitle{turk}. Another solution is to
-create a standalone normalized software platform like \citetitle{foldit}.\\
-
-Given this general overview one can spot that we reached a condition where we have
-the technical ability to use all the web-users as nodes able to perform arbitrarily
-complex computation either automatic or human.
-
-
-
-
-As far as we know there are no methods or tools able to stress this opportunities,
-because they focus on human or automatic computation\footnote{Not web-based, but
-using standalone clients.}. The matrix in \autoref{tab:matrix} is the representation
-of the available online tools categorized using as dimensions the will of the user
-of performing such tasks and the \emph{complexity} of the algorithm.
-When using the term \emph{complexity} we refer to two main types of computational
-complexity \emph{workload complexity} and \emph{algorithm complexity}.\\
-
-\textbf{Workload complexity} indexes all that algorithms that need to perform a
-huge amount of simple (or not so simple) computation on a lot of data. To address
-this problem we need use the \emph{Divide et impera} paradigm, like the one used
-in \cite{dean2008mapreduce}, allowing to split algorithms that operates on huge
-amount of data into atomic steps that can be executed by any node. When dealing
-with this type of complexity we need to do \textbf{automatic} computation.
-
-\textbf{Algorithm complexity} addresses the other dimension, here we consider the
-complexity as the computational feasibility of each step of the algorithm.
-As an example consider the following algorithm:\\
-\begin{algorithm}[H]
-	\caption{Tweet validation}
-	\label{alg:intro_example}
-	\SetKwFunction{check}{check}
-	\SetKwFunction{setTweet}{setTweet}
-	\SetKwFunction{contactCIA}{contactCIA}
-	\SetKwInOut{Input}{input}\SetKwInOut{Output}{output}
-
-	\Input{a set of tweet about a politician}
-	\Output{each tweet marked as in favor or against the politician}
-	\BlankLine
-
-	\ForEach{tweet in tweets}{
-		opinion $\leftarrow$ \check{tweet}\;
-		\If{opinion$\ne$IN\_FAVOR}{
-			\contactCIA{}\;
-		}
-		\setTweet{tweet, opinion}\;
-	}
-\end{algorithm}
-The algorithm itself is not complex but operation like \code{opinion} $\ne$
-\code{IN\_FAVOR}
-cannot be done by a normal node, like a PC, or they took too long to be computed.
-These cases belongs to the field of \textbf{human} computation.\\
+\autoref{tab:matrix} summarizes the available solutions for performing crowd-base
+computation distribution. In the table we added a dimension concerning the user
+awareness of the task\footnote{For \ac{GWAP} we considered the purpose of the
+game not the game itself.} execution.
 \begin{table}[htb]
-	\caption{Task distribution and execution matrix.}
+	\caption{Computation type vs User awareness matrix.}
 	\label{tab:matrix}
 	\centering
 	\begin{tabular}{r|c|c}
@@ -122,40 +71,38 @@ These cases belongs to the field of \textbf{human} computation.\\
 		Involuntary & Parasitic computing & \acs{GWAP}
 	\end{tabular}
 \end{table}
+As one may notice the available solutions focus on either human or automatic
+computation\footnote{Not web-based, but using standalone clients.}. As far as we
+know there are no state-of-the-art tools able to stress all these opportunities.\\
+
+The last decade has seen also the definitive explosion of the Web and its evolution.
+The Web has evolved from a mere content delivery network, where the contents are
+presented to the users, to a collaborative and social tool full of \ac{RIA}. The
+advent of \ac{RIA} was possible due to the great evolution on the client side
+computation performance. \acs{HTML}5 boosted the computing possibility of web
+browser by giving to developers the possibility to access video and audio raw data,
+interact with the filesystem and create communication channels between the client
+and the server.\\
 
 
+Given this general overview one can spot that we reached the condition where we
+have the technical ability to use all the web-users as nodes for a web-based human
+and machine computation framework.
 
-% Custom clients
-A limitation of the available frameworks for automatic computation is the ease
-of access of the tool for the end-users. Let's take \ac{SETI@home} as an example,
-this tool uses the \ac{BOINC} platform to search for extraterrestrial activity
-using radio telescope and analyzing narrow-bandwidth radio signal.
-A user who want to participate to this project must install the \ac{BOINC}
-platform and then enter a specific URL to start contributing.
-This steps, despite their simplicity, have hidden overhead to the user and to
-the \ac{SETI@home} project. The installation of ad-hoc clients can be a problem
-when a user work an a machine with strong restriction, also the \ac{SETI@home}
-project must adapt their data and computation to be executed within the \ac{BOINC}
-platform.
-
-
-\section*{Original contribution}
-The aim of this thesis is to present a model for distributing and executing task that covers all
-the matrix dimension expressed in table \ref{tab:matrix}, and on top of that provide:
-\begin{itemize}
-	\item ease of access to the tasks
-	\item usage of standardized protocols/languages
-	\item ease of implementation by the \emph{requester}
-	\item ease of execution by the users
-\end{itemize}
-
-The original contributions are:
+\section{Original contribution}
+The aim of this thesis is to present a framework for web-based human and machine
+computation able to cover all the dimensions expressed in \autoref{tab:matrix}
+On top of that provide: ease of access to the tasks, usage of
+standardized protocols/languages, ease of implementation by the developers and
+ease of execution by the users. The main contribution of this thesis are:
 \begin{enumerate}
 	\item Definition of a model for automatic, human and hybrid computation
-	\item Implementation of a reference web-based architecture for human and automatic implementation
-	\item Implementation of an infrastructure supporting the defined model
-	\item Validation through 3 use cases (\hyperref[sec:cases:automatic]{automatic},
-	\hyperref[sec:cases:human]{human}, \hyperref[sec:cases:hybrid]{hybrid})
+	\item Implementation of a reference web-based architecture for human and
+	automatic computation
+	\item Implementation of an infrastructure supporting the aforementioned model
+	\item Validation through three use-cases:
+	\hyperref[sec:cases:automatic]{automatic}, \hyperref[sec:cases:human]{human}
+	and \hyperref[sec:cases:hybrid]{hybrid})
 \end{enumerate}
 
 
@@ -164,15 +111,18 @@ The original contributions are:
 
 
 
-\section*{Outline}
+\section{Outline}
 The thesis is organized in four main parts.
-
 \begin{description}
-	\item[{\hyperref[cap:bg]{The first chapter}}]
+	\item[{\hyperref[cap:bg]{The second chapter}}] introduces the context of this
+	thesis, giving the needed notions that will be used during the explanation.
 
-	\item[{\hyperref[cap:model]{Nel secondo capitolo}}]
+	\item[{\hyperref[cap:model]{The third chapter}}] presents the conceptual model
+	of our framework.
 
-	\item[{\hyperref[cap:cases]{Nel terzo capitolo}}]
+	\item[{\hyperref[cap:cases]{The fourth chapter}}] introduces the use-cases
+	that we uses to validate our framework.
 
-	\item[{\hyperref[cap:implementation]{Nell'ultimo capitolo}}]
+	\item[{\hyperref[cap:implementation]{The fifth chapter}}] describes the
+	implementation stage of the framework and of the use-cases.
 \end{description}

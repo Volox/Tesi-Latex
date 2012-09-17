@@ -2,7 +2,7 @@
 
 
 Under the name of \emph{Crowd-based computation distribution} can fall a lot of
-different computational model. As shown in
+different computational models. As shown in
 \autoref{fig:crowd-distributed-computing}, distributing computation to the crowd
 embodies not only the \ac{HC} field but also the concept of \emph{distributed
 computing}, because the crowd can be composed by humans or computers. When dealing
@@ -17,36 +17,36 @@ otherwise we are dealing with a \emph{human crowd}.
 % TODO image with the task distributed to human and computers
 
 Generally speaking \emph{computation distribution} is a paradigm for splitting
-a task into atomic subtasks that can be performed on multiple nodes, eventually
+a task into atomic subtasks that can be performed on multiple nodes. Eventually
 the nodes send the result of the \emph{computation} back to the central hub.
-Using a client-server architecture the list of operation required to have
-\emph{computation distribution} is:
+Using client-server as an example architecture, we can list the required
+operation needed to obtain \emph{computation distribution}:
 \begin{enumerate}
     \item the server \textbf{splits} the workload into atomic operations
-    \item the server \textbf{send the task}, among with the needed data, to the
+    \item the server \textbf{sends the task}, among with the needed data, to the
     clients
     \item the client \textbf{performs} the atomic task
-    \item the client \textbf{send the results} back to the server
-    \item the server \textbf{gather} the results from all the clients
-    \item the server \textbf{join} the results
+    \item the client \textbf{sends the results} back to the server
+    \item the server \textbf{gathers} the results from all the clients
+    \item the server \textbf{joins} the results
 \end{enumerate}
 The previous operations are the cornerstone of every \emph{computation
-distribution} system, although they can be "implemented" in different ways or can
-be joined together, they are always present.\\
+distribution} system. Although they can be "implemented" in different ways or can
+be joined together, they are present in all the distributed systems.\\
 
 Consistently with the \autoref{tab:matrix} and with the previous subdivision we
 splitted the general problem of crowd-based computation distribution into two
 fields: \emph{\acl{HC} \& \acl{GWAP}} and \emph{distributed computing}
 
 In \ref{sec:bg:crowd:human} are presented the theoretical basis as long as
-the state of the art tools that deals with \ac{HC} and the distribution of task
+the state-of-the-art tools that deals with \ac{HC} and the distribution of task
 to a human crowd.
 
-In \ref{sec:bg:crowd:auto} the concept of \emph{distributed computing} will
-be presented and the main tools that implements this paradigm are described.
+In \ref{sec:bg:crowd:auto} the concept of \emph{distributed computing} is
+presented and the main tools that implement this paradigm are described.
 
-In \ref{sec:bg:crowd:cs} is presented the concept of \emph{Crowdsearching}
-a new paradigm for searching using the crowd.
+In \ref{sec:bg:crowd:cs} is presented the concept of \emph{Crowdsearching},
+a new paradigm for searching in the Web using the crowd as source of information.
 
 
 \subsection{Human computation \& \acs{GWAP}}

@@ -1,7 +1,7 @@
 
-Unlike human computation, \emph{automatic computation} aim at executing task, or
-part of it, in an automatic fashion, without user interaction. This kind of
-\emph{distributed computation} leverage on the existence of a \emph{grid} of
+Unlike human computation, \emph{automatic computation} aims at executing a task, or
+part of it, in an automatic fashion, without user's interaction. This kind of
+\emph{distributed computation} leverages on the existence of a \emph{grid} of
 connected nodes able to perform data intensive calculation.
 
 
@@ -24,29 +24,29 @@ writing such programs.}"
 The platforms that implement these solution use different frameworks for splitting
 algorithms into atomic operation executable by the nodes. One of these frameworks
 is MapReduce\footcite{dean2008mapreduce} that, using the core concept of
-\emph{Divide et impera} can produce highly parallelizable algorithms.\\
+\emph{Divide et impera}, can produce highly parallelizable algorithms.\\
 
 The name "\emph{distributed computing}" refers to a wide range of different
-application (i.e. grid computing, cloud computing,
+applications (i.e. grid computing, cloud computing,
 \nameref{sec:bg:crowd:auto:parasitic}, jungle computing\footnote{Winner of the
 coolest name 2012}), that implement the same paradigm with different purposes.
-Using the dimensions presented in \autoref{tab:matrix} we can specialize the
-core concept of \emph{distributed computing} in two: \emph{voluntary computing}
-and \emph{parasitic computing}.
+Using the dimensions presented in \autoref{tab:matrix} we can divide the
+core concept of \emph{distributed computing} into two subcategories: \emph{voluntary
+computing} and \emph{parasitic computing}.
 
 
 \subsubsection{Voluntary computing}
 \label{sec:bg:crowd:auto:voluntary}
 \emph{Voluntary computing} refers to all those \emph{distributed computation}
-systems where the computation is performed on behalf of the user will. In such
-systems users go the website of the "project" they intend to support and, usually
+systems where the computation is performed on behalf of the users will. In such
+systems users go to the website of the "project" they intend to support and, usually
 by installing an ad-hoc client, give the resources (i.e. CPU idle time, storage,
 etc.) of their machines to the chosen "project".\\
 
 The first project implementing such computing paradigm was
-\ac{GIMPS}\footnote{\url{http://www.mersenne.org/}}, started in 1995, then other
+\ac{GIMPS}\footnote{\url{http://www.mersenne.org/}}, started in 1995. Then other
 platforms (such as \href{http://www.distributed.net/}{distributed.net},
-\href{http://setiathome.berkeley.edu/}{SETI@home}, etc. ) has been developed to
+\href{http://setiathome.berkeley.edu/}{SETI@home}, etc. ) have been developed to
 support this type of computation.
 
 \begin{figure}[htb]
@@ -58,13 +58,13 @@ support this type of computation.
 \acf{BOINC}\footnote{\url{http://boinc.berkeley.edu/}} is an open-source software
 for Voluntary computing and grid computing. \ac{BOINC} was originally developed
 to support the \acf{SETI@home} project, before it became used as a platform for
-other distributed computing applications. It consist on two parts, the back-end
+other distributed computing applications. It consists of two parts: the back-end
 server, running on Linux platforms, and the client, cross-platform, for the
 end-user computing.\\
 
-The client software allow users to connect to the \ac{BOINC} grid, to perform
+The client software allows users to connect to the \ac{BOINC} grid, to perform
 computation. The flow of the execution, as depicted in \autoref{fig:boinc} is
-the standard \emph{distributed computing}, here is the list of actions performed
+the standard \emph{distributed computing}. Here is the list of actions performed
 to run the task on the client:
 \begin{enumerate}
     \item get instruction from the server on how to get all the resources needed
@@ -74,9 +74,9 @@ to run the task on the client:
     \item send the results obtained to the server
 \end{enumerate}
 
-There are over 40\footnote{At the time of writing.} projects that leverage on
-the \ac{BOINC} platform to perform computation on different application areas,
-for example the aforementioned \ac{SETI@home} project use this framework to
+There are over 40, at the time of writing, projects that leverage on
+the \ac{BOINC} platform to perform computation on different application areas.
+For example the aforementioned \ac{SETI@home} project uses this framework to
 search for extraterrestrial intelligence by analyzing the narrow-band radio
 signal coming from the Arecibo radio telescope.
 

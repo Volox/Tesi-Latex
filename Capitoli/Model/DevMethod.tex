@@ -1,26 +1,22 @@
 % TODO ??
 
-During the development process of \myTitle the first issue that need to be
+During the development process of a framework for web-based human and machine
+computation the first issue that needed to be
 resolved was the description of a suitable model for supporting such framework.
 The design of a model involves the definition of the data structures that will
 be used by the workflow, and of course the definition of the workflow itself.
 
 \subsection{Data Design}
-% durante il design abbiamo dovuto tener conto del problema che dovevamo risolvere
-% data la flessibilità e generalità di questo 
-% abbiamo desciso di usare un metamodello
-% il metamodello voveva essree in grasdo di supportare i processi descritti più avanti
-%  pluggabilità
 In the design process for the data model we faced the problem of creating a
 suitable underlying model for all the application need that we have to cover,
 spacing from pure \acl{HC} task to \emph{parasitic computing}. This wide range
-of possible application and the need of great flexibility demanded to the system,
+of possible applications and the need of great flexibility demanded to the system,
 led us to the creation of a meta model for almost all the data structures used in
-the framework. The metamodel was subdivided in four: the \emph{Workflow}, the
+the framework. The metamodel was subdivided into four parts: the \emph{Workflow}, the
 \emph{Task Data Model}, the \emph{Task Model} and the \emph{Task Execution Model}.
 
 \paragraph{The Workflow Model} describes the flow of the execution of the Task
-within the framework, the relationships that needs to be taken into account to
+within the framework, the relationships that need to be taken into account to
 correctly execute a sequence of task (called \emph{Work}).
 
 \paragraph{The Task Data Model} describes the data model for each Task, including,
@@ -31,8 +27,8 @@ output set.
 \emph{Objects}, for the Task.
 
 \paragraph{The Task Execution Model} describes the actual execution step for
-each Task, providing information on which user is performing which task, as long
-as data associated to the execution itself.
+each Task, providing information on which user is performing which task, as well
+as the data associated to the execution itself.
 
 
 \subsection{Workflow Design}\label{design:work}
@@ -43,8 +39,8 @@ as data associated to the execution itself.
     \label{fig:workflow}
 \end{figure}
 % TODO flow of execution with both human and machine computation
-In the \emph{Workflow Design} we must describe, at conceptual level, how our
-framework deal with the client and how the task are executed. During the
+In the \emph{Workflow Design} we must describe, at a conceptual level, how our
+framework deals with the client and how the tasks are executed. During the
 \emph{Data Design} we stated that the tasks can have relationships and thus our
 framework must be able to handle different Task types seamlessly. In
 \autoref{fig:workflow} is depicted a typical flow of execution of a Work (a
@@ -69,27 +65,26 @@ logic in charge of managing certain steps of the execution (like Task planning).
 
 
 \subsection{Framework Design}
-% come sono arrivato all'architettura del framework
-In the design of the framework all the conceptual designed data and workflows as
-long as the requirements are merged and adapted to create the whole structure for
-supporting the framework.\\
+In the design process of the framework we took all the conceptually designed data
+and workflows, as well as the requirements, and we merged them together in order
+to create the whole structure for supporting our framework.\\
 
 During the \textbf{Data Design} we pointed out the data structures that
-need to be managed. The \emph{Workflow Model} need to specify the relationship
+need to be managed. The \emph{Workflow Model} needs to specify the relationships
 between the modules an the "connection points" where the third part softwares
-are plugged. On top of that every Task must have defined its set of input and
+are plugged. On top of that, every Task must have defined its set of input and
 output data.
 The \emph{Task Data Model} specifies all the data structure of the task, building
-the metamodel for each Task. The metamodel contain all the information on the 
+the metamodel for each Task. The metamodel contains all the information on the 
 structure of the data model for a Task.
-In the \emph{Task Model} are contained all the actual data for each Task, called
-Objects, each object represents a "row" of the data. Each object is, in turn,
+In the \emph{Task Model} there are contained all the actual data for each Task, called
+Objects. Each object represents a "row" of the data and is, in turn,
 associated to a Task.
 The \emph{Task Execution Model} contains all the information on the actual
-execution of a Task, keeping information on the user that performer the task and
-the used device, if any.\\
+execution of a Task. It stores all the information on the user that performed the task and
+the device used.\\
 
-The \textbf{Workflow Design} allow us to create the software able to handle all
+The \textbf{Workflow Design} allows us to create the software able to handle all
 the different types of archetype application (e.g. Human computation, Automatic
 computation) giving also the guidelines on how to manage the interaction between
 subsequent Task execution.

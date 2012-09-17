@@ -5,22 +5,22 @@
     \label{fig:html-logos}
 \end{figure}
 
-When speaking of \ac{HTML}5, usually, one is not only focusing on the markup language
+When speaking of \ac{HTML}5 one, usually, is not only focusing on the markup language
 but on a set of web technologies and specifications strictly related to \ac{HTML}5.
 This set of technologies includes the \ac{HTML}5 specification itself, the
-\ac{CSS}3 recomendations and a whole new set of \js{} APIs. So, first things
-first, let's point out the differences:
+\ac{CSS}3 recommendations and a whole new set of \js{} APIs. So, first things
+first, let us point out the differences:
 \begin{description}
-	\item[HTML5] refers to a set of semantic tag (like \ctag{footer},
+	\item[HTML5] refers to a set of semantic tags (like \ctag{footer},
 	\ctag{header}, \ctag{article}, \ldots), media tags (like \ctag{video} or
 	\ctag{audio}) and the so called Web Form 2.0 alongside with all the "old"
-	tags inherithed from HTML4. These tags helps developers to give semantics to
-	the website they make, so they (the websites, not the developers) can be
-	better understood by Seach engines or HTML parsers (like those used for
+	tags inherited from HTML4. These tags help developers to give semantics to
+	the website they make, so the websites can be
+	better understood by search engines or HTML parsers (like those used for
 	reading the site for blind people).
 
 	\item[CSS3] refers to the presentation layer of the pages. Here are introduced
-	specification including image effects, 3D transformation, new tag selectors, 
+	specifications including image effects, 3D transformation, new tag selectors, 
 	form element validation, etc. The specifications take care also of the new
 	devices (like smartphones and tablets) giving the user the \code{media
 	queries} to examine the media (screen, print, aural) and provide different
@@ -34,28 +34,29 @@ first, let's point out the differences:
 % TODO da vedere dove metterlo
 With the advent of \ac{HTML}5, like any new technology, many problems were
 resolved and many others have been created. The main issue with using \ac{HTML}5
-is the browser compatibility and browser-specific methods. When browser start
-implementing some \ac{HTML}5 draft feature, since is not fully standardized
+is the browser compatibility and browser-specific methods. When browsers start
+implementing some \ac{HTML}5 draft feature, since they are not fully standardized
 \footnote{In fact HTML5 (at the time of writing) is not yet standardized, its
 still a draft. See \url{http://www.w3.org/TR/html5/}}, they prevent the pollution
-the DOM by prefixing the standard method (i.e. \linebreak\code{requestAnimFrame}
-can became \code{mozRequestAnimFrame} or \code{webkitRequestAnimFrame})
+of the DOM by prefixing the standard method
 with a browser specific prefix\footnote{\code{o}: for
 Opera, \code{ms}: for Internet Explorer, \code{moz}: for Firefox, and
-\code{webkit}: for the WebKit based browser (Chrome and Safari)}. This prefixing
-is particularly common in the \ac{CSS}3 where thing becames awful\footnote{See
-CSS animation or gradients.}.\\
+\code{webkit}: for the WebKit based browser (Chrome and Safari)}(i.e.
+\linebreak\code{requestAnimFrame}
+can become \code{mozRequestAnimFrame} or \code{webkitRequestAnimFrame}). This prefixing
+is particularly common in the \ac{CSS}3 where things becomes awful\footnote{See
+CSS animation or gradients for example.}.\\
 
 
 To avoid browser inconsistency there are plenty of \js{} frameworks for every
 purpose. Frameworks like \citetitle{jquery} provide a layer of abstraction between
-browser-specific code and the user, giving developers \js{} fallbacks for the most
+browser-specific code and the user, giving developers fallbacks for the most
 common API and additional features not covered by the standard implementation.
 Other frameworks like \citetitle{modernizr} give developers the ability to test
 if some \ac{HTML}5 feature is available in the currently used browser and provide
 a general fallback system for dynamically load polyfills\footnote{A polyfill is
 a \js{} library or third part plugin that emulates one or more HTML5 feature,
-providing websites to have a consistent behaviour.}.\\
+providing websites to have a consistent behavior.}.\\
 
 
 Now are presented the main \ac{HTML}5 features to better understand how they can
@@ -74,16 +75,16 @@ Let's start with the official definition\footnote{Got from the specs:
 \end{quoting}
 
 So the \code{canvas} element is basically a \emph{Canvas}, like the name says, where
-one can \emph{paint} anithing. On top of this, the \code{canvas} element give
+one can \emph{paint} anything. On top of this, the \code{canvas} element gives
 the developers access to the underlying raw pixel data. Also in the \code{canvas}
 element you can \emph{draw} images taken from a \ctag{img} tag or a frame taken
 from a \ctag{video} tag.
 
-As one can se now we have all the tools we need to perform image analisys or
+As one can see now we have all the tools we need to perform image analysis or
 video manipulation within the browser. Obviously there are plenty of \js{}
 libraries that facilitate the whole process of filtering or, in general, image
 manipulation (like \href{http://www.pixastic.com/}{Pixastic} or
-\href{http://camanjs.com/}{Camanjs}), other libraries give you the tools to
+\href{http://camanjs.com/}{Camanjs}). Other libraries give you the tools to
 create diagrams or charts on the fly (like \href{http://raphaeljs.com/}{Raphaël}
 or \href{http://processingjs.org/}{Processingjs}).
 
@@ -94,8 +95,8 @@ high definition graphics and models using the WebGL API. This API is mantained
 by the \href{http://www.khronos.org/}{Khronos Group} and is based on OpenGL ES
 2.0 specifications. On top of these API there are a lot of libraries\footnote{For
 a reference see \url{http://en.wikipedia.org/wiki/WebGL\#Developer_libraries}}
-made to facilitate development of 3D applications, one of the the most used is
-the \href{http://mrdoob.github.com/three.js/}{Three} \js{} library, that ca be
+made to facilitate development of 3D applications. One of the the most used is
+the \href{http://mrdoob.github.com/three.js/}{Three} \js{} library, that can be
 used for creating and animating 2D or 3D scenes within the canvas element.
 
 
@@ -107,16 +108,17 @@ used for creating and animating 2D or 3D scenes within the canvas element.
 
 \paragraph{WebSocket}
 The WebSocket is an API interface for enabling bi-directional full-duplex client
-server communication on top of the \ac{TCP} protocol. It enables real-time
+server communication on top of the \ac{TCP}. It enables real-time
 communication between clients and servers, allowing servers to \textbf{push} data
 to the clients and obtain \emph{real} real-time content updates.
 
-Like many other \ac{HTML}5 features on top of WebSocket was built a library that
-provides easy access to these functionality as long as fallbacks for old browsers.
-\citetitle{socket} provide a single entry-point to create a connection to the
+Like many other \ac{HTML}5 features on top of WebSocket a library that
+provides easy access to these functionality as long as fallbacks for old browsers
+was built.
+\citetitle{socket.io} provides a single entry-point to create a connection to the
 server and manage the message exchange, providing fallbacks\footnote{If WebSocket,
-are not avilable the library can use Adobe\reg Flash\reg Socket, AJAX long
-polling, AJAX multipart streaming, Forever Iframe and JSONP Polling} to ensure
+are not available the library can use Adobe\reg Flash\reg Socket, AJAX long
+polling, AJAX multi-part streaming, Forever Iframe and JSONP Polling} to ensure
 cross-browser compatibility.
 
 
@@ -124,24 +126,22 @@ cross-browser compatibility.
 
 
 \paragraph{WebWorkers}
-A problem of coding load intensive \js{} application is the single thread nature
-of the language. Every script runs in the same thread of the browser window/tab,
-this can lead to some unwanted behaviour (like browser freezing or a warning
-dialog that that alerts the user).
-
+A problem that rises when coding load intensive \js{} application is the single thread nature
+of the language. Every script runs in the same thread of the browser window/tab.
+This can lead to some unwanted behavior (like browser freezing or a warning
+dialog that that alerts the user as in \autoref{fig:browser-slow-dialog}).
 \begin{figure}[htb]
     \centering
     \includegraphics[width=0.75\columnwidth]{browser-slow-dialog}
     \caption{The slow script dialog.}
     \label{fig:browser-slow-dialog}
 \end{figure}
-
 To solve this problem \cite{jenkin2008parasitic} proposed a timed-based
 programming structure that ensures that the code runs without any browser warning
-or freezing and also offer the developer to tweak the performance of the script
+or freezing and also offers the developer to tweak the performance of the script
 by dynamically adjusting the interval between the step execution. This method
-leaverage on the \code{setTimeout} function of \js{} in order to split code into
-timestep-driven code chuncks to execute. Here is an example of loop translated
+leverage on the \code{setTimeout} function of \js{} in order to split code into
+timestep-driven code chunks to execute. Here is an example of loop translated
 into a timer-based loop:
 \begin{multicols}{2}
 	\begin{algorithm}[H]
@@ -165,11 +165,11 @@ into a timer-based loop:
 		}
 	\end{algorithm}
 \end{multicols}
-Obviously this is not the solution to the problem, its a hack that trick the
+Obviously this is not the solution to the problem, it is a hack that tricks the
 browser.\\
 
 
-WebWorkers offer a simpler solution, they provide a simple, yet powerful, way of
+WebWorkers offer a simpler solution. They provide a simple, yet powerful, way of
 creating \emph{threads} in \js{}. The official definition says:
 \begin{quoting}\rm\tt
 	The WebWorkers specification defines an API for running scripts in the
@@ -181,37 +181,36 @@ creating \emph{threads} in \js{}. The official definition says:
 
 The core concept behind WebWorkers is the \code{Worker}. A \code{Worker} is a
 piece of \js{} code that runs in parallel to the main thread and is able to send
-and recieve messages (just like normal threads).
+and receive messages (just like normal threads).
 
 
 
 \paragraph{Storage}
 When web developers think of storing anything about the user, they immediately
 think of uploading to the server. \ac{HTML}5 changes that, as there are now
-several technologies allowing the app to save data on the client device.
+several technologies allowing the \ac{RIA} to save data on the client device.
 
-\ac{HTML}5 support a number of storage techniques able to store data within the
-browser to be accessed later, here is a simple list withe the principal features:
+\ac{HTML}5 supports a number of storage techniques able to store data within the
+browser to be accessed later. Here is a simple list with the principal features:
 \begin{description}
-	\item[Web storage] is a convenient form for offline storage, it uses a simple
-	key-value pairs like any \js{} \code{Object} stored in the browser accessible
-	every time the site need to use them.
+	\item[Web storage] is a convenient form for offline storage. It uses a simple
+	key-value mapping for storing data persistently on the browser.
 
 	\item[Web SQL database] is an offline SQL database, usually implemented using
 	SQLite, a general-purpose open-source SQL engine.
 
 	\item[IndexedDB] is a nice compromise between Web Storage and Web SQL Database.
-	Like the former, it's relatively simple; and like the latter, it's capable
-	of being very fast. It uses the same mapping as \emph{Web storage} and index
+	Like the former, it is relatively simple and like the latter, it's capable
+	of being very fast. It uses the same mapping as \emph{Web storage} and indexes
 	certain fields inside the stored data.
 
-	\item[Filesystem API] as the name says offer the ability to manipulate the
+	\item[Filesystem API], as the name says, offers the ability to manipulate the
 	file system of the host.
 \end{description}
 
 
 \paragraph{Offline storage}
-In this category falls \code{application cache}. The \code{application cache} is
+In this category falls the \code{application cache}. The \code{application cache} is
 controlled by a plain text file called a \code{manifest}, which contains a list
 of resources to be stored for use when there is no network connectivity. The list
 can also define the conditions for caching, such as which pages should never be
@@ -219,7 +218,7 @@ cached and even what to show the user when he follows a link to an uncached page
 
 If the user goes offline but has visited the site while online, the cached
 resources will be loaded so the user can still view the site in a limited form.
-Here is a simple cahce file:
+Here is a simple cache file:
 \begin{lstlisting}[language=make]
 CACHE MANIFEST
       

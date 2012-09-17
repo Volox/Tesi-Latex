@@ -5,53 +5,28 @@
 %************************************************
 
 
-% il mio sistema ha una logica di associazione del task
-% quale task a chi e con quale codice
 
-
-% Cubrick METADATA MODEL!!!!!!!!
-% definisco l'architettura, chi sono gli attori
-% definisco il modello degli attori (task, utente, uTask, client) e come sono relazionati
-% ES
-% relazione n->n task client
-% Il task può essere svolto da codici diversi in funzione del client
-
-
-% in questo capitolo definiamo il modello del nostro sisstema diviso in
-% modello architetturale, modello dei dati e modello di esecuzione
-% infine presentiamo la logica di pluggabilità delle strategie (quelle
-% di default e quelle custom)
-
-
-
-
-
-\newcommand{\model}{\emph{architectural model}}
-
-In this chapter will be presented a framework for task distribution and execution
-able to cover all the dimension defined in \autoref{tab:matix}.
-First is introduced a methodology to follow in order to pass from the model to the
+In this chapter it is presented a framework for task distribution and execution
+able to cover all the dimension defined in \autoref{tab:matrix}.
+First there is introduced a methodology to follow in order to pass from the model to the
 actual application implementation, available in \autoref{cap:implementation}.
-The components that will compose the framework are founded on a data model, describing the logical structure of the data processed by the application.
+The components that will compose the framework are founded on a data model,
+describing the logical structure of the data processed by the application.
 
 The data model is composed of three parts: the \emph{Data Model}, the
-\emph{Architectural Model} and the \emph{Execution model}. Eventually are
+\emph{Architectural Model} and the \emph{Execution model}. Eventually there are
 explained the pluggable strategies available for this framework.
+\begin{description}
+    \item[The Data Model] describes the data structures
+    used to support the framework.
+    \item[The Architectural Model] describes
+    the reference architecture of the framework.
+    \item[The Execution Model] focuses on the
+    execution model of the task.
+    \item[The Pluggable Strategies] describes
+    the possible configuration points of the framework.
+\end{description}
 
-
-\paragraph{The \hyperref[sec:model:data]{Data Model}} describes the data structures
-used to create this system. TODO ??
-
-\paragraph{The \hyperref[sec:model:architecture]{Architectural Model}} describes
-the reference architecture of the framework.TODO ??
-
-\paragraph{The \hyperref[sec:model:execution]{Execution Model}} focuses on the
-execution model of the task.TODO ??
-
-\paragraph{The \hyperref[sec:model:strategies]{Pluggable Strategies}} here are
-provide some example of strategy that can be plugged to the system.TODO ??
-
-% Sezioni
 \section{Development methodology}
 \label{sec:model:method}
 \input{Capitoli/Model/DevMethod}
