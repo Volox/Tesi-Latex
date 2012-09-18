@@ -1,3 +1,5 @@
+
+
 %************************************************
 \chapter{Implementation and evaluation}
 \label{cap:implementation}
@@ -6,52 +8,38 @@
 The previous chapters presented the Conceptual Model and the Use-cases of a
 framework for web-based human and machine computation. In this chapter are
 presented the actual implementation of the framework and the use-cases.
-The framework implementation is dived in two parts the Configurator, managed by
-the Crowdsearcher (see \autoref{sec:bg:crowd:cs}) and the Execution Layer
+The framework implementation is dived in two parts: the Configurator, managed by
+the Crowdsearcher (see \autoref{sec:bg:crowd:cs}), and the Execution Layer
 implemented in NodeJS.
-The use-cases implementation are built on the Execution Layer and leverages on
+The use-cases are built in \js{} and  the Execution Layer and leverages on
 the \ac{HTML}5 features described in \autoref{sec:bg:web:html5}.
 
 \section{Architecture}
 \label{sec:implementation:arch}
+In this section we present the architecture of our framework, whose implementation
+is divided in two parts. The reference model in \autoref{fig:architecture} has
+been customized to meet our needs in terms of flexibility and pluggability.
+As one can see in \autoref{fig:architecture2} the Central Hub has been splitted
+into two separated components: the \emph{Configurator} and the \emph{Execution Layer}.
+The \emph{Configurator} is in charge of managing the Tasks lifecycle. It is used
+to create and configure the Tasks.
+The \emph{Execution Layer} is used to configure the actual implementations for
+each \utask{}.
 
-
-
-
-
-
-
-
-TODO ??
-
-The reference model in \autoref{fig:architecture} has been customized to meet our
-needs of flexibility and pluggability, so we introduced a \emph{configurator} and
-a \emph{execution layer} in the central hub. These are the components that allow
-our system to cover all the dimension presented in \autoref{tab:matrix}.
-
-The \textbf{configurator} is in charge of defining and configuring a task in the
-system, allowing the \emph{requester} to add hooks to exeternal resource in order
-to manage the assignment cycle and the planning strategy.
-
-The \textbf{execution layer} provides useful API for managing the \utask{} and
-communicate with the \emph{configurator}.
-
-\begin{figure}[tb]
+\begin{figure}[htb]
     \centering
     \includegraphics[width=\columnwidth]{Architecture2}
     \caption{Specialized architecture.}
     \label{fig:architecture2}
 \end{figure}
 
-
-
-
-% Subsection description
-
 \subsection{Configurator}\label{sec:configurator}
-The \textbf{Configurator} is the component in charge of the task lifecycle
-management. The principal functionalities offered by the \textbf{Configurator}
-are:
+The \textbf{Configurator} is in charge of managing the Tasks lifecycle
+from the abstract definition to the results aggregation. This component must
+implement the metamodel described in \ref{data:model} to describe the Tasks and
+must handle correctly the the hooks defined in \ref{sec:model:strategies}. This
+component must have a set of API for the Task management.
+The main functionality offered by the \emph{Configurator} are:
 \begin{itemize}
     \item Allow the \textbf{creation} of a Task, also at abstract level, using
     either the API or the built-in UI.
@@ -70,26 +58,100 @@ are:
     \end{itemize}
 \end{itemize}
 
-Alongside these main functionalities it offer a \emph{Requester} the ability to
-monitor the state of a Task and/or a \utask{}.
+\noindent For implementing this component we adopted the \emph{CrowdSearcher} framework.
+As described in \ref{sec:bg:crowd:cs} this framework natively embodies most of
+the functionality described previously. Now we describe the process of creating
+and planning a Task. The description is focused on the built-in implementation,
+by plugging-in custom sstrategies one can completely change how the framework behaves.
+
+\subsubsection{Task creation}
+The task creation if performed by the \emph{Configurator} either by using its
+web-interface or via API calls. The creation of a Work/Task can be performed with
+three methods: using a JSON file, via API calls or using a step-by-step "manual" procedure.
+Using a JSON file, user can supply file containing all the required information like
+the data definition and the data instances.
+Otherwise the user create the new Task following a step-by-step procedure bundled
+with the \emph{Configurator}. As shown in \autoref{fig:task-creation} the manual Task
+creation involves the definition of a \textbf{Schema} for the data with all the
+related Fields. Once the Schema has been defined the user can supply the data
+instances to the Task.
+
+\begin{figure}[htb]
+    \centering
+    \includegraphics[width=0.65\columnwidth]{task-creation}
+    \caption{Work/Task creation flow.}
+    \label{fig:task-creation}
+\end{figure}
+
+
+
+\subsubsection{Task planning}
+\begin{figure}[htb]
+    \centering
+    \includegraphics[width=\columnwidth]{planning}
+    \caption{Manual Task planning vs Automatic Task planning.}
+    \label{fig:auto-manual-planning}
+\end{figure}
+The planning of a Task involves the creation of \utask{} with the associated data.
+The assignment can be performed either automatically or manually.
+The automatic plan assignment uses a simple subdivision based on the
+number of instances to assign to each \utask{} (see \autoref{auto-manual-planning}).
+
+As depicted in \autoref{fig:task-planning} manual planning involves the
+\emph{Requester} interaction in order to create each \textbf{\utask{}}.
+After the creation of the \utask{} the user have to select the instances belonging
+to this \utask{}. Eventually the user is able to select and, if needed,
+configure the type of the \utask{}. The configurable types must be a subset of
+the parent Task types.
+\begin{figure}[htb]
+    \centering
+    \includegraphics[width=0.65\columnwidth]{task-planning}
+    \caption{Task planning flow.}
+    \label{fig:task-planning}
+\end{figure}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
 
 \subsection{Execution layer}\label{sec:exec-layer}
-This component is in charge of managing the \utask{} implementation for each Task
-or for each \utask{}. The implementations have a fallback behaviour so, if a
-custom \utask{} implementation is not present then the system search for a
-custom Task implementation, if this is missing then the built-in implementation
-is used. On top of this fallback system the component offer the possibility to
-create code for a target platform.
+The \emph{Execution Layer} is in charge of managing the \utask{} implementations.
+As described in \ref{data:task}, each Task belongs to a macro-type (i.e.
+classify, like, comment, etc), and each macro-type  has its own built-in
+implementation. The \emph{Execution Layer} give an easy overriding method to
+replace the built-in UI with a custom one.
+Using the \emph{Execution Layer} a user is able to upload the executable resources
+(e.g. HTML, \js{}) that will be used as the new interface.
+This custom implementations can be defined hierarchically for Work, Task
+and \utask{}. So we can supply custom code for the whole Task or
+for each \utask{}. Using this system we have the ability to tweak single
+Tasks without harming the others. The layer provides a fallback
+system for finding the most suitable code for each \utask{}.
 
-The \textbf{Execution layer} offer the following funcionalities:
+The \textbf{Execution layer} offer the following functionalities:
 \begin{itemize}
     \item Allow a \emph{Requester} to configure the implementations associated to
-    a Task and/or a \utask{}. The implementations are configured specifing the
+    a Task and/or a \utask{}. The implementations are configured specifying the
     target platform (mobile, desktop, tablet, ...) and the executable resources
-    used by the implementation (i.e. HTML, CSS and JS files). Wich implementation
+    used by the implementation (i.e. HTML, CSS and JS files). Which implementation
     to use is configured later in the \emph{Planning} step.
 
     \item Create a layer of abstraction between the implementation and the
@@ -99,31 +161,49 @@ The \textbf{Execution layer} offer the following funcionalities:
     \item Allow the \emph{Performer} to execute a specific \utask{} implementation.
 \end{itemize}
 
+\noindent The \emph{Execution Layer} has been developed using \citetitle{node}.
+\citetitle{node} is a platform built on Chrome's \js{} runtime for easily building fast,
+scalable network applications. \citetitle{node} uses an event-driven, non-blocking I/O model
+that makes it lightweight and efficient, perfect for data-intensive real-time
+applications that run across distributed devices. Due to the great hype
+around \citetitle{node} and the ease of developing new libraries, there are
+thousands of these being developed and made available via the built-in
+package manager \code{npm}.\\
+
+The implementation of the \emph{Execution Layer} is subdivided into two parts:
+the \emph{Server Backend} and the \emph{\utask{}s Wrapper}.
+
+\paragraph{Server Backend} is a node REST web-server implemented using
+\citetitle{express}. This server provides an web interface for managing the
+implementations of Tasks and \utask{}s. This interface allows a user to upload
+custom code (e.g. HTML, JS, CSS) for the selected Task (or \utask{}).
+The Server interacts with the \emph{Configurator} to gather information on
+a Task composition and type.
+
+\paragraph{\utask{}s Wrapper} exposes a wrapper class that can be used by the
+\utask{}s implementations to communicate with the \emph{Server Backend}. The
+envelops the \utask{} and supply useful methods to retrieve Task configurations,
+gather the associated data and post the results \emph{Configurator}.\\
 
 
 
 
 
 \subsection{Task storage \& task runtime storage}
-These are the storage areas where we put all the data associated with the Task.
-We used two separated storage area in order to keep the runtime configuration
-separated from the abstract configuration data of the Task.
+These are the storage areas where we put all the data associated with the Tasks
+and the \utask{}s implementations. We used two separated storage area to physically
+separate the runtime data from the abstract configuration of the Task.
 
-The task runtime storage contains all the ad-hoc code written by the \emph{Requester}
-for each platform.
-% Codice che può diventare generico
-\textbf{This code can be reused by the other \emph{Requester} to execute the same
-task (for example image tagging).}
+The \emph{Task Storage} is handled by the \emph{Configurator}, meanwhile the
+\emph{Task Runtime Storage} is managed by the \emph{Execution Layer}.\\
 
 
 
-
-
-\subsection{Performer \& Performer client}
-The \emph{Performer client} represents the platform (like desktop or mobile) on
-wich a \emph{Performer} executes the Task implementation. The \emph{Performer
-client} make use of the \emph{Execution layer API} to retrieve the correct
-implementation, communicate the status during the exection of a \utask{} and
+\subsection{Performer \& Performer Client}
+The \emph{Performer client} represents the platforms (like desktop or mobile) on
+which a \emph{Performer} executes a Task implementation. The \emph{Performer
+client} make use of the \emph{Execution layer} API to retrieve the correct
+implementation, communicate the status during the execution of a \utask{} and
 post the result of the execution. The \emph{Performer} is the actual user that
 is using the \emph{client}.
 
@@ -133,102 +213,62 @@ is using the \emph{client}.
 
 
 
-
-
-
-
-%% VECCHIO
-
-
-The architecture is divided in two main parts, the task creation (managed by
-the \hyperref[sec:configurator]{Configurator}) and the task execution (managed by
-the \hyperref[sec:exec-layer]{Execution layer}).
-As shown in \autoref{fig:architecture2} in the \hyperref[cap:model]{Model}
-this two parts can be safely separated into standalone components.
-
-\subsection{Configurator}
-\begin{figure}[htb]
-    \centering
-    \includegraphics[width=\columnwidth]{crowdsearcher}
-    \caption{The Crowdsearcher interface.}
-    \label{fig:crowdsearcher}
-\end{figure}
-The configuration and the management of the Task/Work lifecycle is demanded to a
-third part component, the \textbf{CrowdSearcher}. As descibed in
-\ref{sec:bg:crowdsearch} the \emph{CrowdSearcher} is a \emph{centralized} human
-computation platform able to execute the task once the user reached the
-\emph{CrowdSearcher} website. For the execution the \emph{CrowdSearcher} give its
-default implementation for the most common Task.
-
-% TODO cos'è
-The \emph{CrowdSearcher} has been implemented using the
-\href{http://www.webratio.com}{WebRatio} tool and so is a Java standard
-web-application.
-
-
-\subsection{Execution Layer}
-\begin{figure}[htb]
-    \centering
-    \includegraphics[width=0.6\columnwidth]{nodejs}
-    \caption{Official NodeJS logo.}
-    \label{fig:node-logo}
-\end{figure}
-The execution layer is being developed using the great flexibility of \citetitle{node}.
-Node.js is a platform built on Chrome's JavaScript runtime for easily building fast,
-scalable network applications. Node.js uses an event-driven, non-blocking I/O model
-that makes it lightweight and efficient, perfect for data-intensive real-time
-applications that run across distributed devices.
-This platform was chosen due to the great speed of the request-response cycle
-when dealing with relatively small files (like in our scenario).
-
-Due to the great hype around \citetitle{node} and the ease of developing
-libraries for this platform, there are thousands of these being developed and
-made available via the built-in package manager (\code{npm}).\\
-
-For the implementation of the sever we used the \citetitle{express} web
-application framework. This framework allow to create easy routing on pages and
-provide a robust templating system. With all these features we were able to
-create a REST web-server that interact with the \emph{Configurator} in order to
-recieve \utask{}, execute the code and post the results back to the Configurator.
-
-The \emph{execution layer} allow the \utask{} implementation to inherith a
-\js{} \emph{Class} that give a set of API for retrieving Task configuration,
-gathering data and eventially post the \utask{} results back to the
-\emph{Configurator}.\\
-
-The storage of the \utask{} implementations is made using the filesystem because
-the resources needed to execute a \utask{} are almost text or binary files like
-images or \js{}/\ac{CSS} files. If for a certain task a custom default\footnote{
-By default we mean a single implementation for all the platforms/devices, see
-\ref{} } implementation is provided than a \code{default} folder is created for
-that task containing all the files. If the \emph{Requester} provides a
-platform-specific implementation than a folder with the platform name (e.g.
-\code{mobile}, \code{tablet}, etc.) is created and the code qill be uploaded
-there. When a user visit the page containig the logic to run a task, then according
-to the strategy configured the right implementation will be sent to the device.
-
-
 \section{Use cases}
 \label{sec:implementation:use-cases}
 
+The previous section presented the implementation of the framework described in
+this thesis. Now we describe the implementation of the three use-cases described
+in \ref{cap:cases}: Automatic, Human and Hybrid.
 
+\subsection{Automatic}
+With this scenario we want to test if the browser is able to perform CPU
+intensive application. As described in \ref{sec:cases:automatic} in this
+scenario we are implementing the \acf{SIFT} algorithm. This algorithm
+was chosen due to its high computational requirements.
 
+We made some preliminary tests to check if we can implement this algorithm using
+pure \js{} code but we stumbled across the problems described in
+\nameref{html5:workers}. Due to this limitation we opted to implement the
+code using \ac{WebCL} (see \ref{sec:bg:web:webcl}). With this framework we can
+leverage on the \ac{GPGPU} power to perform the computations and unburden the
+\js{} engine.\\ 
 
-% USE CASES
-\subsubsection{Automatic}
 In order to build a working example of the algorithm we started with the creation
-of an abstraction layer over the \ac{WebCL} raw implementation, then we created
-a small \emph{MultiMedia} library able to compute the needed operation on the
-images using our \emph{abstraction layer} eventually we implemented the algorithm
-in the \emph{MultiMedia} library.
+of an \emph{Abstraction Layer} over the \ac{WebCL} raw implementation. Then we created
+a small \emph{MultiMedia Library} able to interact with the \emph{Abstraction
+Layer} for performing the CPU intensive operations. Eventually we implemented the
+\ac{SIFT} algorithm within the \emph{MultiMedia Library}.
 
-\paragraph{The abstraction layer} is in charge of the communication with the raw
-Nokia WebCL framework as well as creating a stateful object capable of
-managing of the I/O data for a WebCL \emph{kernel}.
+\paragraph{The abstraction layer} allow an easy communication with the \ac{WebCL}
+framework. As described in \ref{sec:bg:web:webcl}, for running a OpenCL/WebCL
+program a few step must be performed. Here is the list:
+\begin{enumerate}
+    \item Query host for \ac{OpenCL} devices.
+    \item Create a context to associate \ac{OpenCL} devices.
+    \item Create programs for execution on one or more associated devices.
+    \item From the programs, select kernels to execute.
+    \item Create memory objects accessible from the host and/or the device.
+    \item Copy memory data to the device as needed.
+    \item Provide kernels to the command queue for execution.
+    \item Copy results from the device to the host.
+\end{enumerate}
+\noindent Our \emph{Abstraction Layer} allow to define all the I/O parameters
+first and then run the selected \code{kernel} function on top of these. This abstraction
+allowed us to easily interact with \ac{WebCL} without performing all the previous
+steps each time we need to execute a \code{kernel} function.
 
-\paragraph{The MultiMedia library} is used to perform the operation required by
-the algorithm (such as \code{blur}, \code{scale}, \code{RGB to gray} etc.) either
-using \ac{WebCL} or the built-in HTML5 functions.
+
+\paragraph{The MultiMedia library} is a set of image operations implemented using
+both \js{} and the OpenCL kernel language. With this library we provided a minimal
+set of common operations (e.g. convolve, blur, resize, etc.) useful for the
+implementation of the \ac{SIFT} algorithm.\\
+
+\paragraph{The algorithm} has been implemented using the methods of the
+\emph{MultiMedia library}. The algorithm has been implemented step-by-step
+as described in \ref{case:auto:sift}. For each step the intermediate result
+is stored and the step itself is timed to find bottlenecks. In
+\autoref{fig:Automatic2} and \autoref{fig:Automatic3} are presented the
+intermediate results obtained during the process and the final result.
 \begin{figure}[htb]
     \centering
     \includegraphics[width=\columnwidth]{Automatic2}
@@ -264,6 +304,8 @@ using \ac{WebCL} or the built-in HTML5 functions.
 
 
 
+\subsection{Human}
+The Human
 
 
 
@@ -285,71 +327,21 @@ using \ac{WebCL} or the built-in HTML5 functions.
 
 
 
+\subsection{Hybrid}
+In this scenario we have the human and the automatic computation blended together.
+As explained in \ref{sec:cases:hybrid}, this use-case is implemented in two
+parts: the face detection and the \ac{GWAP} logic.\\
 
+The face detection logic is implemented using an external library by
+\href{http://liuliu.me/}{Liu Liu}. This library allow to detect face in an image
+using the \js{} features presented in (like \code{Canvas} and \code{WebWorkers}).
+The technique used to implement the algorithm will not be covered here but you
+can find a detailed explanation here:
+\url{http://liuliu.me/eyes/javascript-face-detection-explained/}.
+The library\footnote{Source code: \url{https://github.com/liuliu/ccv/tree/unstable/js}}
+can be used with or without WebWorkers to further increase the processing
+speed\footnote{Demo available here: \url{http://liuliu.me/ccv/js/nss/}}.\\
 
-% execution
-
-{\Huge TODO ??? dove lo palmetto?}
-
-Now the built-in implementation of task creation, planning and execution are
-described to better understand how the whole system works. The description is
-focused on the built-in implementation, because it is the default behavior of
-the system. By plugging-in custom strategies one can completely change how the
-system behaves, thus this case will not be covered here. For examples on how the
-pluggable strategies works see \ref{sec:model:strategies}.
-
-\subsection{Task creation}
-The task creation if performed by the \emph{Configurator} either by using its
-web-interface or via API calls. The creation of a Work/Task can be done by
-providing a JSON file, containing all the data definition as long as the data
-instances, or "manually" following a step by step procedure within the
-\emph{Configurator}. As shown in \autoref{fig:task-creation} the manual Task
-creation involves the definition of a \textbf{Schema} for the data. The schema
-is composed of \textbf{Field}s, for each filed the \emph{Requester} must specify
-a type. The data instances can be added to the \emph{Schema} either during the
-definition of the \emph{Fields} or at the end of the \emph{Schema} definition.
-
-\begin{figure}[htb]
-    \centering
-    \includegraphics[width=0.65\columnwidth]{task-creation}
-    \caption{Work/Task creation flow.}
-    \label{fig:task-creation}
-\end{figure}
-
-
-
-\subsection{Task planning}
-\begin{figure}[htb]
-    \centering
-    \includegraphics[width=\columnwidth]{planning}
-    \caption{Manual Task planning vs Automatic Task planning.}
-    \label{fig:auto-manual-planning}
-\end{figure}
-The planning of a Task involves the creation of subtasks with associated data
-that need to be executed. The assignment can be performed automatically or
-manually. The automatic plan assignment uses a simple subdivision based on the
-number of instances to assign to each subTask.
-
-As depicted in \autoref{fig:task-planning} manual planning involves the
-\emph{Requester} interaction in order to create \textbf{subTasks}. After creating
-the subTask the \emph{Requester} has to select the instances belonging to this
-subTask. Eventually the \emph{Requester} is able to select and, if needed,
-configure the type of the subTask, based on the task types of the parent Task.
-\begin{figure}[htb]
-    \centering
-    \includegraphics[width=0.65\columnwidth]{task-planning}
-    \caption{Task planning flow.}
-    \label{fig:task-planning}
-\end{figure}
-
-
-
-\subsection{Task execution}
-
-
-
-
-
-
-
-
+The \ac{GWAP} implementation follows the game logic presented in
+\ref{case:hybrid:gameplay} an it has been implemented using the \ac{HTML}5
+features.
