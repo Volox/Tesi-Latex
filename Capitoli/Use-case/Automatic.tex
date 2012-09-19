@@ -126,30 +126,3 @@ one half the width of the descriptor window. The descriptor then becomes a vecto
 of all the values of these histograms. Since there are $4x4=16$ histograms each
 with $8$ bins the vector has $128$ elements. This vector is then normalized to
 unit length in order to enhance invariance to affine changes in illumination.
-
-
-\subsection{Benchmark/Metric}
-Since the purpose of this use-case is the feasibility of high load computation
-on the user browser, the implementation of the algorithm has not been optimized.
-Then the performance of this implementation are not comparable to the existing
-C/C+ implementation+, but we can leverage on the parallelism of the whole
-framework to obtain an higher throughput. In our test cases we obtained the
-results presented in \autoref{tab:auto-data}.
-\begin{table}[htb]
-    \caption{\acs{SIFT} algorithm performances.}
-    \label{tab:auto-data}
-    \centering
-    \begin{tabular}{c|c|c|c}
-        \textbf{Image size} & \textbf{ScaleSpace + Dog} & \textbf{Keypoints
-        detection} & \textbf{Total time}\\
-        \hline
-        400x360 & 1130ms & 310ms & 1500ms\\
-        \hline
-        400x360 & 1130ms & 310ms & 1500ms\\
-        \hline
-        400x360 & 1130ms & 310ms & 1500ms\\
-        \hline
-        400x360 & 1130ms & 310ms & 1500ms\\
-        \hline
-    \end{tabular}
-\end{table}

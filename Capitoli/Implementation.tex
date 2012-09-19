@@ -119,19 +119,6 @@ the parent Task types.
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 \subsection{Execution layer}\label{sec:exec-layer}
 The \emph{Execution Layer} is in charge of managing the \utask{} implementations.
 As described in \ref{data:task}, each Task belongs to a macro-type (i.e.
@@ -213,6 +200,21 @@ is using the \emph{client}.
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 \section{Use cases}
 \label{sec:implementation:use-cases}
 
@@ -287,6 +289,31 @@ intermediate results obtained during the process and the final result.
 
 
 
+\subsubsection{Benchmark/Metric}
+Since the purpose of this use-case is the feasibility of high load computation
+on the user browser, the implementation of the algorithm has not been optimized.
+Then the performance of this implementation are not comparable to the existing
+C/C+ implementation+, but we can leverage on the parallelism of the whole
+framework to obtain an higher throughput. In our test cases we obtained the
+results presented in \autoref{tab:auto-data}.
+\begin{table}[htb]
+    \caption{\acs{SIFT} algorithm performances.}
+    \label{tab:auto-data}
+    \centering
+    \begin{tabular}{c|c|c|c}
+        \textbf{Image size} & \textbf{ScaleSpace + Dog} & \textbf{Keypoints
+        detection} & \textbf{Total time}\\
+        \hline
+        1024x683 & \textasciitilde{}4300 ms & \textasciitilde{}1100 ms & \textasciitilde{}5400 ms\\
+        \hline
+        800x534 & \textasciitilde{}2600 ms & \textasciitilde{}700 ms & \textasciitilde{}3400 ms\\
+        \hline
+        600x401 & \textasciitilde{}1500 ms & \textasciitilde{}360 ms & \textasciitilde{}1900 ms\\
+        \hline
+        400x360 & \textasciitilde{}1130 ms & \textasciitilde{}310 ms & \textasciitilde{}1500 ms\\
+        \hline
+    \end{tabular}
+\end{table}
 
 
 
@@ -342,6 +369,5 @@ The library\footnote{Source code: \url{https://github.com/liuliu/ccv/tree/unstab
 can be used with or without WebWorkers to further increase the processing
 speed\footnote{Demo available here: \url{http://liuliu.me/ccv/js/nss/}}.\\
 
-The \ac{GWAP} implementation follows the game logic presented in
-\ref{case:hybrid:gameplay} an it has been implemented using the \ac{HTML}5
-features.
+The \ac{GWAP} follows the game logic presented in \ref{case:hybrid:gameplay} an
+it has been implemented using the \ac{HTML}5 features.
