@@ -31,32 +31,6 @@ asked to shoot at the head of the beings that have not been identified by the
 camera software. The camera may fail in some occasion, so the agent has to use
 his judgment to fire only at the right targets.
 
-\subsection{Task implementation}
-Objective of the game is being able to identify the visage of the subject
-portrayed in a photo. Automatic algorithms for face detection may fail in this
-task, by recognizing objects that are not the required ones (e.g. knees) or not
-recognizing at all the face of a person. For this reason the game will be able
-to perform two different tasks: identify faces that have not been recognized and
-remove elements that have been marked improperly.
-
-The game present the image with the bounding boxes of the faces that has been
-identified by the first step to the player. The faces that have not been
-recognized are the ones that the player needs to mark during the game by
-clicking over them with the left mouse button and the area interested by the
-click will be circumscribed in order to obtain the bounding box for the identified
-face. 
-
-Possible wrong bounding boxes will be removed by the player with the right mouse
-button, in order to remove the false positives that may be identified by automatic
-algorithms. Bounding boxes with high level confidence are kept into the image,
-while bounding boxes with low level confidence values will be removed: it will
-be a player duty to mark those faces by playing the game.
-
-At the end of the execution we obtain a set of automatically detected faces plus
-all the faces detected by the user. By intersecting this two set we could improve
-the performance of our algorithm by adding the faces it was unable to find to
-the training set.
-
 \subsection{Introducing Score Degradation}
 The new game mechanic that is presented to manage the task is called
 Score-Degradation. This technique may be used in scenarios in which there are not
@@ -94,13 +68,6 @@ In this way the player are always forced to try to give the best possible soluti
 for a specific task. The collected results can be further improved by using
 traditional aggregation techniques such as majority voting or similar, depending
 on the task that has to be solved.
-
-\begin{figure}[htb]
-    \centering
-    \includegraphics[width=0.75\columnwidth]{Hybrid1}
-    \caption{Hybrid implementation gameplay.}
-    \label{fig:Hybrid2}
-\end{figure}
 
 \subsection{Gameplay}\label{case:hybrid:gameplay}
 Goal of the game is to obtain the highest possible score given a limited amount

@@ -1,9 +1,30 @@
-% !TEX encoding = UTF-8 Unicode
-% !TEX TS-program = pdflatex
-% !TEX root = ../Tesi.tex
-% !TEX spellcheck = it-IT
-
 %************************************************
 \chapter{Conclusion and future works}
 \label{cap:conclusion}
 %************************************************
+
+In this thesis we proposed a novel approach for web-based human and machine
+computation. By leveraging on the features offered by the modern web browsers,
+we provide a framework for designing and implementing general purpose Tasks.
+This system allows the user to configure the Task at abstract level and add
+all the required custom implementations later, even during the execution.
+On top of that our framework offer the possibility to plugin external
+logic to tweak the Task execution flow. With this pluggable behavior our framework
+is able to support any application archetype (human, automatic and hybrid).
+
+Eventually during this thesis we described three use-cases. This scenarios were
+used to evaluate our framework and to test whether the web can be used as a
+platform for general Task execution.
+
+\section{Future work}
+The described work reveals the hidden potential of the modern web. Our framework
+can be extended to meet the scenario proposed by \cite{karame2011pay}. Here we
+can use the features of our framework to create an online marketplace for exchanging
+computation to contents. Here is a list of other possible enhancements to our work:
+\begin{itemize}
+    \item Better support for image processing with optimized libraries.
+    \item Enhanced Task creation with the implementation of wizards that guide
+    the user though the Task creation.
+    \item Enriching of the framework with the addition of supported application
+    archetype.
+\end{itemize}

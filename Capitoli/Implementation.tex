@@ -62,7 +62,7 @@ The main functionality offered by the \emph{Configurator} are:
 As described in \ref{sec:bg:crowd:cs} this framework natively embodies most of
 the functionality described previously. Now we describe the process of creating
 and planning a Task. The description is focused on the built-in implementation,
-by plugging-in custom sstrategies one can completely change how the framework behaves.
+by plugging-in custom strategies one can completely change how the framework behaves.
 
 \subsubsection{Task creation}
 The task creation if performed by the \emph{Configurator} either by using its
@@ -332,7 +332,25 @@ results presented in \autoref{tab:auto-data}.
 
 
 \subsection{Human}
-The Human
+In this scenario we implemented a \acf{WSD} problem (see \ref{sec:cases:human}).
+To test our framework we built an \acl{HC} application like AIDA. The purpose of
+this application is to let the user disambiguate the words in a piece of text.
+This application allowed us to test also the connection capabilities of our
+framework. Since the Task we implemented need to communicate to external servers
+to gather the information on a word.
+
+The application can be divided in two steps. In the first step a text is
+analyzed from the backend (YAGO2 or DBpedia) then, in the second step the
+application asks to the user to disambiguate certain words that have not been
+correctly understood.
+
+In the second step for each ambiguous work the user have a list of possible
+meanings to choose from. Once the user selected the correct word interpretation
+it is saved into the browser.
+
+Eventually when the user has disambiguated all the words he/she can send the
+results back to the framework, where they are saved and stored for improving the
+precision of the \ac{WSD} algorithm itself.
 
 
 
@@ -359,8 +377,15 @@ In this scenario we have the human and the automatic computation blended togethe
 As explained in \ref{sec:cases:hybrid}, this use-case is implemented in two
 parts: the face detection and the \ac{GWAP} logic.\\
 
-The face detection logic is implemented using an external library by
-\href{http://liuliu.me/}{Liu Liu}. This library allow to detect face in an image
+\begin{figure}[htb]
+    \centering
+    \includegraphics[width=0.75\columnwidth]{face-algo}
+    \caption{Face detection algorithm demo.}
+    \label{fig:face-algo}
+\end{figure}
+
+The face detection logic is implemented using an external library  by
+\href{http://liuliu.me/}{Liu Liu} (see \autoref{fig:face-algo}). This library allow to detect face in an image
 using the \js{} features presented in (like \code{Canvas} and \code{WebWorkers}).
 The technique used to implement the algorithm will not be covered here but you
 can find a detailed explanation here:
@@ -369,5 +394,31 @@ The library\footnote{Source code: \url{https://github.com/liuliu/ccv/tree/unstab
 can be used with or without WebWorkers to further increase the processing
 speed\footnote{Demo available here: \url{http://liuliu.me/ccv/js/nss/}}.\\
 
+
 The \ac{GWAP} follows the game logic presented in \ref{case:hybrid:gameplay} an
 it has been implemented using the \ac{HTML}5 features.
+
+Objective of the game is being able to identify the visage of the subject
+portrayed in a photo. The provided algorithm for face detection may fail in this
+task, by recognizing objects that are not the required ones (e.g. knees) or not
+recognizing at all the face of a person. For this reason the game will be able
+to perform two different tasks: identify faces that have not been recognized and
+remove elements that have been marked improperly.
+
+The game present the image with the bounding boxes of the faces that has been
+identified by the first step to the player. The faces that have not been
+recognized are the ones that the player needs to mark during the game by
+clicking over them with the left mouse button and the area interested by the
+click will be circumscribed in order to obtain the bounding box for the identified
+face. 
+
+Possible wrong bounding boxes will be removed by the player with the right mouse
+button, in order to remove the false positives that may be identified by automatic
+algorithms. Bounding boxes with high level confidence are kept into the image,
+while bounding boxes with low level confidence values will be removed: it will
+be a player duty to mark those faces by playing the game.
+
+At the end of the execution we obtain a set of automatically detected faces plus
+all the faces detected by the user. By intersecting this two set we could improve
+the performance of our algorithm by adding the faces it was unable to find to
+the training set.
