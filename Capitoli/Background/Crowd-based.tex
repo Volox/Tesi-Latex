@@ -1,23 +1,8 @@
 %Crowd-based computation distribution
-
-
-Under the name of \emph{Crowd-based computation distribution} can fall a lot of
-different computational models. As shown in
-\autoref{fig:crowd-distributed-computing}, distributing computation to the crowd
-embodies not only the \ac{HC} field but also the concept of \emph{distributed
-computing}, because the crowd can be composed by humans or computers. When dealing
-with an \emph{automated crowd} we are speaking of \textbf{distributed computing},
-otherwise we are dealing with a \emph{human crowd}.
-\begin{figure}[htb]
-    \centering
-    \includegraphics[width=0.75\columnwidth]{crowd-distributed-computing}
-    \caption{General structure of a crowd based distributed computing system.}
-    \label{fig:crowd-distributed-computing}
-\end{figure}
-
 Generally speaking \emph{computation distribution} is a paradigm for splitting
-a task into atomic subtasks that can be performed on multiple nodes. Eventually
-the nodes send the result of the \emph{computation} back to the central hub.
+a task into atomic subtasks that can be performed on multiple nodes. Once
+these nodes have executed the subtasks they can send the results back to the
+central hub.
 Using client-server as an example architecture, we can list the required
 operation needed to obtain \emph{computation distribution}:
 \begin{enumerate}
@@ -32,8 +17,21 @@ operation needed to obtain \emph{computation distribution}:
 The previous operations are the cornerstone of every \emph{computation
 distribution} system. Although they can be "implemented" in different ways or can
 be joined together, they are present in all the distributed systems.\\
+% TODO ref
 
-Consistently with the \autoref{tab:matrix} and with the previous subdivision we
+
+\begin{figure}[htb]
+    \centering
+    \includegraphics[width=0.75\columnwidth]{crowd-distributed-computing}
+    \caption{General structure of a crowd based distributed computing system.}
+    \label{fig:crowd-distributed-computing}
+\end{figure}
+As shown in \autoref{fig:crowd-distributed-computing} the distribution of
+computation can be subdivided in two area. One concerning the distribution
+of tasks to humans called \acf{HC}. The other one focuses on the distribution
+of code to machines and is called \acf{DC}.
+
+Consistently with \autoref{tab:matrix} and with the previous subdivision we
 splitted the general problem of crowd-based computation distribution into two
 fields: \emph{\acl{HC} \& \acl{GWAP}} and \emph{distributed computing}
 
@@ -42,7 +40,7 @@ the state-of-the-art tools that deals with \ac{HC} and the distribution of task
 to a human crowd.
 
 In \ref{sec:bg:crowd:auto} the concept of \emph{distributed computing} is
-presented and the main tools that implement this paradigm are described.
+presented and the main tools that implements this paradigm are described.
 
 In \ref{sec:bg:crowd:cs} is presented the concept of \emph{Crowdsearching},
 a new paradigm for searching in the Web using the crowd as source of information.

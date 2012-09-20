@@ -209,8 +209,6 @@ Task data. The Schema is defined by:
     \item A \textbf{Name}
 
     \item A \textbf{list of Fields} defining the structure of the Task data.
-
-    \item A \textbf{list of Objects} representing the Task Data instances
 \end{itemize}
 
 The Schema is in \textbf{relation} with the actual data instances of the Task,
@@ -240,7 +238,8 @@ The Field is composed by:
 The \textbf{relationship}s existing between the Field are materialized using the
 \emph{Field Relationship} table. Here we have all the information of the fields
 involved and on the type of the relationship (e.g. derivate of, copy of, calculated
-etc.).
+etc.). Each field has also a relationship with the corresponding instances
+in the \emph{Field Values} table.
 
 
 

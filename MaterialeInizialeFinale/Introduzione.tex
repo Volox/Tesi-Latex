@@ -5,6 +5,32 @@
 \chapter{Introduction}
 \label{intro}
 
+
+\comment{
+	%grande disponibilità di contenuti che necessitano di essere analizzati
+	In the last years we have seen an explosion of the contents available online.
+	all this contents need to be analyzed in order to be efficiently searched.
+
+	When we deal with huge amount of data we have the problem of every search
+	system precision e recall. recall deals with the scaling problem associated
+	with the big amount of data. precision deals with the quality of the data
+	retrieved.
+
+	there are systems that deals with the scale problem and those dealing with
+	the quality. HC e DC
+
+	DC explain with examples
+		categorize using voluntary and involuntary
+
+	HC explain with examples
+
+	As far as we know there are no existing solutions able to offer both the
+	advantages of human and the distributed computation.
+
+
+}
+
+
 In the last years a great hype has been seen in the field of \emph{Crowd-based
 Computation Distribution}. Methods and techniques have been presented to allow the
 distribution of computation not only to computers but also to humans. When the
@@ -18,13 +44,14 @@ to the creation of an abstraction layer on top of each node. This layer normaliz
 the differences between computers by abstracting the available resources in order
 to make them consistent. For instance grid computing abstracts only part of the
 available resources, meanwhile cloud computing abstracts the whole hardware.
+% TODO aggiungi ref
 
 The distribution of the computation can be done at \textbf{hardware} or
 \textbf{software} level.
 At \textbf{hardware} level we have similar distributed resources, or at least
-they can be easily abstracted, so we are able to offload the same code to the
+they can be easily abstracted, giving us the ability to offload the same code to the
 nodes and gather the results. This type of computation distribution is used in
-frameworks like MapReduce, as described in \cite{dean2008mapreduce}, where the
+frameworks like MapReduce (\cite{dean2008mapreduce}) where the
 computation is spread on large clusters of computers.
 The distribution of computation at \textbf{software} level uses ad-hoc softwares
 to normalize the resources of a computer. With this coherent representation of
@@ -33,8 +60,8 @@ Software level abstraction is used by many distributed computing frameworks such
 as \ac{BOINC} or Distributed.net\footnote{\url{http://www.distributed.net}}.
 
 As one may notice this type of distributed computation strongly relies on the
-presence of the abovementioned abstraction layer. For creating such layer there is
-the need of creation of a complex cross-platform application software able to normalize
+presence of the abovementioned abstraction layer. Usually this layer is
+created using a complex cross-platform application software able to normalize
 the execution of code among different OS and architectures.\\
 
 
@@ -50,8 +77,7 @@ the them engaged. To overcome this issue some \ac{HC} tasks can be adapted to cr
 a \ac{GWAP}. Games such as PeekaBoom\footcite{von2006peekaboom}, the
 ESP Game\footnote{\url{http://www.gwap.com/gwap/gamesPreview/espgame/}} and
 \citetitle{foldit} utilize the entertainment given by playing the game as an
-engaging factor. \ac{GWAP} has the same problem of portability as distributed
-computing, in fact we need to code an ad-hoc application to run the game.\\
+engaging factor.\\
 
 
 
@@ -75,7 +101,8 @@ As one may notice the available solutions focus on either human or automatic
 computation\footnote{Not web-based, but using standalone clients.}. As far as we
 know there are no state-of-the-art tools able to stress all these opportunities.\\
 
-The last decade has seen also the definitive explosion of the Web and its evolution.
+In concomitance with the development of these methodologies the last decade has also
+seen also the definitive explosion of the Web and its evolution.
 The Web has evolved from a mere content delivery network, where the contents are
 presented to the users, to a collaborative and social tool full of \ac{RIA}. The
 advent of \ac{RIA} was possible due to the great evolution of the computation
@@ -90,19 +117,20 @@ have the technical ability to use all the web-users as nodes for a web-based hum
 and machine computation framework.
 
 \section{Original contribution}
-The aim of this thesis is to present a framework for web-based human and machine
+This thesis presents a framework for web-based human and machine
 computation able to cover all the dimensions expressed in \autoref{tab:matrix}.
-On top of that provide: ease of access to the tasks, usage of
-standardized protocols/languages, ease of implementation by the developers and
-ease of execution by the users. The main contribution of this thesis are:
+The Task has been designed to use standardized protocols/languages, ease the
+Task implementation by the developers, ease the executionof the Task by the users.
+The main contribution of this thesis are:
 \begin{enumerate}
-	\item Definition of a model for automatic, human and hybrid computation.
-	\item Implementation of a reference web-based architecture for human and
+	\item The Definition of a unified model for automatic, human and hybrid
+	computation.
+	\item The design of a reference web-based architecture for human and
 	automatic computation.
-	\item Implementation of an infrastructure supporting the aforementioned model.
-	\item Validation through three use-cases:
+	\item The implementation of an infrastructure supporting the aforementioned model.
+	\item A validation through three use-cases that stress the framework to support:
 	\hyperref[sec:cases:automatic]{automatic}, \hyperref[sec:cases:human]{human}
-	and \hyperref[sec:cases:hybrid]{hybrid}).
+	and \hyperref[sec:cases:hybrid]{hybrid} computation.
 \end{enumerate}
 
 
@@ -112,10 +140,11 @@ ease of execution by the users. The main contribution of this thesis are:
 
 
 \section{Outline}
-The thesis is organized in four main parts.
+The rest of the thesis is organized as follows.
 \begin{description}
 	\item[{\hyperref[cap:bg]{The second chapter}}] introduces the context of this
-	thesis, giving the needed notions that will be used during the explanation.
+	thesis, giving the needed notions that will be used during the presentation
+	of the model and the use-cases.
 
 	\item[{\hyperref[cap:model]{The third chapter}}] presents the conceptual model
 	of our framework.
@@ -124,5 +153,5 @@ The thesis is organized in four main parts.
 	that we have used to validate our framework.
 
 	\item[{\hyperref[cap:implementation]{The fifth chapter}}] describes the
-	implementation stage of the framework and of the use-cases.
+	implementation stage of the framework and the use-cases.
 \end{description}

@@ -58,11 +58,13 @@ The main functionality offered by the \emph{Configurator} are:
     \end{itemize}
 \end{itemize}
 
-\noindent For implementing this component we adopted the \emph{CrowdSearcher} framework.
+\noindent For implementing this component we adopted the
+\emph{CrowdSearcher} framework.
 As described in \ref{sec:bg:crowd:cs} this framework natively embodies most of
-the functionality described previously. Now we describe the process of creating
-and planning a Task. The description is focused on the built-in implementation,
-by plugging-in custom strategies one can completely change how the framework behaves.
+the functionality described previously. The \emph{CrowdSearcher} supports most
+of the operations required by our framework natively. The \emph{Task creation}
+and the \emph{Task planning} built-in implementations are now described to
+better understand how the framework works.
 
 \subsubsection{Task creation}
 The task creation if performed by the \emph{Configurator} either by using its
@@ -127,7 +129,7 @@ implementation. The \emph{Execution Layer} give an easy overriding method to
 replace the built-in UI with a custom one.
 Using the \emph{Execution Layer} a user is able to upload the executable resources
 (e.g. HTML, \js{}) that will be used as the new interface.
-This custom implementations can be defined hierarchically for Work, Task
+This custom implementations can be defined hierarchically for each Task
 and \utask{}. So we can supply custom code for the whole Task or
 for each \utask{}. Using this system we have the ability to tweak single
 Tasks without harming the others. The layer provides a fallback
@@ -220,11 +222,14 @@ is using the \emph{client}.
 
 The previous section presented the implementation of the framework described in
 this thesis. Now we describe the implementation of the three use-cases described
-in \ref{cap:cases}: Automatic, Human and Hybrid.
+in chapter \ref{cap:cases}: Automatic, Human and Hybrid.
 
 \subsection{Automatic}
-With this scenario we want to test if the browser is able to perform CPU
-intensive application. As described in \ref{sec:cases:automatic} in this
+% TODO ???
+If a Task typically performed on high-end machines can be offloaded to web
+clients we are able to use the browser as a node for \acl{DC}.
+
+As described in \ref{sec:cases:automatic} in this
 scenario we are implementing the \acf{SIFT} algorithm. This algorithm
 was chosen due to its high computational requirements.
 
@@ -297,7 +302,7 @@ C/C+ implementation+, but we can leverage on the parallelism of the whole
 framework to obtain an higher throughput. In our test cases we obtained the
 results presented in \autoref{tab:auto-data}.
 \begin{table}[htb]
-    \caption{\acs{SIFT} algorithm performances.}
+    \caption{\acs{SIFT} algorithm time performances on the Web.}
     \label{tab:auto-data}
     \centering
     \begin{tabular}{c|c|c|c}
@@ -339,7 +344,14 @@ This application allowed us to test also the connection capabilities of our
 framework. Since the Task we implemented need to communicate to external servers
 to gather the information on a word.
 
-The application can be divided in two steps. In the first step a text is
+\begin{figure}[htb]
+    \centering
+    \includegraphics[width=0.8\columnwidth]{Human}
+    \caption{Human use case Web interface.}
+    \label{fig:human}
+\end{figure}
+The application (see \autoref{fig:human}) can be divided in two steps.
+In the first step a text is
 analyzed from the backend (YAGO2 or DBpedia) then, in the second step the
 application asks to the user to disambiguate certain words that have not been
 correctly understood.

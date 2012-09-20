@@ -7,7 +7,7 @@ be used by the workflow, and of course the definition of the workflow itself.
 \subsection{Data Design}
 In the design process for the data model we faced the problem of creating a
 suitable underlying model for all the application need that we have to cover,
-spacing from pure \acl{HC} task to \emph{parasitic computing}. This wide range
+ranging from pure \acl{HC} task to \emph{parasitic computing}. This wide range
 of possible applications and the need of great flexibility demanded to the system,
 led us to the creation of a meta model for almost all the data structures used in
 the framework. The metamodel was subdivided into four parts: the \emph{Workflow}, the
@@ -45,15 +45,15 @@ framework must be able to handle different Task types seamlessly. In
 composition of Tasks) with multiple task types.\\
 
 Our Workflow model must be able to handle the interleaving of human and automatic
-task without any human intervention. The Workflow must take into account also the
-constraints defined during the creation step and manage the execution of the
+task without any human intervention. This must also take into account the
+constraints defined during the creation step and manage the execution of
 tasks accordingly.
 
 A feature that the framework is required to handle is also the case where
 the application type is not strictly human or strictly automatic. We can have
 scenarios where the task is a blend of both human and automatic interactions.
 \ac{GWAP} are a case where the automatic computation and the human interaction
-are blended together. Other scenarios can be the validation of the automatically
+can be blended together. Other scenarios can be the validation of the automatically
 computed results as we presented in our use case (see \ref{sec:cases:hybrid}).
 
 To guarantee the needed flexibility the framework must be able to include third-part
@@ -72,7 +72,7 @@ need to be managed. The \emph{Workflow Model} needs to specify the relationships
 between the modules an the "connection points" where the third part softwares
 are plugged. On top of that, every Task must have defined its set of input and
 output data.
-The \emph{Task Data Model} specifies all the data structure of the task, building
+The \emph{Task Data Model} specifies all the data structures of the task, building
 the metamodel for each Task. The metamodel contains all the information on the 
 structure of the data model for a Task.
 In the \emph{Task Model} there are contained all the actual data for each Task, called

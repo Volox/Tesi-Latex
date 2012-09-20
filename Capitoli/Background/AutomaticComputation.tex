@@ -5,8 +5,7 @@ part of it, in an automatic fashion, without user's interaction. This kind of
 connected nodes able to perform data intensive calculation.
 
 
-Distributed computing deals with the execution of code on multiple computers
-connected to a network. As stated in \cite{andrewsfoundations}: "\emph{Distributed
+As stated in \cite{andrewsfoundations}: "\emph{Distributed
 computing is a field of computer science that studies distributed systems. A
 distributed system consists of multiple autonomous computers that communicate
 through a computer network. The computers interact with each other in order to
@@ -27,8 +26,9 @@ is MapReduce\footcite{dean2008mapreduce} that, using the core concept of
 
 The name "\emph{distributed computing}" refers to a wide range of different
 applications (i.e. grid computing, cloud computing,
-\nameref{sec:bg:crowd:auto:parasitic}, jungle computing\footnote{Winner of the
-coolest name 2012}), that implement the same paradigm with different purposes.
+\nameref{sec:bg:crowd:auto:parasitic}\footcite{barabasi2001parasitic}, jungle
+computing\footnote{\cite{seinstra2011jungle} and winner of the coolest name 2012.}),
+that implements the same paradigm with different purposes.
 Using the dimensions presented in \autoref{tab:matrix} we can divide the
 core concept of \emph{distributed computing} into two subcategories: \emph{voluntary
 computing} and \emph{parasitic computing}.
@@ -40,7 +40,7 @@ computing} and \emph{parasitic computing}.
 systems where the computation is performed on behalf of the users will. In such
 systems users go to the website of the "project" they intend to support and, usually
 by installing an ad-hoc client, give the resources (i.e. CPU idle time, storage,
-etc.) of their machines to the chosen "project".\\
+etc.) of their machines to the distributed system.\\
 
 The first project implementing such computing paradigm was
 \ac{GIMPS}\footnote{\url{http://www.mersenne.org/}}, started in 1995. Then other
@@ -63,17 +63,17 @@ end-user computing.\\
 
 The client software allows users to connect to the \ac{BOINC} grid, to perform
 computation. The flow of the execution, as depicted in \autoref{fig:boinc} is
-the standard \emph{distributed computing}. Here is the list of actions performed
-to run the task on the client:
+the standard \emph{distributed computing} execution flow.
+Here is the list of actions performed to run the task on the client:
 \begin{enumerate}
     \item get instruction from the server on how to get all the resources needed
-    to perform the task
-    \item download all the resources from the server
-    \item execute the downloaded application
-    \item send the results obtained to the server
+    to perform the task,
+    \item download all the resources from the server,
+    \item execute the downloaded application,
+    \item send the results obtained to the server.
 \end{enumerate}
 
-There are over 40, at the time of writing, projects that leverage on
+There are, at the time of writing, over 40 projects that leverage on
 the \ac{BOINC} platform to perform computation on different application areas.
 For example the aforementioned \ac{SETI@home} project uses this framework to
 search for extraterrestrial intelligence by analyzing the narrow-band radio

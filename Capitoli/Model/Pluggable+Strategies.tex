@@ -1,28 +1,12 @@
 %% Pluggable+Strategies
 
 As pointed out during the Process Design and briefly introduced in the 
-Architectural Model, our framework must be able to handle custom strategies. These strategies
-are used to grant that our model is flexible enough to support all the application
-archetypes defined in \autoref{tab:matrix}. Here is the list of the configurable
-strategies:
-\begin{description}
-    \item[\utask{} planning strategy:] defines how many \utask{} to create for
-    each Task and associate the right portion of Objects to each of them.
-    \item[\utask{} implementation strategy:] defines the logic behind the choice
-    of a \utask{} implementation sent to a user.
-    \item[Performer assignment strategy:] in charge of choosing the users who
-    are suitable to execute a certain Task.
-    \item[Task Planning strategy:] orchestrates the invocation of the \utask{}
-    planning strategy, the \utask{} implementation strategy and the Performer
-    assignment strategy.
-    \item[Task Control strategy:] defines a controller for the Task, able to
-    check the status, and if needed, perform corrective actions.
-    \item[Aggregation function:] is in charge of joining the results obtained
-    from the \utask{}s execution and create a Task output.
-    \item[Emission policy:] is used to rule notifications sent to the Subscribers.
-\end{description}
+Architectural Model, our framework must be able to handle custom strategies.
+These strategies (see \ref{sec:model:architecture}) are used to grant that
+our model is flexible enough to support all the application archetypes
+defined in \autoref{tab:matrix}.
 
-\noindent This section explains the purposes of each strategy and what are the
+This section explains the purposes of each strategy and what are the
 main properties for each strategy.
 
 
@@ -70,10 +54,13 @@ strategy is composed by:
     \item A \textbf{list of routes} that, by matching the description of a
     \emph{Performer}, decide if a \utask{} can be assigned to that \emph{Performer}.
 
+    \item An \textbf{Invitation Strategy}, which defines how performers should be 
+    invited to execute the task.
+
     \item An \textbf{Assignment policy} that can be:
         \begin{description}
-            \item[one-shot:] the assignment is performed according to a predefined
-            number of \emph{Performer}s and \utask{}.
+            \item[static:] the assignment can be performed both at design time and
+            runtime, but it must be explicitly called by a control rule.
             \item[dynamic:] the assignment is performed at least once and can be
             invoked multiple times later according to \emph{Variables} that can
             change over time.
@@ -87,24 +74,7 @@ strategy is composed by:
 suitable \utask{} implementation for an \emph{Execution}. This strategy is invoked
 before the execution of a Task on a device. Based on the Performer preferences
 or on the device characteristics a suitable \utask{} implementation is routed to
-the user. A \utask{} implementation strategy is characterized by:
-\begin{itemize}
-    \item A \textbf{set of assignment Constraints} possibly defined on top user-specific
-	statistics (e.g. do not assign more than 1 \utask{} per hour).
-
-    \item A \textbf{list of routes} that, by matching the description of an
-    \emph{Execution}, decide if a \utask{} can be assigned to an \emph{Execution}.
-
-    \item An \textbf{Assignment policy} that can be:
-        \begin{description}
-            \item[static:] the assignment is performed according to a predefined
-            number of \emph{Performer}s and \utask{}.
-            \item[dynamic:] the assignment is performed at least once and can be
-            invoked multiple times later according to \emph{Variables} that can
-            change over time.
-        \end{description}
-\end{itemize}
-
+the user.
 
 
 \subsection{Task Planning strategy}
@@ -118,7 +88,7 @@ call this strategy upon changes in the Task status.
 
 
 
-\subsubsection{Task control strategy}
+\subsection{Task control strategy}
 The Task control strategy is a pluggable logic devoted to verifying the status of
 a Task, possibly against the assigned constraints. This logic can be executed:
 \begin{itemize}
