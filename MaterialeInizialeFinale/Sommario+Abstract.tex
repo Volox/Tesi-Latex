@@ -12,34 +12,36 @@
 \selectlanguage{italian}
 \chapter*{Sommario}
 
-Nel corso degli ultimi anni si è assistito ad un crescente interesse nel campo
-della distribuzione della computazione verso le folle (crowd). Nuovi metodi
-e tecnologie sono stati sviluppati per permettere l'esecuzione di Task non solo
-alle macchine ma anche agli utenti. Queste metodologie hanno sottolineato
-l'esistenza di due tipi di interazioni con l'utente: interazione volontaria
-o involontaria. Questa ulteriore suddivisione ci permette di ipotizzare l'esistenza
-di quattro archetipi di applicazione: Volontaria Umana, Involontaria Umana, Volontaria
-automatica o Involontaria Automatica.
+Negli ultimi anni si è vista l'esplosione del numero di contenuti multimediali
+prodotti dagli utenti. La gestione di enormi archivi di informazioni richiede
+metodi e strumenti in grado di garantire l'efficienza e la rapidità dell'analisi e
+del recupero dei dati. Una classica soluzione per risolvere questo problema è
+l'uso della computazione distribuita. Questa tecnica permette di distribuire
+il calcolo su nodi diversi, in modo da massimizzare la parallelizzazione.
+L'analisi di contenuti multimediali ha dei requisiti particolari: da una parte
+la natura delle informazioni analizzate richiede sistemi in grado di essere
+distribuiti su più nodi, dall'altra, richiede anche una certa qualità nell'analisi. 
+La computazione umana è una tecnica in grado di sopperire a questa esigenza tramite 
+l'utilizzo di esseri umani nel processo di analisi, in modo da migliorare la qualità
+dei risultati ottenuti.
 
-Oltre allo sviluppo di queste techinche negli ultimi anni si è assistito anche
-ad una esplosione nell'utilizzo del Web come piattaforma per l'esecuzione di applicazioni; grazie anche alla evoluzione delle tecnologie ad esso associate.
-Il Web si è trasformato, se prima si poteva considerare con una semplice piattaforma
-per la distribuzione dei contenuti ora è diventato uno strumento per la collaborazione
-tra utenti ricco di applicazioni web-based. L'evoluzione di queste applicazioni
-è merito soprattutto dell'introduzione, da parte dei Browser, di nuove tecnologie
-in grado di velocizzare l'esecuzione del codice.
-
-Grazie a queste evoluzioni ora si ha la possibilità tecnica di utilizzare tutti gli
-utenti del web come nodi per l'esecuzione di Task.
-
-L'obiettivo di questa tesi è quello di presentare un framework per l'esecuzione
-di Task in grado di gestire correttamente tutti gli archetipi di applicazione
-sopracitati. In particolare questa tesi ha come scopo quello di studiare le
-applicazioni presenti sul Web per definirne i loro punti di forza e le loro lacune.
-Grazie a queste informazioni abbiamo potuto costruire un framwork che possieda
-tutti i punti di forza trovati e nessuno dei punti deboli.
+Contemporaneamente allo sviluppo di queste tecnologie si è assistito anche alla
+definitiva esplosione, ed evoluzione, del Web, che si è trasformato da una semplice
+rete per la distribuzione dei contenuti fino a diventare uno strumento sociale per
+la collaborazione, in grado di utilizzare gli utenti come nodi di computazione sia
+automatica sia umana.
 
 
+Allo stato attuale delle conoscenze in nostro possesso, non siamo in grado di
+individuare soluzioni che supportino senza problemi questa enorme forza lavoro, permettendo lo
+sfruttamento sia della computazione umana, attraverso l'uso delle capacità
+intellettive degli esseri umani, sia quella automatica, attraverso l'uso dei
+client Web (Browsers).
+
+In questa tesi è presentato un framework Web per la computazione umana e
+automatica in grado di sfruttare al meglio le possibilità offerte da queste due
+soluzioni. Abbiamo, inoltre, validato il nostro lavoro implementando tre casi
+d'uso in grado di stressare le diverse configurazioni architetturali supportate.
 
 \vfill
 
@@ -48,31 +50,35 @@ tutti i punti di forza trovati e nessuno dei punti deboli.
 \pdfbookmark{Abstract}{Abstract}
 \chapter*{Abstract}
 
-In the last years a great hype has been seen in the field of \emph{Crowd-based
-Computation Distribution}. Methods and techniques have been presented to allow the
-distribution of Tasks not only to computers but also to humans. These
-methodologies have outlined new types of interactions with the users: voluntary or involuntary. According to the user awareness of the Task execution we can obtain
-four application archetypes: Voluntary \acl{HC}, Voluntary \acl{DC},
-Involuntary \acl{HC} and Involuntary \acl{DC}.
+Last years witnessed an explosion in the number of multimedia contents produced
+by users. Managing huge repositories of digital information calls for timely and
+efficient methods and tools for analysis and retrieval. The distribution of the
+analysis task on different computation nodes to maximize parallelization is a
+classic solution to this problem, typically referred to as \ac{DC}. However,
+the analysis of multimedia contents brings specific requirements: one one hand,
+the nature of the analyzed information demands systems able to scale, thus
+involving a good amount of computational nodes. On the other hand, multimedia
+analysis is known to be a subtle task to be performed, as several state of the
+art solutions do not bring sufficient analysis quality; the recent trend of \ac{HC}
+acknowledges the needs for more correct processing by involving human beings in
+the multimedia content analysis tasks.
 
-In concomitance with the development of these methodologies the last decade has also
+At the same time of the development of these methodologies we have also
 seen the definitive explosion of the Web and its evolution.
 The Web has evolved from a mere content delivery network, where the contents are
-presented to the users, to a collaborative and social tool full of \ac{RIA}. The
-advent of \ac{RIA} was possible due to the great evolution of the computation
-performance on the client side.
-
-Now we reached the condition where we have the technical ability to use all the
-web-users as nodes for a web-based human and machine computation framework.
-
-The aim of this thesis is to present a framework for web-based human and machine
-computation able to cover all the possible application archetypes listed above.
-In particular the thesis work has as scope the study of the state-of-the-art
-tools available online to see their limitations and their strengths. We used
-these information to build a framework with all the strengths found
-and none of the limitations of the other systems.
+presented to the users, to a collaborative and social tool, where powerful
+client-side technology enable the usage of Web users as node for both automatic
+and human computation. 
 
 
+To the best of our knowledge, no existing solutions are able to seamlessly exploit
+this massive workforce, which accounts for both machine computational power
+(Web Clients) and human computational power (the user brain). 
+
+This thesis presents a framework for web-based human and machine
+computation able to take advantages of both human and distributed computation.
+We validated our approach by implementing several use case applications, which
+demonstrate the framework by stressing its architectural configurations.
 \endgroup			
 
 \vfill

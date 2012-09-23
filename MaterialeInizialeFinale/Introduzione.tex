@@ -6,36 +6,18 @@
 \label{intro}
 
 
-\comment{
-	%grande disponibilità di contenuti che necessitano di essere analizzati
-	In the last years we have seen an explosion of the contents available online.
-	all this contents need to be analyzed in order to be efficiently searched.
-
-	When we deal with huge amount of data we have the problem of every search
-	system precision e recall. recall deals with the scaling problem associated
-	with the big amount of data. precision deals with the quality of the data
-	retrieved.
-
-	there are systems that deals with the scale problem and those dealing with
-	the quality. HC e DC
-
-	DC explain with examples
-		categorize using voluntary and involuntary
-
-	HC explain with examples
-
-	As far as we know there are no existing solutions able to offer both the
-	advantages of human and the distributed computation.
-
-
-}
-
-
-In the last years a great hype has been seen in the field of \emph{Crowd-based
-Computation Distribution}. Methods and techniques have been presented to allow the
-distribution of computation not only to computers but also to humans. When the
-distribution of computation is directed towards humans we have \ac{HC},
-otherwise we are dealing with \ac{DC}.\\
+Last years witnessed an explosion in the number of multimedia contents produced
+by users. Managing huge repositories of digital information calls for timely and
+efficient methods and tools for analysis and retrieval. The distribution of the
+analysis task on different computation nodes to maximize parallelization is a
+classic solution to this problem, typically referred to as \ac{DC}. However,
+the analysis of multimedia contents brings specific requirements: one one hand,
+the nature of the analyzed information demands systems able to scale, thus
+involving a good amount of computational nodes. On the other hand, multimedia
+analysis is known to be a subtle task to be performed, as several state of the
+art solutions do not bring sufficient analysis quality; the recent trend of \ac{HC}
+acknowledges the needs for more correct processing by involving human beings in
+the multimedia content analysis tasks.\\
 
 
 \emph{\acl{DC}} deals with the computation distribution among computers, also
@@ -44,7 +26,7 @@ to the creation of an abstraction layer on top of each node. This layer normaliz
 the differences between computers by abstracting the available resources in order
 to make them consistent. For instance grid computing abstracts only part of the
 available resources, meanwhile cloud computing abstracts the whole hardware.
-% TODO aggiungi ref
+% TODO add ref
 
 The distribution of the computation can be done at \textbf{hardware} or
 \textbf{software} level.
@@ -56,8 +38,16 @@ computation is spread on large clusters of computers.
 The distribution of computation at \textbf{software} level uses ad-hoc softwares
 to normalize the resources of a computer. With this coherent representation of
 nodes, the distributed system is now able to send code and gather results.
-Software level abstraction is used by many distributed computing frameworks such
-as \ac{BOINC} or Distributed.net\footnote{\url{http://www.distributed.net}}.
+
+\ac{DC} can operate in two different ways according to the user awareness
+of execution: transparent and opaque. If the user is aware of the computation
+being performed then we are dealing with transparent (Voluntary) execution
+otherwise we have opaque (Involuntary) execution.
+
+For the Voluntary scenario there are solutions like \ac{BOINC} or
+Distributed.net\footnote{\url{http://www.distributed.net}}. Meanwhile
+for the Involuntary scenario we have \emph{Parasitic Computing}, as described
+\cite{barabasi2001parasitic}.
 
 As one may notice this type of distributed computation strongly relies on the
 presence of the abovementioned abstraction layer. Usually this layer is
@@ -65,16 +55,21 @@ created using a complex cross-platform application software able to normalize
 the execution of code among different OS and architectures.\\
 
 
+
+
+
+
 \emph{\acl{HC}} is used  where a computational process performs its
-functions by outsourcing certain steps to humans. As one may notice \ac{HC}
+functions by outsourcing some activities to humans. As one may notice \ac{HC}
 is suitable only for a certain category of tasks, like for example image
 recognition or \acl{WSD}. This kind of applications usually relies on the Web
 as the main platform for distributing and executing such tasks. For instance
 \citetitle{turk} is a web-based market for performing \ac{HC} in exchange of
 money rewards.
-A major issue for \ac{HC} is how to engage users, and, more important, how to keep
-the them engaged. To overcome this issue some \ac{HC} tasks can be adapted to create
-a \ac{GWAP}. Games such as PeekaBoom\footcite{von2006peekaboom}, the
+A major issue for \ac{HC} is how to engage users, and, more importantly, how to keep
+them engaged. To overcome this issue some \ac{HC} tasks can be executed as part of
+a gaming experience, using the so called \ac{GWAP}.
+Games such as PeekaBoom\footcite{von2006peekaboom}, the
 ESP Game\footnote{\url{http://www.gwap.com/gwap/gamesPreview/espgame/}} and
 \citetitle{foldit} utilize the entertainment given by playing the game as an
 engaging factor.\\
@@ -97,12 +92,12 @@ game not the game itself.} execution.
 		Involuntary & Parasitic computing & \acs{GWAP}
 	\end{tabular}
 \end{table}
-As one may notice the available solutions focus on either human or automatic
-computation\footnote{Not web-based, but using standalone clients.}. As far as we
-know there are no state-of-the-art tools able to stress all these opportunities.\\
 
-In concomitance with the development of these methodologies the last decade has also
-seen also the definitive explosion of the Web and its evolution.
+
+
+
+At the same time of the development of these methodologies we have also
+seen the definitive explosion of the Web and its evolution.
 The Web has evolved from a mere content delivery network, where the contents are
 presented to the users, to a collaborative and social tool full of \ac{RIA}. The
 advent of \ac{RIA} was possible due to the great evolution of the computation
@@ -116,11 +111,15 @@ Given this general overview one can spot that we reached the condition where we
 have the technical ability to use all the web-users as nodes for a web-based human
 and machine computation framework.
 
+As far as we know there are no existing solutions able to offer both the
+advantages of human and the distributed computation.
+
+
 \section{Original contribution}
 This thesis presents a framework for web-based human and machine
 computation able to cover all the dimensions expressed in \autoref{tab:matrix}.
 The Task has been designed to use standardized protocols/languages, ease the
-Task implementation by the developers, ease the executionof the Task by the users.
+Task implementation by the developers, ease the execution of the Task by the users.
 The main contribution of this thesis are:
 \begin{enumerate}
 	\item The Definition of a unified model for automatic, human and hybrid
